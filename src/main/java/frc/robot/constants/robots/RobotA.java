@@ -12,8 +12,6 @@ public class RobotA extends RobotConstants {
 
     // TODO: Set Constants
     public RobotA() {
-        JsonHandler.getInstance();
-      
         /* Robot Map */
         pwm.led.LED_CONTROLLER = 0;
       
