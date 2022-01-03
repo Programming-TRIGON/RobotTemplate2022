@@ -1,6 +1,6 @@
 # RobotTemplate2021
 
-This is TRIGON 5990 robot code for the 2021 FRC season: GAME CHANGERS.
+This is TRIGON 5990 robot code for the 2022 FRC season: RAPID REACT.
 
 The code is written in Java and is based of WPILib Java control system.
 
@@ -28,7 +28,7 @@ The code is written in Java and is based of WPILib Java control system.
 
 - [`frc.robot.subsystems`](src/main/java/frc/robot/subsystems)
 
-    Contains code for subsystems. The subsystem are used by commands and the command scheduler for convenient control of the robot.
+    Contains code for subsystems. The subsystems are used by commands and the command scheduler for convenient control of the robot.
 - [`frc.robot.commands`](src/main/java/frc/robot/commands)
 
     Contains code for general commands that do not require a specific subsystem.
