@@ -1,6 +1,8 @@
 package frc.robot.utilities;
 
 /**
+ * "borrowed" from https://algs4.cs.princeton.edu/code/edu/princeton/cs/algs4/LinearRegression.java.html
+ *
  *  The {@code LinearRegression.java} class performs a simple linear regression
  *  on an set of <em>n</em> data points (<em>y<sub>i</sub></em>, <em>x<sub>i</sub></em>).
  *  That is, it fits a straight line <em>y</em> = &alpha; + &beta; <em>x</em>,
