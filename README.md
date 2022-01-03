@@ -36,7 +36,7 @@ The code is written in Java and is based of WPILib Java control system.
 
     Contains code for sensors and solenoids used by the robot. 
 
-- [`frc.robot.util`](src/main/java/frc/robot/utils)
+- [`frc.robot.util`](src/main/java/frc/robot/utilities)
 
     Contains a collection of assorted utilities classes used in the robot code. Check each file for more information.
 
