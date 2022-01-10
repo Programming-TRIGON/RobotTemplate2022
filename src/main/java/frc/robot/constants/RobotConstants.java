@@ -10,7 +10,7 @@ public abstract class RobotConstants extends RobotMap {
 
     public TesterConstants testerConstants = new TesterConstants();
     public VisionConstants visionConstants = new VisionConstants();
-
+    public LocalConstants localConstants = JsonHandler.getConstants();
 
     public class LimelightConstants {
         public double DISTANCE_CALCULATION_A_COEFFICIENT;
