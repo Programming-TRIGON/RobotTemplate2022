@@ -5,9 +5,9 @@ import frc.robot.constants.RobotConstants;
 import frc.robot.utilities.DashboardController;
 
 public class RobotContainer {
-    private RobotConstants robotConstants;
-    private FieldConstants fieldConstants;
-    private DashboardController dashboardController;
+    private final RobotConstants robotConstants;
+    private final FieldConstants fieldConstants;
+    private final DashboardController dashboardController;
 
     /**
      * Add classes here

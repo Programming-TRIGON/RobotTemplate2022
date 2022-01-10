@@ -14,21 +14,22 @@ public abstract class RobotMap {
 
     // TODO: Set variables for hardware components
 
-    public class CAN {
+    public static class CAN {
 
     }
 
-    public class PCM {
+    public static class PCM {
 
     }
 
-    public class DIO {
+    public static class DIO {
 
     }
 
-    public class PWM {
+    public static class PWM {
         public LED led = new LED();
-        public class LED{
+
+        public static class LED{
             public int LED_CONTROLLER;
         }
     }
