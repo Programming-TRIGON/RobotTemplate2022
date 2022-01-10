@@ -1,20 +1,20 @@
 package frc.robot;
 
-import frc.robot.constants.fields.HomeField;
-import frc.robot.constants.robots.RobotA;
+import frc.robot.constants.FieldConstants;
+import frc.robot.constants.RobotConstants;
 import frc.robot.utilities.DashboardController;
 
 public class RobotContainer {
-    private RobotA robotConstants;
-    private HomeField fieldConstants;
+    private RobotConstants robotConstants;
+    private FieldConstants fieldConstants;
     private DashboardController dashboardController;
 
     /**
      * Add classes here
      */
     public RobotContainer() {
-        robotConstants = new RobotA();
-        fieldConstants = new HomeField();
+        robotConstants = new RobotConstants();
+        fieldConstants = new FieldConstants();
         dashboardController = new DashboardController();
     }
 
