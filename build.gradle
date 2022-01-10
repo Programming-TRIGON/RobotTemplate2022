@@ -72,8 +72,6 @@ dependencies {
     implementation "com.github.Oblarg.Oblog:lib:3.1.2"
     //import gson
     implementation 'com.google.code.gson:gson:2.8.9'
-
-
 }
 
 // Setting up my Jar File. In this case, adding all libraries into the main jar ('fat jar')
