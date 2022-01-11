@@ -6,31 +6,24 @@ package frc.robot.constants;
  * the wiring easier and significantly reduces the number of magic numbers
  * floating around.
  */
-public abstract class RobotMap {
-    public CAN can = new CAN();
-    public PCM pcm = new PCM();
-    public DIO dio = new DIO();
-    public PWM pwm = new PWM();
-
+public abstract class RobotMap{
     // TODO: Set variables for hardware components
 
-    public static class CAN {
+    public static class CAN{
 
     }
 
-    public static class PCM {
+    public static class PCM{
 
     }
 
-    public static class DIO {
+    public static class DIO{
 
     }
 
-    public static class PWM {
-        public LED led = new LED();
-
+    public static class PWM{
         public static class LED{
-            public int LED_CONTROLLER;
+            public static final int LED_CONTROLLER = -1;
         }
     }
 }
