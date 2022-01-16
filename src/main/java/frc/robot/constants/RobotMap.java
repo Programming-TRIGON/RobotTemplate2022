@@ -6,7 +6,7 @@ package frc.robot.constants;
  * the wiring easier and significantly reduces the number of magic numbers
  * floating around.
  */
-public abstract class RobotMap{
+public class RobotMap{
     // TODO: Set variables for hardware components
 
     public static class CAN{
