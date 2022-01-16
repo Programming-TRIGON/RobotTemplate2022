@@ -118,7 +118,7 @@ public class Limelight {
     }
 
     public void toggleLedMode() {
-        if (getLedMode().equals(LedMode.off))
+        if(getLedMode().equals(LedMode.off))
             setLedMode(LedMode.on);
         else
             setLedMode(LedMode.off);
@@ -204,7 +204,8 @@ public class Limelight {
         limelightToTarget.rotate(getTx() + limelightConstants.LIMELIGHT_ANGLE_OFFSET);
         // The offset is subtracted from the limelightToTarget vector in order to get
         // the final vector.
-        return new Vector2d(limelightToTarget.x - limelightConstants.LIMELIGHT_OFFSET_X,
+        return new Vector2d(
+                limelightToTarget.x - limelightConstants.LIMELIGHT_OFFSET_X,
                 limelightToTarget.y - limelightConstants.LIMELIGHT_OFFSET_Y);
     }
 }

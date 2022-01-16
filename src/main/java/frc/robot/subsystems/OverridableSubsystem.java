@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
 import frc.robot.utilities.DriverStationLogger;
+
 import java.util.function.DoubleSupplier;
 
 public abstract class OverridableSubsystem extends SubsystemBase implements MovableSubsystem {
@@ -15,7 +16,7 @@ public abstract class OverridableSubsystem extends SubsystemBase implements Mova
 
     @Override
     public void move(double power) {
-        if (!overridden || power == 0)
+        if(!overridden || power == 0)
             overriddenMove(power);
     }
 
@@ -32,7 +33,7 @@ public abstract class OverridableSubsystem extends SubsystemBase implements Mova
     }
 
     public void stopOverride() {
-        if (overridden) {
+        if(overridden) {
             DriverStationLogger.logToDS("Stopping to override " + getName());
             overridden = false;
             overrideNotifier.stop();

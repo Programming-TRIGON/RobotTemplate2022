@@ -8,7 +8,7 @@ public class OIMap {
 
         private final int port;
 
-        private Button(int port) {
+        Button(int port) {
             this.port = port;
         }
 

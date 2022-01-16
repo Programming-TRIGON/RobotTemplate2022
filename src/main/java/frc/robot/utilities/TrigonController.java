@@ -7,26 +7,26 @@ import frc.robot.utilities.OIMap.Axis;
 
 public class TrigonController extends GenericHID {
     private static final double kIntermittentRumbleTime = 0.15;
-    private JoystickButton right1;
-    private JoystickButton right2;
-    private JoystickButton right3;
-    private JoystickButton left1;
-    private JoystickButton left2;
-    private JoystickButton left3;
-    private JoystickButton xButton;
-    private JoystickButton squareButton;
-    private JoystickButton triangleButton;
-    private JoystickButton circleButton;
-    private JoystickButton dPadUpButton;
-    private JoystickButton dPadRightButton;
-    private JoystickButton dPadDownButton;
-    private JoystickButton dPadLeftButton;
-    private JoystickButton touchPad;
-    private JoystickButton selectButton;
-    private JoystickButton startButton;
-    private JoystickButton playStationButton;
+    private final JoystickButton right1;
+    private final JoystickButton right2;
+    private final JoystickButton right3;
+    private final JoystickButton left1;
+    private final JoystickButton left2;
+    private final JoystickButton left3;
+    private final JoystickButton xButton;
+    private final JoystickButton squareButton;
+    private final JoystickButton triangleButton;
+    private final JoystickButton circleButton;
+    private final JoystickButton dPadUpButton;
+    private final JoystickButton dPadRightButton;
+    private final JoystickButton dPadDownButton;
+    private final JoystickButton dPadLeftButton;
+    private final JoystickButton touchPad;
+    private final JoystickButton selectButton;
+    private final JoystickButton startButton;
+    private final JoystickButton playStationButton;
     private int rumbleAmount;
-    private Notifier notifier;
+    private final Notifier notifier;
 
     public TrigonController(int port) {
         super(port);
@@ -152,7 +152,7 @@ public class TrigonController extends GenericHID {
      */
     @Override
     public double getX(Hand hand) {
-        if (hand.equals(Hand.kLeft)) {
+        if(hand.equals(Hand.kLeft)) {
             return getRawAxis(Axis.leftX.getAxis());
         } else {
             return getRawAxis(Axis.rightX.getAxis());
@@ -167,7 +167,7 @@ public class TrigonController extends GenericHID {
      */
     @Override
     public double getY(Hand hand) {
-        if (hand.equals(Hand.kLeft)) {
+        if(hand.equals(Hand.kLeft)) {
             return getRawAxis(Axis.leftY.getAxis());
         } else {
             return getRawAxis(Axis.rightY.getAxis());
@@ -179,11 +179,11 @@ public class TrigonController extends GenericHID {
     }
 
     public void notifierPeriodic() {
-        if (rumbleAmount == 0) {
+        if(rumbleAmount == 0) {
             notifier.stop();
         }
-        if (rumbleAmount >= 0) {
-            if (rumbleAmount % 2 == 1)
+        if(rumbleAmount >= 0) {
+            if(rumbleAmount % 2 == 1)
                 setRumble(1);
             else
                 setRumble(0);

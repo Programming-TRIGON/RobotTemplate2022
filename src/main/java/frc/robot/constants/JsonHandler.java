@@ -14,12 +14,13 @@ public class JsonHandler {
 
     /**
      * Reads the constants.json file using gson and returns the raw string
+     *
      * @return The raw string of the constants.json file
      */
     public static String getRaw() {
         try {
             return new String(Files.readAllBytes(Paths.get(path)));
-        } catch (IOException e) {
+        } catch(IOException e) {
             e.printStackTrace();
         }
         return null;
@@ -27,6 +28,7 @@ public class JsonHandler {
 
     /**
      * Reads the constants.json file using gson and returns the constants object
+     *
      * @return The constants object
      */
     public static LocalConstants getConstants() {
@@ -35,12 +37,13 @@ public class JsonHandler {
 
     /**
      * Writes the constants to the constants.json file using gson
+     *
      * @param constants The constants to write
      */
     public static void write(LocalConstants constants) {
         try {
             Files.write(Paths.get(path), gson.toJson(constants).getBytes());
-        } catch (IOException e) {
+        } catch(IOException e) {
             e.printStackTrace();
         }
     }
