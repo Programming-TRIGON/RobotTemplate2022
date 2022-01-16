@@ -1,0 +1,84 @@
+{
+  "Swerve": {
+    "angleNeutralMode": "Coast",
+    "driveNeutralMode": "Brake",
+    "modules": {
+      "frontRight": {
+        "encoderOffset": 0.0,
+        "angleCoefs": {
+          "kP": 0.0,
+          "kI": 0.0,
+          "kD": 0.0,
+          "kF": 0.0,
+          "tolerance": 0.0,
+          "deltaTolerance": 0.0
+        },
+        "driveCoefs": {
+          "kP": 0.0,
+          "kI": 0.0,
+          "kD": 0.0,
+          "kF": 0.0,
+          "tolerance": 0.0,
+          "deltaTolerance": 0.0
+        }
+      },
+      "frontLeft": {
+        "encoderOffset": 0.0,
+        "angleCoefs": {
+          "kP": 0.0,
+          "kI": 0.0,
+          "kD": 0.0,
+          "kF": 0.0,
+          "tolerance": 0.0,
+          "deltaTolerance": 0.0
+        },
+        "driveCoefs": {
+          "kP": 0.0,
+          "kI": 0.0,
+          "kD": 0.0,
+          "kF": 0.0,
+          "tolerance": 0.0,
+          "deltaTolerance": 0.0
+        }
+      },
+      "rearRight": {
+        "encoderOffset": 0.0,
+        "angleCoefs": {
+          "kP": 0.0,
+          "kI": 0.0,
+          "kD": 0.0,
+          "kF": 0.0,
+          "tolerance": 0.0,
+          "deltaTolerance": 0.0
+        },
+        "driveCoefs": {
+          "kP": 0.0,
+          "kI": 0.0,
+          "kD": 0.0,
+          "kF": 0.0,
+          "tolerance": 0.0,
+          "deltaTolerance": 0.0
+        }
+      },
+      "rearLeft": {
+        "encoderOffset": 0.0,
+        "angleCoefs": {
+          "kP": 0.0,
+          "kI": 0.0,
+          "kD": 0.0,
+          "kF": 0.0,
+          "tolerance": 0.0,
+          "deltaTolerance": 0.0
+        },
+        "driveCoefs": {
+          "kP": 0.0,
+          "kI": 0.0,
+          "kD": 0.0,
+          "kF": 0.0,
+          "tolerance": 0.0,
+          "deltaTolerance": 0.0
+        }
+      }
+    }
+  }
+}

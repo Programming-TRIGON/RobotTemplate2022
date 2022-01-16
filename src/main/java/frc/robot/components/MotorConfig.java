@@ -2,11 +2,12 @@ package frc.robot.components;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
+import frc.robot.utilities.PIDCoefs;
 
 /**
  * This class stores the configuration of a motor
  */
-public class MotorConfig {
+public class MotorConfig{
 
     private double rampRate;
     private boolean isInverted;
@@ -14,13 +15,14 @@ public class MotorConfig {
     private NeutralMode neutralMode;
     private double voltageCompSaturation;
     private SupplyCurrentLimitConfiguration currentLimitConfig;
+    private PIDCoefs coefs;
 
     /**
      * This constructor uses default values for all settings disables rampRate,
      * voltage compensation saturation, and supplyCurrentLimitConfiguration, sets
      * neutral mode to coast, and sets all inverts to false.
      */
-    public MotorConfig() {
+    public MotorConfig(){
         this(0, NeutralMode.Coast, 0);
     }
 
@@ -29,12 +31,12 @@ public class MotorConfig {
      * invert to false. Use this constructor when you have multiple motors that need
      * the same settings but different inverts and the motor does not have a sensor
      * connected to it.
-     * 
+     *
      * @param motorConfig motorConfig to copy voltage compensation saturation,
      *                    supply current limit configuration, and neutral mode
      * @param isInverted  Inverts the hbridge output of the motor controller.
      */
-    public MotorConfig(MotorConfig motorConfig, boolean isInverted) {
+    public MotorConfig(MotorConfig motorConfig, boolean isInverted){
         this(motorConfig.getRampRate(), isInverted, false, motorConfig.getNeutralMode(),
                 motorConfig.getVoltageCompSaturation(), motorConfig.getSupplyCurrentLimitConfiguration());
     }
@@ -43,7 +45,7 @@ public class MotorConfig {
      * This constructor copies settings from another motorConfig. Use this
      * constructor when you have multiple motors that need the same settings but
      * different inverts.
-     * 
+     *
      * @param motorConfig      motorConfig to copy voltage compensation saturation,
      *                         supply current limit configuration, and neutral mode
      * @param isInverted       Inverts the hbridge output of the motor controller.
@@ -53,13 +55,12 @@ public class MotorConfig {
      *                         value so that positive PercentOutput yields a
      *                         positive change in sensor.
      */
-    public MotorConfig(MotorConfig motorConfig, boolean isInverted, boolean isSensorInverted) {
+    public MotorConfig(MotorConfig motorConfig, boolean isInverted, boolean isSensorInverted){
         this(motorConfig.getRampRate(), isInverted, isSensorInverted, motorConfig.getNeutralMode(),
                 motorConfig.getVoltageCompSaturation(), motorConfig.getSupplyCurrentLimitConfiguration());
     }
 
     /**
-     * 
      * @param rampRate              Minimum desired time to go from neutral to full
      *                              throttle. A value of '0' will disable the ramp.
      * @param neutralMode           The desired mode of operation when the
@@ -73,12 +74,11 @@ public class MotorConfig {
      *                              attempt to apply a duty-cycle to produce 5V. A
      *                              value of 0 disables this feature.
      */
-    public MotorConfig(double rampRate, NeutralMode neutralMode, double voltageCompSaturation) {
+    public MotorConfig(double rampRate, NeutralMode neutralMode, double voltageCompSaturation){
         this(rampRate, false, false, neutralMode, voltageCompSaturation);
     }
 
     /**
-     * 
      * @param rampRate              Minimum desired time to go from neutral to full
      *                              throttle. A value of '0' will disable the ramp.
      * @param isInverted            Inverts the hbridge output of the motor
@@ -101,13 +101,12 @@ public class MotorConfig {
      *                              value of 0 disables this feature.
      */
     public MotorConfig(double rampRate, boolean isInverted, boolean isSensorInverted, NeutralMode neutralMode,
-            double voltageCompSaturation) {
+                       double voltageCompSaturation){
         this(rampRate, isInverted, isSensorInverted, neutralMode, voltageCompSaturation,
                 new SupplyCurrentLimitConfiguration(false, 0, 0, 0));
     }
 
     /**
-     * 
      * @param rampRate                        Minimum desired time to go from
      *                                        neutral to full throttle. A value of
      *                                        '0' will disable the ramp.
@@ -128,12 +127,11 @@ public class MotorConfig {
      *                                        from tripping.
      */
     public MotorConfig(double rampRate, NeutralMode neutralMode, double voltageCompSaturation,
-            SupplyCurrentLimitConfiguration supplyCurrentLimitConfiguration) {
+                       SupplyCurrentLimitConfiguration supplyCurrentLimitConfiguration){
         this(rampRate, false, false, neutralMode, voltageCompSaturation, supplyCurrentLimitConfiguration);
     }
 
     /**
-     * 
      * @param rampRate                        Minimum desired time to go from
      *                                        neutral to full throttle. A value of
      *                                        '0' will disable the ramp.
@@ -163,35 +161,46 @@ public class MotorConfig {
      *                                        from tripping.
      */
     public MotorConfig(double rampRate, boolean isInverted, boolean isSensorInverted, NeutralMode neutralMode,
-            double voltageCompSaturation, SupplyCurrentLimitConfiguration supplyCurrentLimitConfiguration) {
+                       double voltageCompSaturation, SupplyCurrentLimitConfiguration supplyCurrentLimitConfiguration){
         this.rampRate = rampRate;
         this.isInverted = isInverted;
         this.isSensorInverted = isSensorInverted;
+        this.neutralMode = neutralMode;
         this.voltageCompSaturation = voltageCompSaturation;
         this.currentLimitConfig = supplyCurrentLimitConfiguration;
     }
 
-    public double getRampRate() {
+    public MotorConfig(double rampRate, boolean isInverted, boolean isSensorInverted, NeutralMode neutralMode, double voltageCompSaturation, SupplyCurrentLimitConfiguration currentLimitConfig, PIDCoefs coefs){
+        this.rampRate = rampRate;
+        this.isInverted = isInverted;
+        this.isSensorInverted = isSensorInverted;
+        this.neutralMode = neutralMode;
+        this.voltageCompSaturation = voltageCompSaturation;
+        this.currentLimitConfig = currentLimitConfig;
+        this.coefs = coefs;
+    }
+
+    public double getRampRate(){
         return this.rampRate;
     }
 
-    public boolean isInverted() {
+    public boolean isInverted(){
         return this.isInverted;
     }
 
-    public boolean isSensorInverted() {
+    public boolean isSensorInverted(){
         return this.isSensorInverted;
     }
 
-    public NeutralMode getNeutralMode() {
+    public NeutralMode getNeutralMode(){
         return this.neutralMode;
     }
 
-    public SupplyCurrentLimitConfiguration getSupplyCurrentLimitConfiguration() {
+    public SupplyCurrentLimitConfiguration getSupplyCurrentLimitConfiguration(){
         return this.currentLimitConfig;
     }
 
-    public double getVoltageCompSaturation() {
+    public double getVoltageCompSaturation(){
         return this.voltageCompSaturation;
     }
 }

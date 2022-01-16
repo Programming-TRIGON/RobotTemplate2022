@@ -1,0 +1,36 @@
+{
+  "Swerve": {
+    "modules": {
+      "frontRight": {
+        "encoderOffset": 0,
+        "angleCoefs": {
+        },
+        "driveCoefs": {
+        }
+      },
+      "frontLeft": {
+        "encoderOffset": 0,
+        "angleCoefs": {
+        },
+        "driveCoefs": {
+        }
+      },
+      "rearRight": {
+        "encoderOffset": 0,
+        "angleCoefs": {
+        },
+        "driveCoefs": {
+        }
+      },
+      "rearLeft": {
+        "encoderOffset": 0,
+        "angleCoefs": {
+        },
+        "driveCoefs": {
+        }
+      }
+    },
+    "angleNeutralMode": "Coast",
+    "driveNeutralMode": "Coast"
+  }
+}
