@@ -28,8 +28,7 @@ public abstract class RobotMap {
 
     public class PWM {
         public LED led = new LED();
-
-        public class LED {
+        public class LED{
             public int LED_CONTROLLER;
         }
     }

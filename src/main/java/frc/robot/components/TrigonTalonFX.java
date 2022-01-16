@@ -10,7 +10,7 @@ public class TrigonTalonFX extends WPI_TalonFX {
 
     /**
      * constructs a new motor controller
-     *
+     * 
      * @param id          device ID of motor controller
      * @param motorConfig The configuration preset to use
      */
@@ -28,7 +28,7 @@ public class TrigonTalonFX extends WPI_TalonFX {
 
     /**
      * constructs a new motor controller with a default configuration
-     *
+     * 
      * @param id device ID of motor controller
      */
     public TrigonTalonFX(int id) {

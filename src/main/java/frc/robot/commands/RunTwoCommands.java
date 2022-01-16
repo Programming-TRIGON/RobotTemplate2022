@@ -2,7 +2,6 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-
 import java.util.function.BooleanSupplier;
 
 /**
@@ -10,15 +9,15 @@ import java.util.function.BooleanSupplier;
  * rather than when initializing.
  */
 public class RunTwoCommands extends CommandBase {
-    private final Command ifTrue;
-    private final Command ifFalse;
+    private Command ifTrue;
+    private Command ifFalse;
     private Command runningCommand;
-    private final BooleanSupplier condition;
+    private BooleanSupplier condition;
     private boolean lastConditionState;
 
     /**
-     * @param ifTrue    command to run if the condition is true
-     * @param ifFalse   command to run if the condition is false
+     * @param ifTrue command to run if the condition is true
+     * @param ifFalse command to run if the condition is false
      * @param condition a supplier of the condition
      */
     public RunTwoCommands(Command ifTrue, Command ifFalse, BooleanSupplier condition) {
@@ -39,7 +38,7 @@ public class RunTwoCommands extends CommandBase {
     @Override
     public void execute() {
         boolean newConditionState = condition.getAsBoolean();
-        if(newConditionState != lastConditionState) {
+        if (newConditionState != lastConditionState) {
             runningCommand.end(true);
             runningCommand = newConditionState ? ifTrue : ifFalse;
             runningCommand.initialize();

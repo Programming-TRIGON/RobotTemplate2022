@@ -1,3 +1,4 @@
+
 package frc.robot.utilities;
 
 import edu.wpi.first.wpilibj.Filesystem;
@@ -18,15 +19,15 @@ import java.sql.Timestamp;
  * excel.
  */
 public class Logger {
-    private final String path;
-    private final StringBuilder data;
+    private String path;
+    private StringBuilder data;
 
     /**
      * @param name    the name of the file. Should end with .csv
      * @param columns the columns name (ex. velocity, acceleration)
      */
     public Logger(String name, String... columns) {
-        if(!name.endsWith(".csv"))
+        if (!name.endsWith(".csv"))
             name = name + ".csv";
         path = Filesystem.getOperatingDirectory() + "/logs/" + getTimeStamp() + '-' + name;
         data = new StringBuilder();
@@ -37,7 +38,7 @@ public class Logger {
      * @param values the values to be added to the logger
      */
     public void log(String... values) {
-        for(String value : values) {
+        for (String value : values) {
             data.append(value).append(',');
         }
         data.setCharAt(data.length() - 1, '\n');
@@ -50,7 +51,7 @@ public class Logger {
      */
     public void log(double... values) {
         String[] array = new String[values.length];
-        for(int i = 0; i < values.length; i++) {
+        for (int i = 0; i < values.length; i++) {
             array[i] = Double.toString(values[i]);
         }
         log(array);
@@ -70,7 +71,7 @@ public class Logger {
             FileWriter writer = new FileWriter(file);
             writer.write(data.toString());
             writer.close();
-        } catch(IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

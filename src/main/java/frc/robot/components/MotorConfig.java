@@ -8,12 +8,12 @@ import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
  */
 public class MotorConfig {
 
-    private final double rampRate;
-    private final boolean isInverted;
-    private final boolean isSensorInverted;
+    private double rampRate;
+    private boolean isInverted;
+    private boolean isSensorInverted;
     private NeutralMode neutralMode;
-    private final double voltageCompSaturation;
-    private final SupplyCurrentLimitConfiguration currentLimitConfig;
+    private double voltageCompSaturation;
+    private SupplyCurrentLimitConfiguration currentLimitConfig;
 
     /**
      * This constructor uses default values for all settings disables rampRate,
@@ -29,7 +29,7 @@ public class MotorConfig {
      * invert to false. Use this constructor when you have multiple motors that need
      * the same settings but different inverts and the motor does not have a sensor
      * connected to it.
-     *
+     * 
      * @param motorConfig motorConfig to copy voltage compensation saturation,
      *                    supply current limit configuration, and neutral mode
      * @param isInverted  Inverts the hbridge output of the motor controller.
@@ -43,7 +43,7 @@ public class MotorConfig {
      * This constructor copies settings from another motorConfig. Use this
      * constructor when you have multiple motors that need the same settings but
      * different inverts.
-     *
+     * 
      * @param motorConfig      motorConfig to copy voltage compensation saturation,
      *                         supply current limit configuration, and neutral mode
      * @param isInverted       Inverts the hbridge output of the motor controller.
@@ -59,6 +59,7 @@ public class MotorConfig {
     }
 
     /**
+     * 
      * @param rampRate              Minimum desired time to go from neutral to full
      *                              throttle. A value of '0' will disable the ramp.
      * @param neutralMode           The desired mode of operation when the
@@ -77,6 +78,7 @@ public class MotorConfig {
     }
 
     /**
+     * 
      * @param rampRate              Minimum desired time to go from neutral to full
      *                              throttle. A value of '0' will disable the ramp.
      * @param isInverted            Inverts the hbridge output of the motor
@@ -98,14 +100,14 @@ public class MotorConfig {
      *                              attempt to apply a duty-cycle to produce 5V. A
      *                              value of 0 disables this feature.
      */
-    public MotorConfig(
-            double rampRate, boolean isInverted, boolean isSensorInverted, NeutralMode neutralMode,
+    public MotorConfig(double rampRate, boolean isInverted, boolean isSensorInverted, NeutralMode neutralMode,
             double voltageCompSaturation) {
         this(rampRate, isInverted, isSensorInverted, neutralMode, voltageCompSaturation,
                 new SupplyCurrentLimitConfiguration(false, 0, 0, 0));
     }
 
     /**
+     * 
      * @param rampRate                        Minimum desired time to go from
      *                                        neutral to full throttle. A value of
      *                                        '0' will disable the ramp.
@@ -125,13 +127,13 @@ public class MotorConfig {
      *                                        typically used to prevent breakers
      *                                        from tripping.
      */
-    public MotorConfig(
-            double rampRate, NeutralMode neutralMode, double voltageCompSaturation,
+    public MotorConfig(double rampRate, NeutralMode neutralMode, double voltageCompSaturation,
             SupplyCurrentLimitConfiguration supplyCurrentLimitConfiguration) {
         this(rampRate, false, false, neutralMode, voltageCompSaturation, supplyCurrentLimitConfiguration);
     }
 
     /**
+     * 
      * @param rampRate                        Minimum desired time to go from
      *                                        neutral to full throttle. A value of
      *                                        '0' will disable the ramp.
@@ -160,8 +162,7 @@ public class MotorConfig {
      *                                        typically used to prevent breakers
      *                                        from tripping.
      */
-    public MotorConfig(
-            double rampRate, boolean isInverted, boolean isSensorInverted, NeutralMode neutralMode,
+    public MotorConfig(double rampRate, boolean isInverted, boolean isSensorInverted, NeutralMode neutralMode,
             double voltageCompSaturation, SupplyCurrentLimitConfiguration supplyCurrentLimitConfiguration) {
         this.rampRate = rampRate;
         this.isInverted = isInverted;

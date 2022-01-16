@@ -2,14 +2,13 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.MovableSubsystem;
-
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
 public class MoveMovableSubsystem extends CommandBase {
-    private final MovableSubsystem subsystem;
-    private final BooleanSupplier isFinished;
-    private final DoubleSupplier power;
+    private MovableSubsystem subsystem;
+    private BooleanSupplier isFinished;
+    private DoubleSupplier power;
 
     /**
      * This command can move any subsystem that implements MovableSubsystem and runs
