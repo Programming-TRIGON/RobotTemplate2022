@@ -1,6 +1,6 @@
 package frc.robot.utilities;
 
-public class Conversions {
+public class EncoderConversions {
 
     /**
      * @param counts    Falcon Counts

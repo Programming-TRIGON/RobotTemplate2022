@@ -6,8 +6,13 @@ import frc.robot.Robot;
 import java.util.function.Supplier;
 
 public class CTREUtil {
-    // Recursive function to check if the error code from the errorCodeSupplier is OK.
-    // If not, print to the console, and try again, up to attempts times.
+    /**
+     * A recursive function to check if the error code from the errorCodeSupplier is OK.
+     * If not, print to the console, and try again, up to attempts times.
+     *
+     * @param errorCodeSupplier A supplier for a phoenix config function that returns an error code.
+     * @param attempts          The number of times to try the function.
+     */
     public static void checkError(Supplier<ErrorCode> errorCodeSupplier, int attempts) {
         // If this is a simulation, skip this and let the user know
         if(Robot.isSimulation()) {

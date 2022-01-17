@@ -24,12 +24,7 @@ public class SupplierDriveCMD extends CommandBase {
 
     @Override
     public void execute() {
-        RobotContainer.swerveSS.drive(
-                new Translation2d(x.get(), y.get()),
-                theta.get(),
-                fieldRelative,
-                false
-        );
+        RobotContainer.swerveSS.drive(new Translation2d(x.get(), y.get()), theta.get(), fieldRelative, false);
     }
 
     @Override

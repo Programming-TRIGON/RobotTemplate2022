@@ -1,7 +1,10 @@
 package frc.robot.components;
 
+import com.ctre.phoenix.ErrorCode;
+import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import frc.robot.utilities.MotorConfig;
+import frc.robot.utilities.PIDCoefs;
 
 /**
  * This class creates a new instance of WPI_TalonFX and configures values based
@@ -35,5 +38,22 @@ public class TrigonTalonFX extends WPI_TalonFX {
      */
     public TrigonTalonFX(int id) {
         this(id, new MotorConfig());
+    }
+
+    public ErrorCode configAllSettings(double openLoopRamp, double closedLoopRamp, PIDCoefs pidCoefs, int timeoutMs) {
+        TalonFXConfiguration config = new TalonFXConfiguration();
+        config.openloopRamp = openLoopRamp;
+        config.closedloopRamp = closedLoopRamp;
+        config.slot0.kP = pidCoefs.getKP();
+        config.slot0.kI = pidCoefs.getKI();
+        config.slot0.kD = pidCoefs.getKD();
+        config.slot0.kF = pidCoefs.getKF();
+        config.slot0.allowableClosedloopError = (int) pidCoefs.getTolerance();
+
+        return this.configAllSettings(config);
+    }
+
+    public ErrorCode configAllSettings(double openLoopRamp, double closedLoopRamp, PIDCoefs pidCoefs) {
+        return configAllSettings(openLoopRamp, closedLoopRamp, pidCoefs, 0);
     }
 }

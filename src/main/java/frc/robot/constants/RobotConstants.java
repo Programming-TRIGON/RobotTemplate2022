@@ -4,7 +4,6 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveKinematics;
-import frc.robot.constants.RobotMap.CAN.SwerveMap.SwerveModuleConstants;
 import frc.robot.utilities.PIDCoefs;
 
 /**
@@ -35,8 +34,6 @@ public class RobotConstants extends RobotMap {
 
     public static class SwerveConstants {
         public static final int PIGEON_ID = CAN.SwerveMap.PIGEON_ID;
-
-        public static final SwerveModuleConstants[] MODULES = CAN.SwerveMap.MODULES;
 
         public static final boolean INVERT_GYRO = false; // Always ensure Gyro is CCW+ CW-
 

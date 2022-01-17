@@ -11,13 +11,15 @@ import edu.wpi.first.wpilibj.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.RobotConstants.SwerveConstants;
+import frc.robot.constants.RobotMap.CAN.SwerveMap;
+import frc.robot.utilities.Modules;
 
 /**
  * The Swerve subsystem.
  */
 public class SwerveSS extends SubsystemBase {
     private final SwerveDriveOdometry swerveOdometry;
-    private final SwerveModule[] mSwerveMods;
+    private final SwerveModule[] swerveModules;
     private final PigeonIMU gyro;
 
     public SwerveSS() {
@@ -27,10 +29,11 @@ public class SwerveSS extends SubsystemBase {
 
         swerveOdometry = new SwerveDriveOdometry(SwerveConstants.SWERVE_KINEMATICS, getYaw());
 
-        mSwerveMods = new SwerveModule[4];
-        for(int i = 0; i < 4; i++) {
-            mSwerveMods[i] = new SwerveModule(SwerveConstants.MODULES[i]);
-        }
+        swerveModules = new SwerveModule[4];
+        swerveModules[Modules.FRONT_LEFT.getId()] = new SwerveModule(SwerveMap.FRONT_LEFT_CONSTANTS);
+        swerveModules[Modules.FRONT_RIGHT.getId()] = new SwerveModule(SwerveMap.FRONT_RIGHT_CONSTANTS);
+        swerveModules[Modules.REAR_LEFT.getId()] = new SwerveModule(SwerveMap.REAR_LEFT_CONSTANTS);
+        swerveModules[Modules.REAR_RIGHT.getId()] = new SwerveModule(SwerveMap.REAR_RIGHT_CONSTANTS);
     }
 
     /**
@@ -62,16 +65,16 @@ public class SwerveSS extends SubsystemBase {
         // making sure the speeds are within the max speed
         SwerveDriveKinematics.normalizeWheelSpeeds(swerveModuleStates, SwerveConstants.MAX_SPEED);
 
-        // if we are not moving or rotating at all, set the desired state to the current state
+        // if we are not moving or rotating at all, set the desired angle to the current angle
         if(translation.getNorm() == 0 && rotation == 0) {
-            for(SwerveModule mod : mSwerveMods) {
-                swerveModuleStates[mod.moduleNumber].angle = mod.getState().angle;
+            for(int i = 0; i < swerveModules.length; i++) {
+                swerveModuleStates[i].angle = swerveModules[i].getAngle();
             }
         }
 
         // set the desired state for each module
-        for(SwerveModule mod : mSwerveMods) {
-            mod.setDesiredState(swerveModuleStates[mod.moduleNumber], isOpenLoop);
+        for(int i = 0; i < swerveModules.length; i++) {
+            swerveModules[i].setDesiredState(swerveModuleStates[i], isOpenLoop);
         }
     }
 
@@ -83,8 +86,8 @@ public class SwerveSS extends SubsystemBase {
     public void setModuleStates(SwerveModuleState[] desiredStates) {
         SwerveDriveKinematics.normalizeWheelSpeeds(desiredStates, SwerveConstants.MAX_SPEED);
 
-        for(SwerveModule mod : mSwerveMods) {
-            mod.setDesiredState(desiredStates[mod.moduleNumber], false);
+        for(int i = 0; i < swerveModules.length; i++) {
+            swerveModules[i].setDesiredState(desiredStates[i], true);
         }
     }
 
@@ -113,8 +116,8 @@ public class SwerveSS extends SubsystemBase {
      */
     public SwerveModuleState[] getStates() {
         SwerveModuleState[] states = new SwerveModuleState[4];
-        for(SwerveModule mod : mSwerveMods) {
-            states[mod.moduleNumber] = mod.getState();
+        for(int i = 0; i < swerveModules.length; i++) {
+            states[i] = swerveModules[i].getState();
         }
         return states;
     }

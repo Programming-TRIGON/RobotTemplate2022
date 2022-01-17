@@ -17,11 +17,13 @@ public class LocalConstants {
     }
 
     public static class LocalSwerveConstants {
-        String angleNeutralMode, driveNeutralMode;
+        String angleNeutralMode;
+        String driveNeutralMode;
         LocalSwerveModules modules;
 
         public LocalSwerveConstants() {
-            angleNeutralMode = driveNeutralMode = "Coast";
+            angleNeutralMode = "Coast";
+            driveNeutralMode = "Coast";
             modules = new LocalSwerveModules();
             modules.frontRightModuleConstants = new LocalSwerveModules.LocalSwerveModuleConstants();
             modules.frontLeftModuleConstants = new LocalSwerveModules.LocalSwerveModuleConstants();
