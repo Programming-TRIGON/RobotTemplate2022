@@ -5,8 +5,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * This class is used to store settings for different PIDs
  */
-public class PIDCoefs{
-
+public class PIDCoefs {
     @SerializedName(value = "kP", alternate = {"p", "P", "KP"})
     private double KP;
     @SerializedName(value = "kI", alternate = {"i", "I", "KI"})
@@ -30,7 +29,7 @@ public class PIDCoefs{
      * @param tolerance      The error tolerance of this command.
      * @param deltaTolerance The tolerance of the change in error.
      */
-    public PIDCoefs(double KP, double KI, double KD, double tolerance, double deltaTolerance){
+    public PIDCoefs(double KP, double KI, double KD, double tolerance, double deltaTolerance) {
         this(KP, KI, KD, 0, tolerance, deltaTolerance);
     }
 
@@ -46,7 +45,7 @@ public class PIDCoefs{
      * @param tolerance      The error tolerance of this command.
      * @param deltaTolerance The tolerance of the change in error.
      */
-    public PIDCoefs(double KP, double KI, double KD, double KF, double tolerance, double deltaTolerance){
+    public PIDCoefs(double KP, double KI, double KD, double KF, double tolerance, double deltaTolerance) {
         this.KP = KP;
         this.KI = KI;
         this.KD = KD;
@@ -56,54 +55,54 @@ public class PIDCoefs{
 
     }
 
-    public PIDCoefs(){
+    public PIDCoefs() {
     }
 
-    public double getKP(){
+    public double getKP() {
         return KP;
     }
 
-    public void setKP(double KP){
+    public void setKP(double KP) {
         this.KP = KP;
     }
 
-    public double getKI(){
+    public double getKI() {
         return KI;
     }
 
-    public void setKI(double KI){
+    public void setKI(double KI) {
         this.KI = KI;
     }
 
-    public double getKD(){
+    public double getKD() {
         return KD;
     }
 
-    public void setKD(double KD){
+    public void setKD(double KD) {
         this.KD = KD;
     }
 
-    public double getKF(){
+    public double getKF() {
         return KF;
     }
 
-    public void setKF(double KF){
+    public void setKF(double KF) {
         this.KF = KF;
     }
 
-    public double getTolerance(){
+    public double getTolerance() {
         return tolerance;
     }
 
-    public void setTolerance(double tolerance){
+    public void setTolerance(double tolerance) {
         this.tolerance = tolerance;
     }
 
-    public double getDeltaTolerance(){
+    public double getDeltaTolerance() {
         return deltaTolerance;
     }
 
-    public void setDeltaTolerance(double deltaTolerance){
+    public void setDeltaTolerance(double deltaTolerance) {
         this.deltaTolerance = deltaTolerance;
     }
 

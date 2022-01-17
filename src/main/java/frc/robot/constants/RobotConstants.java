@@ -9,9 +9,9 @@ import frc.robot.utilities.PIDCoefs;
 /**
  * All the constants to be uses for the robot
  */
-public class RobotConstants extends RobotMap{
+public class RobotConstants extends RobotMap {
 
-    public static class LimelightConstants{
+    public static class LimelightConstants {
         public double DISTANCE_CALCULATION_A_COEFFICIENT = 1;
         public double DISTANCE_CALCULATION_B_COEFFICIENT = 1;
         public double DISTANCE_CALCULATION_C_COEFFICIENT = 1;
@@ -21,22 +21,21 @@ public class RobotConstants extends RobotMap{
         public String DEFAULT_TABLE_KEY = "limelight";
     }
 
-    public static class TesterConstants{
+    public static class TesterConstants {
         public int SECONDS_TO_WAIT = 1;
         public double MOVE_POWER = 3;
         public int LED_BLINK_AMOUNT = 10;
     }
 
-    public static class VisionConstants{
+    public static class VisionConstants {
         public PIDCoefs ROTATION_SETTINGS = new PIDCoefs(0, 0, 0, 0, 0);
         public double TARGET_TIME_OUT = 0.1;
     }
 
-    public static class SwerveConstants{
+    public static class SwerveConstants {
         public static final int PIGEON_ID = CAN.SwerveMap.PIGEON_ID;
 
         public static final SwerveModuleConstants[] MODULES = CAN.SwerveMap.MODULES;
-
 
         public static final boolean INVERT_GYRO = false; // Always ensure Gyro is CCW+ CW-
 
@@ -69,16 +68,18 @@ public class RobotConstants extends RobotMap{
         public static final boolean ANGLE_ENABLE_CURRENT_LIMIT = true;
 
         public static final SupplyCurrentLimitConfiguration ANGLE_CURRENT_LIMIT = new SupplyCurrentLimitConfiguration(
-                ANGLE_ENABLE_CURRENT_LIMIT, ANGLE_CONTINUOUS_CURRENT_LIMIT, ANGLE_PEAK_CURRENT_LIMIT, ANGLE_PEAK_CURRENT_DURATION
+                ANGLE_ENABLE_CURRENT_LIMIT, ANGLE_CONTINUOUS_CURRENT_LIMIT, ANGLE_PEAK_CURRENT_LIMIT,
+                ANGLE_PEAK_CURRENT_DURATION
         );
-        
+
         public static final int DRIVE_CONTINUOUS_CURRENT_LIMIT = 35;
         public static final int DRIVE_PEAK_CURRENT_LIMIT = 60;
         public static final double DRIVE_PEAK_CURRENT_DURATION = 0.1;
         public static final boolean DRIVE_ENABLE_CURRENT_LIMIT = true;
 
         public static final SupplyCurrentLimitConfiguration DRIVE_CURRENT_LIMIT = new SupplyCurrentLimitConfiguration(
-                DRIVE_ENABLE_CURRENT_LIMIT, DRIVE_CONTINUOUS_CURRENT_LIMIT, DRIVE_PEAK_CURRENT_LIMIT, DRIVE_PEAK_CURRENT_DURATION
+                DRIVE_ENABLE_CURRENT_LIMIT, DRIVE_CONTINUOUS_CURRENT_LIMIT, DRIVE_PEAK_CURRENT_LIMIT,
+                DRIVE_PEAK_CURRENT_DURATION
         );
 
         /* Swerve Profiling Values */
@@ -86,8 +87,12 @@ public class RobotConstants extends RobotMap{
         public static final double MAX_ANGULAR_VELOCITY = 11.5;
 
         /* Neutral Modes */ //TODO: Add to LocalConstants
-        public static final NeutralMode ANGLE_NEUTRAL_MODE = localConstants.localSwerveConstants.angleNeutralMode.equals("Brake") ? NeutralMode.Brake : NeutralMode.Coast;
-        public static final NeutralMode DRIVE_NEUTRAL_MODE = localConstants.localSwerveConstants.driveNeutralMode.equals("Brake") ? NeutralMode.Brake : NeutralMode.Coast;
+        public static final NeutralMode ANGLE_NEUTRAL_MODE =
+                LOCAL_CONSTANTS.localSwerveConstants.angleNeutralMode.equals(
+                "Brake") ? NeutralMode.Brake : NeutralMode.Coast;
+        public static final NeutralMode DRIVE_NEUTRAL_MODE =
+                LOCAL_CONSTANTS.localSwerveConstants.driveNeutralMode.equals(
+                "Brake") ? NeutralMode.Brake : NeutralMode.Coast;
 
         /* Motor Inverts */
         public static final boolean DRIVE_MOTOR_INVERT = true;
@@ -98,7 +103,6 @@ public class RobotConstants extends RobotMap{
 
         /* Driving Constants */
         public static final double SPEED_DIVIDER = 6;
-
 
     }
 
