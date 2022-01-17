@@ -1,9 +1,10 @@
-package frc.robot.constants;
+package frc.robot.utilities;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 import edu.wpi.first.wpilibj.Filesystem;
+import frc.robot.constants.LocalConstants;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

@@ -1,21 +1,26 @@
 package frc.robot.constants;
 
 import com.google.gson.annotations.SerializedName;
+import frc.robot.utilities.JsonHandler;
 import frc.robot.utilities.PIDCoefs;
 
-public class LocalConstants{
+public class LocalConstants {
     @SerializedName("Swerve")
     LocalSwerveConstants localSwerveConstants;
 
-    public LocalConstants(){
+    public LocalConstants() {
         localSwerveConstants = new LocalSwerveConstants();
     }
 
-    public static class LocalSwerveConstants{
+    public void write() {
+        JsonHandler.write(this);
+    }
+
+    public static class LocalSwerveConstants {
         String angleNeutralMode, driveNeutralMode;
         LocalSwerveModules modules;
 
-        public LocalSwerveConstants(){
+        public LocalSwerveConstants() {
             angleNeutralMode = driveNeutralMode = "Coast";
             modules = new LocalSwerveModules();
             modules.frontRightModuleConstants = new LocalSwerveModules.LocalSwerveModuleConstants();
@@ -24,7 +29,7 @@ public class LocalConstants{
             modules.rearLeftModuleConstants = new LocalSwerveModules.LocalSwerveModuleConstants();
         }
 
-        public static class LocalSwerveModules{
+        public static class LocalSwerveModules {
             @SerializedName("frontRight")
             public LocalSwerveModuleConstants frontRightModuleConstants;
             @SerializedName("frontLeft")
@@ -34,25 +39,18 @@ public class LocalConstants{
             @SerializedName("rearLeft")
             public LocalSwerveModuleConstants rearLeftModuleConstants;
 
-            public static class LocalSwerveModuleConstants{
+            public static class LocalSwerveModuleConstants {
                 double encoderOffset;
 
                 PIDCoefs angleCoefs;
                 PIDCoefs driveCoefs;
 
-                public LocalSwerveModuleConstants(){
+                public LocalSwerveModuleConstants() {
                     encoderOffset = 0;
                     angleCoefs = new PIDCoefs();
                     driveCoefs = new PIDCoefs();
                 }
             }
         }
-
-
     }
-
-    public void write(){
-        JsonHandler.write(this);
-    }
-
 }

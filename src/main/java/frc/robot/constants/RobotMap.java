@@ -1,5 +1,8 @@
 package frc.robot.constants;
 
+import frc.robot.utilities.JsonHandler;
+import frc.robot.utilities.PIDCoefs;
+
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -23,7 +26,6 @@ public class RobotMap {
                             LOCAL_CONSTANTS.localSwerveConstants.modules.frontLeftModuleConstants.encoderOffset,
                             LOCAL_CONSTANTS.localSwerveConstants.modules.frontLeftModuleConstants.angleCoefs,
                             LOCAL_CONSTANTS.localSwerveConstants.modules.frontLeftModuleConstants.driveCoefs
-
                     ),
                     new SwerveModuleConstants(
                             2,
@@ -53,6 +55,27 @@ public class RobotMap {
                             LOCAL_CONSTANTS.localSwerveConstants.modules.rearRightModuleConstants.driveCoefs
                     )
             };
+
+            public static class SwerveModuleConstants {
+                public final int moduleNumber;
+                public final int driveMotorID;
+                public final int angleMotorID;
+                public final int encoderID;
+                public final double encoderOffset;
+                public final PIDCoefs anglePIDCoefs, drivePIDCoefs;
+
+                public SwerveModuleConstants(
+                        int moduleNumber, int driveMotorID, int angleMotorID, int encoderID, double encoderOffset,
+                        PIDCoefs anglePIDCoefs, PIDCoefs drivePIDCoefs) {
+                    this.moduleNumber = moduleNumber;
+                    this.driveMotorID = driveMotorID;
+                    this.angleMotorID = angleMotorID;
+                    this.encoderID = encoderID;
+                    this.encoderOffset = encoderOffset;
+                    this.anglePIDCoefs = anglePIDCoefs;
+                    this.drivePIDCoefs = drivePIDCoefs;
+                }
+            }
         }
     }
 

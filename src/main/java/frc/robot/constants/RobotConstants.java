@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveKinematics;
+import frc.robot.constants.RobotMap.CAN.SwerveMap.SwerveModuleConstants;
 import frc.robot.utilities.PIDCoefs;
 
 /**
@@ -89,10 +90,10 @@ public class RobotConstants extends RobotMap {
         /* Neutral Modes */ //TODO: Add to LocalConstants
         public static final NeutralMode ANGLE_NEUTRAL_MODE =
                 LOCAL_CONSTANTS.localSwerveConstants.angleNeutralMode.equals(
-                "Brake") ? NeutralMode.Brake : NeutralMode.Coast;
+                        "Brake") ? NeutralMode.Brake : NeutralMode.Coast;
         public static final NeutralMode DRIVE_NEUTRAL_MODE =
                 LOCAL_CONSTANTS.localSwerveConstants.driveNeutralMode.equals(
-                "Brake") ? NeutralMode.Brake : NeutralMode.Coast;
+                        "Brake") ? NeutralMode.Brake : NeutralMode.Coast;
 
         /* Motor Inverts */
         public static final boolean DRIVE_MOTOR_INVERT = true;
@@ -103,7 +104,5 @@ public class RobotConstants extends RobotMap {
 
         /* Driving Constants */
         public static final double SPEED_DIVIDER = 6;
-
     }
-
 }
