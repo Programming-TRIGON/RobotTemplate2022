@@ -2,26 +2,26 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import frc.robot.subsystems.swerve.SupplierDriveCMD;
-import frc.robot.subsystems.swerve.Swerve;
+import frc.robot.subsystems.swerve.SwerveSS;
 import frc.robot.utilities.DashboardController;
 import frc.robot.utilities.TrigonController;
 
 public class RobotContainer {
+    private final DashboardController dashboardController;
+    private final TrigonController driverXbox;
+
     // Subsystems
-    public static final Swerve swerve = new Swerve();
+    public static final SwerveSS swerveSS = new SwerveSS();
 
     // Commands
-    public static SupplierDriveCMD teleopDrive;
-
-    private final DashboardController dashboardController;
-    private final TrigonController controller;
+    public static SupplierDriveCMD driveWithXboxCMD;
 
     /**
      * Add classes here
      */
     public RobotContainer() {
         dashboardController = new DashboardController();
-        controller = new TrigonController(0);
+        driverXbox = new TrigonController(0);
 
         initializeCommands();
     }
@@ -30,12 +30,11 @@ public class RobotContainer {
      * initializes all commands
      */
     public void initializeCommands() {
-        teleopDrive = new SupplierDriveCMD(
-                () -> controller.getX(GenericHID.Hand.kLeft),
-                () -> controller.getY(GenericHID.Hand.kLeft),
-                () -> controller.getX(GenericHID.Hand.kRight),
-                true
-        );
+        driveWithXboxCMD = new SupplierDriveCMD(
+                () -> driverXbox.getX(GenericHID.Hand.kLeft),
+                () -> driverXbox.getY(GenericHID.Hand.kLeft),
+                () -> driverXbox.getX(GenericHID.Hand.kRight),
+                true);
     }
 
     public void updateDashboard() {

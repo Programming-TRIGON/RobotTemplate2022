@@ -19,12 +19,12 @@ public class SupplierDriveCMD extends CommandBase {
         this.y = y;
         this.theta = theta;
         this.fieldRelative = fieldRelative;
-        addRequirements(RobotContainer.swerve);
+        addRequirements(RobotContainer.swerveSS);
     }
 
     @Override
     public void execute() {
-        RobotContainer.swerve.drive(
+        RobotContainer.swerveSS.drive(
                 new Translation2d(x.get(), y.get()),
                 theta.get(),
                 fieldRelative,
@@ -34,7 +34,7 @@ public class SupplierDriveCMD extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
-        RobotContainer.swerve.drive(new Translation2d(0, 0), 0, false, false);
+        RobotContainer.swerveSS.drive(new Translation2d(0, 0), 0, false, false);
     }
 
     @Override

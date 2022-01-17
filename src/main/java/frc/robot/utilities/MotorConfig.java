@@ -1,20 +1,19 @@
-package frc.robot.components;
+package frc.robot.utilities;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
-import frc.robot.utilities.PIDCoefs;
 
 /**
  * This class stores the configuration of a motor
  */
-public class MotorConfig{
+public class MotorConfig {
 
-    private double rampRate;
-    private boolean isInverted;
-    private boolean isSensorInverted;
-    private NeutralMode neutralMode;
-    private double voltageCompSaturation;
-    private SupplyCurrentLimitConfiguration currentLimitConfig;
+    private final double rampRate;
+    private final boolean isInverted;
+    private final boolean isSensorInverted;
+    private final NeutralMode neutralMode;
+    private final double voltageCompSaturation;
+    private final SupplyCurrentLimitConfiguration currentLimitConfig;
     private PIDCoefs coefs;
 
     /**
@@ -22,7 +21,7 @@ public class MotorConfig{
      * voltage compensation saturation, and supplyCurrentLimitConfiguration, sets
      * neutral mode to coast, and sets all inverts to false.
      */
-    public MotorConfig(){
+    public MotorConfig() {
         this(0, NeutralMode.Coast, 0);
     }
 
@@ -36,7 +35,7 @@ public class MotorConfig{
      *                    supply current limit configuration, and neutral mode
      * @param isInverted  Inverts the hbridge output of the motor controller.
      */
-    public MotorConfig(MotorConfig motorConfig, boolean isInverted){
+    public MotorConfig(MotorConfig motorConfig, boolean isInverted) {
         this(motorConfig.getRampRate(), isInverted, false, motorConfig.getNeutralMode(),
                 motorConfig.getVoltageCompSaturation(), motorConfig.getSupplyCurrentLimitConfiguration());
     }
@@ -55,7 +54,7 @@ public class MotorConfig{
      *                         value so that positive PercentOutput yields a
      *                         positive change in sensor.
      */
-    public MotorConfig(MotorConfig motorConfig, boolean isInverted, boolean isSensorInverted){
+    public MotorConfig(MotorConfig motorConfig, boolean isInverted, boolean isSensorInverted) {
         this(motorConfig.getRampRate(), isInverted, isSensorInverted, motorConfig.getNeutralMode(),
                 motorConfig.getVoltageCompSaturation(), motorConfig.getSupplyCurrentLimitConfiguration());
     }
@@ -74,7 +73,7 @@ public class MotorConfig{
      *                              attempt to apply a duty-cycle to produce 5V. A
      *                              value of 0 disables this feature.
      */
-    public MotorConfig(double rampRate, NeutralMode neutralMode, double voltageCompSaturation){
+    public MotorConfig(double rampRate, NeutralMode neutralMode, double voltageCompSaturation) {
         this(rampRate, false, false, neutralMode, voltageCompSaturation);
     }
 
@@ -100,8 +99,9 @@ public class MotorConfig{
      *                              attempt to apply a duty-cycle to produce 5V. A
      *                              value of 0 disables this feature.
      */
-    public MotorConfig(double rampRate, boolean isInverted, boolean isSensorInverted, NeutralMode neutralMode,
-                       double voltageCompSaturation){
+    public MotorConfig(
+            double rampRate, boolean isInverted, boolean isSensorInverted, NeutralMode neutralMode,
+            double voltageCompSaturation) {
         this(rampRate, isInverted, isSensorInverted, neutralMode, voltageCompSaturation,
                 new SupplyCurrentLimitConfiguration(false, 0, 0, 0));
     }
@@ -126,8 +126,9 @@ public class MotorConfig{
      *                                        typically used to prevent breakers
      *                                        from tripping.
      */
-    public MotorConfig(double rampRate, NeutralMode neutralMode, double voltageCompSaturation,
-                       SupplyCurrentLimitConfiguration supplyCurrentLimitConfiguration){
+    public MotorConfig(
+            double rampRate, NeutralMode neutralMode, double voltageCompSaturation,
+            SupplyCurrentLimitConfiguration supplyCurrentLimitConfiguration) {
         this(rampRate, false, false, neutralMode, voltageCompSaturation, supplyCurrentLimitConfiguration);
     }
 
@@ -160,8 +161,9 @@ public class MotorConfig{
      *                                        typically used to prevent breakers
      *                                        from tripping.
      */
-    public MotorConfig(double rampRate, boolean isInverted, boolean isSensorInverted, NeutralMode neutralMode,
-                       double voltageCompSaturation, SupplyCurrentLimitConfiguration supplyCurrentLimitConfiguration){
+    public MotorConfig(
+            double rampRate, boolean isInverted, boolean isSensorInverted, NeutralMode neutralMode,
+            double voltageCompSaturation, SupplyCurrentLimitConfiguration supplyCurrentLimitConfiguration) {
         this.rampRate = rampRate;
         this.isInverted = isInverted;
         this.isSensorInverted = isSensorInverted;
@@ -170,7 +172,9 @@ public class MotorConfig{
         this.currentLimitConfig = supplyCurrentLimitConfiguration;
     }
 
-    public MotorConfig(double rampRate, boolean isInverted, boolean isSensorInverted, NeutralMode neutralMode, double voltageCompSaturation, SupplyCurrentLimitConfiguration currentLimitConfig, PIDCoefs coefs){
+    public MotorConfig(
+            double rampRate, boolean isInverted, boolean isSensorInverted, NeutralMode neutralMode,
+            double voltageCompSaturation, SupplyCurrentLimitConfiguration currentLimitConfig, PIDCoefs coefs) {
         this.rampRate = rampRate;
         this.isInverted = isInverted;
         this.isSensorInverted = isSensorInverted;
@@ -180,27 +184,27 @@ public class MotorConfig{
         this.coefs = coefs;
     }
 
-    public double getRampRate(){
+    public double getRampRate() {
         return this.rampRate;
     }
 
-    public boolean isInverted(){
+    public boolean isInverted() {
         return this.isInverted;
     }
 
-    public boolean isSensorInverted(){
+    public boolean isSensorInverted() {
         return this.isSensorInverted;
     }
 
-    public NeutralMode getNeutralMode(){
+    public NeutralMode getNeutralMode() {
         return this.neutralMode;
     }
 
-    public SupplyCurrentLimitConfiguration getSupplyCurrentLimitConfiguration(){
+    public SupplyCurrentLimitConfiguration getSupplyCurrentLimitConfiguration() {
         return this.currentLimitConfig;
     }
 
-    public double getVoltageCompSaturation(){
+    public double getVoltageCompSaturation() {
         return this.voltageCompSaturation;
     }
 }

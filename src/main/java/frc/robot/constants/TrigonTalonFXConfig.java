@@ -3,11 +3,12 @@ package frc.robot.constants;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import frc.robot.utilities.PIDCoefs;
 
-public class TrigonTalonFXConfig extends TalonFXConfiguration{
-    public TrigonTalonFXConfig(double openLoopRamp,
-                               double closedLoopRamp,
-                               PIDCoefs pidCoefs
-    ){
+public class TrigonTalonFXConfig extends TalonFXConfiguration {
+    public TrigonTalonFXConfig(
+            double openLoopRamp,
+            double closedLoopRamp,
+            PIDCoefs pidCoefs
+    ) {
         this.openloopRamp = openLoopRamp;
         this.closedloopRamp = closedLoopRamp;
         slot0.kP = pidCoefs.getKP();

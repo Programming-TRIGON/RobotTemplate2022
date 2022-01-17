@@ -15,12 +15,12 @@ import frc.robot.constants.RobotConstants.SwerveConstants;
 /**
  * The Swerve subsystem.
  */
-public class Swerve extends SubsystemBase {
+public class SwerveSS extends SubsystemBase {
     private final SwerveDriveOdometry swerveOdometry;
     private final SwerveModule[] mSwerveMods;
     private final PigeonIMU gyro;
 
-    public Swerve() {
+    public SwerveSS() {
         gyro = new PigeonIMU(new TalonSRX(SwerveConstants.PIGEON_ID));
         gyro.configFactoryDefault();
         zeroGyro();

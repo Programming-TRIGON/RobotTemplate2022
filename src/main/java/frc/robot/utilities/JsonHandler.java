@@ -53,6 +53,12 @@ public class JsonHandler {
     public static void write(LocalConstants constants) {
         try {
             String json = gson.toJson(constants);
+            //replace every newline with a ~
+            json = json.replaceAll("\n", "~");
+            //replace every two spaces with a tab
+            json = json.replaceAll("\\s{2}", "\t");
+            //replace every ~ with a newline
+            json = json.replaceAll("~", "\n");
             Files.write(Path.of(path), json.getBytes(StandardCharsets.UTF_8));
             System.out.println("Constants file written to " + path);
         } catch(IOException e) {
