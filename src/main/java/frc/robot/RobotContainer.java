@@ -27,7 +27,6 @@ public class RobotContainer {
         driverXbox = new TrigonController(0);
 
         initializeCommands();
-        robotConstants = new RobotConstants();
         fieldConstants = new FieldConstants();
     }
 

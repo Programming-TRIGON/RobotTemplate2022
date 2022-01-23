@@ -9,66 +9,28 @@ import frc.robot.utilities.PIDCoefs;
  * the wiring easier and significantly reduces the number of magic numbers
  * floating around.
  */
-public class RobotMap{
+public class RobotMap {
     // TODO: Set variables for hardware components
 
     public static class CAN {
         public static class SwerveMap {
             public static final int PIGEON_ID = 12;
 
-            public static final SwerveModuleConstants FRONT_LEFT_CONSTANTS = new SwerveModuleConstants(
-                    16,
-                    15,
-                    8,
-                    LOCAL_CONSTANTS.localSwerveConstants.modules.frontLeftModuleConstants.encoderOffset,
-                    LOCAL_CONSTANTS.localSwerveConstants.modules.frontLeftModuleConstants.angleCoefs,
-                    LOCAL_CONSTANTS.localSwerveConstants.modules.frontLeftModuleConstants.driveCoefs
-            );
-            public static final SwerveModuleConstants FRONT_RIGHT_CONSTANTS = new SwerveModuleConstants(
-                    14,
-                    13,
-                    9,
-                    LOCAL_CONSTANTS.localSwerveConstants.modules.frontRightModuleConstants.encoderOffset,
-                    LOCAL_CONSTANTS.localSwerveConstants.modules.frontRightModuleConstants.angleCoefs,
-                    LOCAL_CONSTANTS.localSwerveConstants.modules.frontRightModuleConstants.driveCoefs
-            );
-            public static final SwerveModuleConstants REAR_LEFT_CONSTANTS = new SwerveModuleConstants(
-                    6,
-                    7,
-                    11,
-                    LOCAL_CONSTANTS.localSwerveConstants.modules.rearLeftModuleConstants.encoderOffset,
-                    LOCAL_CONSTANTS.localSwerveConstants.modules.rearLeftModuleConstants.angleCoefs,
-                    LOCAL_CONSTANTS.localSwerveConstants.modules.rearLeftModuleConstants.driveCoefs
-            );
-            public static final SwerveModuleConstants REAR_RIGHT_CONSTANTS = new SwerveModuleConstants(
-                    4,
-                    5,
-                    10,
-                    LOCAL_CONSTANTS.localSwerveConstants.modules.rearRightModuleConstants.encoderOffset,
-                    LOCAL_CONSTANTS.localSwerveConstants.modules.rearRightModuleConstants.angleCoefs,
-                    LOCAL_CONSTANTS.localSwerveConstants.modules.rearRightModuleConstants.driveCoefs
-            );
+            public static final int FRONT_LEFT_DRIVE_MOTOR_ID = 16;
+            public static final int FRONT_LEFT_ANGLE_MOTOR_ID = 15;
+            public static final int FRONT_LEFT_ANGLE_ENCODER_ID = 8;
 
-            
+            public static final int FRONT_RIGHT_DRIVE_MOTOR_ID = 14;
+            public static final int FRONT_RIGHT_ANGLE_MOTOR_ID = 13;
+            public static final int FRONT_RIGHT_ANGLE_ENCODER_ID = 9;
 
-            public static class SwerveModuleConstants {
-                public final int driveMotorID;
-                public final int angleMotorID;
-                public final int encoderID;
-                public final double encoderOffset;
-                public final PIDCoefs anglePIDCoefs, drivePIDCoefs;
+            public static final int REAR_LEFT_DRIVE_MOTOR_ID = 6;
+            public static final int REAR_LEFT_ANGLE_MOTOR_ID = 7;
+            public static final int REAR_LEFT_ANGLE_ENCODER_ID = 11;
 
-                public SwerveModuleConstants(
-                        int driveMotorID, int angleMotorID, int encoderID, double encoderOffset,
-                        PIDCoefs anglePIDCoefs, PIDCoefs drivePIDCoefs) {
-                    this.driveMotorID = driveMotorID;
-                    this.angleMotorID = angleMotorID;
-                    this.encoderID = encoderID;
-                    this.encoderOffset = encoderOffset;
-                    this.anglePIDCoefs = anglePIDCoefs;
-                    this.drivePIDCoefs = drivePIDCoefs;
-                }
-            }
+            public static final int REAR_RIGHT_DRIVE_MOTOR_ID = 4;
+            public static final int REAR_RIGHT_ANGLE_MOTOR_ID = 5;
+            public static final int REAR_RIGHT_ANGLE_ENCODER_ID = 10;
         }
     }
 

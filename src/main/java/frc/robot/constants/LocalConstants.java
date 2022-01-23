@@ -6,7 +6,7 @@ import frc.robot.utilities.PIDCoefs;
 
 public class LocalConstants {
     @SerializedName("Swerve")
-    LocalSwerveConstants localSwerveConstants;
+    public LocalSwerveConstants localSwerveConstants;
 
     public LocalConstants() {
         localSwerveConstants = new LocalSwerveConstants();

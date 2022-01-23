@@ -8,6 +8,7 @@ import frc.robot.utilities.JsonHandler;
 import frc.robot.utilities.PIDCoefs;
 import frc.robot.constants.RobotMap.*;
 
+
 /**
  * All the constants to be uses for the robot
  */
@@ -104,5 +105,61 @@ public class RobotConstants{
 
         /* Driving Constants */
         public static final double SPEED_DIVIDER = 6;
+
+
+        public static final SwerveModuleConstants FRONT_LEFT_CONSTANTS = new SwerveModuleConstants(
+                CAN.SwerveMap.FRONT_LEFT_DRIVE_MOTOR_ID,
+                CAN.SwerveMap.FRONT_LEFT_ANGLE_MOTOR_ID,
+                CAN.SwerveMap.FRONT_LEFT_ANGLE_ENCODER_ID,
+                LOCAL_CONSTANTS.localSwerveConstants.modules.frontLeftModuleConstants.encoderOffset,
+                LOCAL_CONSTANTS.localSwerveConstants.modules.frontLeftModuleConstants.angleCoefs,
+                LOCAL_CONSTANTS.localSwerveConstants.modules.frontLeftModuleConstants.driveCoefs
+        );
+        public static final SwerveModuleConstants FRONT_RIGHT_CONSTANTS = new SwerveModuleConstants(
+                CAN.SwerveMap.FRONT_RIGHT_DRIVE_MOTOR_ID,
+                CAN.SwerveMap.FRONT_RIGHT_ANGLE_MOTOR_ID,
+                CAN.SwerveMap.FRONT_RIGHT_ANGLE_ENCODER_ID,
+                LOCAL_CONSTANTS.localSwerveConstants.modules.frontRightModuleConstants.encoderOffset,
+                LOCAL_CONSTANTS.localSwerveConstants.modules.frontRightModuleConstants.angleCoefs,
+                LOCAL_CONSTANTS.localSwerveConstants.modules.frontRightModuleConstants.driveCoefs
+        );
+        public static final SwerveModuleConstants REAR_LEFT_CONSTANTS = new SwerveModuleConstants(
+                CAN.SwerveMap.REAR_LEFT_DRIVE_MOTOR_ID,
+                CAN.SwerveMap.REAR_LEFT_ANGLE_MOTOR_ID,
+                CAN.SwerveMap.REAR_LEFT_ANGLE_ENCODER_ID,
+                LOCAL_CONSTANTS.localSwerveConstants.modules.rearLeftModuleConstants.encoderOffset,
+                LOCAL_CONSTANTS.localSwerveConstants.modules.rearLeftModuleConstants.angleCoefs,
+                LOCAL_CONSTANTS.localSwerveConstants.modules.rearLeftModuleConstants.driveCoefs
+        );
+        public static final SwerveModuleConstants REAR_RIGHT_CONSTANTS = new SwerveModuleConstants(
+                CAN.SwerveMap.REAR_RIGHT_DRIVE_MOTOR_ID,
+                CAN.SwerveMap.REAR_RIGHT_ANGLE_MOTOR_ID,
+                CAN.SwerveMap.REAR_RIGHT_ANGLE_ENCODER_ID,
+                LOCAL_CONSTANTS.localSwerveConstants.modules.rearRightModuleConstants.encoderOffset,
+                LOCAL_CONSTANTS.localSwerveConstants.modules.rearRightModuleConstants.angleCoefs,
+                LOCAL_CONSTANTS.localSwerveConstants.modules.rearRightModuleConstants.driveCoefs
+        );
+
+
+        public static class SwerveModuleConstants {
+            public final int driveMotorID;
+            public final int angleMotorID;
+            public final int encoderID;
+            public final double encoderOffset;
+            public final PIDCoefs anglePIDCoefs, drivePIDCoefs;
+
+            public SwerveModuleConstants(
+                    int driveMotorID, int angleMotorID, int encoderID, double encoderOffset,
+                    PIDCoefs anglePIDCoefs, PIDCoefs drivePIDCoefs) {
+                this.driveMotorID = driveMotorID;
+                this.angleMotorID = angleMotorID;
+                this.encoderID = encoderID;
+                this.encoderOffset = encoderOffset;
+                this.anglePIDCoefs = anglePIDCoefs;
+                this.drivePIDCoefs = drivePIDCoefs;
+            }
+        }
+
+
     }
 }

@@ -30,10 +30,10 @@ public class SwerveSS extends SubsystemBase {
         swerveOdometry = new SwerveDriveOdometry(SwerveConstants.SWERVE_KINEMATICS, getYaw());
 
         swerveModules = new SwerveModule[4];
-        swerveModules[Modules.FRONT_LEFT.getId()] = new SwerveModule(SwerveMap.FRONT_LEFT_CONSTANTS);
-        swerveModules[Modules.FRONT_RIGHT.getId()] = new SwerveModule(SwerveMap.FRONT_RIGHT_CONSTANTS);
-        swerveModules[Modules.REAR_LEFT.getId()] = new SwerveModule(SwerveMap.REAR_LEFT_CONSTANTS);
-        swerveModules[Modules.REAR_RIGHT.getId()] = new SwerveModule(SwerveMap.REAR_RIGHT_CONSTANTS);
+        swerveModules[Modules.FRONT_LEFT.getId()] = new SwerveModule(SwerveConstants.FRONT_LEFT_CONSTANTS);
+        swerveModules[Modules.FRONT_RIGHT.getId()] = new SwerveModule(SwerveConstants.FRONT_RIGHT_CONSTANTS);
+        swerveModules[Modules.REAR_LEFT.getId()] = new SwerveModule(SwerveConstants.REAR_LEFT_CONSTANTS);
+        swerveModules[Modules.REAR_RIGHT.getId()] = new SwerveModule(SwerveConstants.REAR_RIGHT_CONSTANTS);
     }
 
     /**

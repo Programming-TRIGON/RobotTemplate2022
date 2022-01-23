@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
 import frc.robot.components.TrigonTalonFX;
 import frc.robot.components.TrigonTalonSRX;
 import frc.robot.constants.RobotConstants.SwerveConstants;
-import frc.robot.constants.RobotMap.CAN.SwerveMap.SwerveModuleConstants;
+import frc.robot.constants.RobotConstants.SwerveConstants.SwerveModuleConstants;
 import frc.robot.utilities.CTREUtil;
 import frc.robot.utilities.EncoderConversions;
 import frc.robot.utilities.TrigonPIDController;
