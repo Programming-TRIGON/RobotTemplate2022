@@ -1,11 +1,12 @@
 package frc.robot.constants;
 
 import frc.robot.utilities.PIDCoefs;
+import frc.robot.constants.RobotMap.*;
 
 /**
  * All the constants to be uses for the robot
  */
-public class RobotConstants extends RobotMap {
+public class RobotConstants{
     public LocalConstants localConstants = JsonHandler.getConstants();
 
     public static class LimelightConstants {
