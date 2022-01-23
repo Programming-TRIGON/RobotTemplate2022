@@ -9,8 +9,7 @@ import frc.robot.utilities.PIDCoefs;
  * the wiring easier and significantly reduces the number of magic numbers
  * floating around.
  */
-public class RobotMap {
-    public static final LocalConstants LOCAL_CONSTANTS = JsonHandler.getConstants();
+public class RobotMap{
     // TODO: Set variables for hardware components
 
     public static class CAN {
@@ -49,6 +48,8 @@ public class RobotMap {
                     LOCAL_CONSTANTS.localSwerveConstants.modules.rearRightModuleConstants.angleCoefs,
                     LOCAL_CONSTANTS.localSwerveConstants.modules.rearRightModuleConstants.driveCoefs
             );
+
+            
 
             public static class SwerveModuleConstants {
                 public final int driveMotorID;

@@ -1,6 +1,8 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
+import frc.robot.constants.FieldConstants;
+import frc.robot.constants.RobotConstants;
 import frc.robot.subsystems.swerve.SupplierDriveCMD;
 import frc.robot.subsystems.swerve.SwerveSS;
 import frc.robot.utilities.DashboardController;
@@ -15,6 +17,7 @@ public class RobotContainer {
 
     // Commands
     public static SupplierDriveCMD driveWithXboxCMD;
+    private final FieldConstants fieldConstants;
 
     /**
      * Add classes here
@@ -24,6 +27,8 @@ public class RobotContainer {
         driverXbox = new TrigonController(0);
 
         initializeCommands();
+        robotConstants = new RobotConstants();
+        fieldConstants = new FieldConstants();
     }
 
     /**
@@ -35,6 +40,7 @@ public class RobotContainer {
                 () -> driverXbox.getY(GenericHID.Hand.kLeft),
                 () -> driverXbox.getX(GenericHID.Hand.kRight),
                 true);
+
     }
 
     public void updateDashboard() {
