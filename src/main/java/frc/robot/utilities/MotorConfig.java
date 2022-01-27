@@ -2,6 +2,7 @@ package frc.robot.utilities;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
+import frc.robot.utilities.pid.PIDCoefs;
 
 /**
  * This class stores the configuration of a motor

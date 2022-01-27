@@ -1,15 +1,20 @@
-package frc.robot.utilities;
+package frc.robot.utilities.pid;
 
 import edu.wpi.first.wpilibj.controller.PIDController;
-import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
+import frc.robot.utilities.pid.PIDCoefs;
+import frc.robot.utilities.pid.PIDConfigurable;
 
-public class TrigonPIDController extends PIDController {
+public class TrigonPIDController extends PIDController implements PIDConfigurable {
     private double f;
+    private boolean isTuning;
+    private PIDCoefs pidCoefs;
 
     public TrigonPIDController(PIDCoefs pidCoefs) {
         super(pidCoefs.getKP(), pidCoefs.getKI(), pidCoefs.getKD());
+        this.pidCoefs = pidCoefs;
         setTolerance(pidCoefs.getTolerance(), pidCoefs.getDeltaTolerance());
         f = pidCoefs.getKF();
+        isTuning = false;
     }
 
     /**
@@ -39,13 +44,26 @@ public class TrigonPIDController extends PIDController {
         return calculate(measurement) + f * getSetpoint();
     }
 
+
     @Override
-    public void initSendable(SendableBuilder builder) {
-        builder.setSmartDashboardType("PIDController");
-        builder.addDoubleProperty("p", this::getP, this::setP);
-        builder.addDoubleProperty("i", this::getI, this::setI);
-        builder.addDoubleProperty("d", this::getD, this::setD);
-        builder.addDoubleProperty("f", this::getF, this::setF);
-        builder.addDoubleProperty("setpoint", this::getSetpoint, this::setSetpoint);
+    public PIDCoefs getCoefs() {
+        return pidCoefs;
+    }
+
+    @Override
+    public void updatePID() {
+        setP(pidCoefs.getKP());
+        setI(pidCoefs.getKI());
+        setD(pidCoefs.getKD());
+    }
+
+    @Override
+    public boolean isTuningPID() {
+        return isTuning;
+    }
+
+    @Override
+    public void setIsTuningPID(boolean isTuningPID) {
+        this.isTuning = isTuningPID;
     }
 }

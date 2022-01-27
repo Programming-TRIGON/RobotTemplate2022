@@ -1,8 +1,5 @@
 package frc.robot.constants;
 
-import frc.robot.utilities.JsonHandler;
-import frc.robot.utilities.PIDCoefs;
-
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking

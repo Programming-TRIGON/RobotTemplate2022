@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.kinematics.SwerveDriveKinematics;
 import frc.robot.components.Pigeon;
 import frc.robot.constants.RobotMap.CAN;
 import frc.robot.utilities.JsonHandler;
-import frc.robot.utilities.PIDCoefs;
+import frc.robot.utilities.pid.PIDCoefs;
 
 /**
  * All the constants to be uses for the robot

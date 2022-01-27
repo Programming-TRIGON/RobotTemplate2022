@@ -4,7 +4,7 @@ import com.ctre.phoenix.ErrorCode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import frc.robot.utilities.MotorConfig;
-import frc.robot.utilities.PIDCoefs;
+import frc.robot.utilities.pid.PIDCoefs;
 
 /**
  * This class creates a new instance of WPI_TalonSRX and configures values based
@@ -46,7 +46,7 @@ public class TrigonTalonSRX extends WPI_TalonSRX {
         config.slot0.kP = pidCoefs.getKP();
         config.slot0.kI = pidCoefs.getKI();
         config.slot0.kD = pidCoefs.getKD();
-        config.slot0.kF = pidCoefs.getKF();
+        config.slot0.kF = pidCoefs.getKV();
         config.slot0.allowableClosedloopError = (int) pidCoefs.getTolerance();
 
         return this.configAllSettings(config);

@@ -4,7 +4,7 @@ import com.ctre.phoenix.ErrorCode;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import frc.robot.utilities.MotorConfig;
-import frc.robot.utilities.PIDCoefs;
+import frc.robot.utilities.pid.PIDCoefs;
 
 /**
  * This class creates a new instance of WPI_TalonFX and configures values based

@@ -29,4 +29,14 @@ public class CTREUtil {
             }
         }
     }
+
+    /**
+     * A recursive function to check if the error code from the errorCodeSupplier is OK.
+     * If not, print to the console, and try again, up to a default amount of times.
+     *
+     * @param errorCodeSupplier A supplier for a phoenix config function that returns an error code.
+     */
+    public static void checkError(Supplier<ErrorCode> errorCodeSupplier) {
+        checkError(errorCodeSupplier,30);
+    }
 }

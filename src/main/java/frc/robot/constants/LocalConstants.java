@@ -2,7 +2,7 @@ package frc.robot.constants;
 
 import com.google.gson.annotations.SerializedName;
 import frc.robot.utilities.JsonHandler;
-import frc.robot.utilities.PIDCoefs;
+import frc.robot.utilities.pid.PIDCoefs;
 
 public class LocalConstants {
     @SerializedName("Swerve")

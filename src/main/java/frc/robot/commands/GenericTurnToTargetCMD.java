@@ -7,7 +7,7 @@ import frc.robot.subsystems.MovableSubsystem;
 import frc.robot.vision.Target;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.utilities.PIDCoefs;
+import frc.robot.utilities.pid.PIDCoefs;
 import edu.wpi.first.wpilibj.Timer;
 
 /**

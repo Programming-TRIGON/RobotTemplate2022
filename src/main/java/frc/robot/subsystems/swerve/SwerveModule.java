@@ -10,7 +10,7 @@ import frc.robot.constants.RobotConstants.SwerveConstants;
 import frc.robot.constants.RobotConstants.SwerveConstants.SwerveModuleConstants;
 import frc.robot.utilities.CTREUtil;
 import frc.robot.utilities.EncoderConversions;
-import frc.robot.utilities.TrigonPIDController;
+import frc.robot.utilities.pid.TrigonPIDController;
 
 /**
  * This class represents a single swerve module.

@@ -1,4 +1,4 @@
-package frc.robot.utilities;
+package frc.robot.utilities.pid;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -12,8 +12,6 @@ public class PIDCoefs {
     private double KI;
     @SerializedName(value = "kD", alternate = {"d", "D", "KD"})
     private double KD;
-    @SerializedName(value = "kF", alternate = {"f", "F", "KF"})
-    private double KF;
     @SerializedName(value = "tolerance", alternate = {"kT", "t", "T", "KT"})
     private double tolerance;
     @SerializedName(value = "deltaTolerance", alternate = {"kDT", "dt", "DT", "KDT"})
@@ -30,29 +28,11 @@ public class PIDCoefs {
      * @param deltaTolerance The tolerance of the change in error.
      */
     public PIDCoefs(double KP, double KI, double KD, double tolerance, double deltaTolerance) {
-        this(KP, KI, KD, 0, tolerance, deltaTolerance);
-    }
-
-    /**
-     * @param KP             The Proportional coefficient of the PID loop in this
-     *                       command.
-     * @param KI             The Integral coefficient of the PID loop in this
-     *                       command.
-     * @param KD             The Differential coefficient of the PID loop in this
-     *                       command.
-     * @param KF             The Feed-Forward coefficient of the PID loop in this
-     *                       command.
-     * @param tolerance      The error tolerance of this command.
-     * @param deltaTolerance The tolerance of the change in error.
-     */
-    public PIDCoefs(double KP, double KI, double KD, double KF, double tolerance, double deltaTolerance) {
         this.KP = KP;
         this.KI = KI;
         this.KD = KD;
-        this.KF = KF;
         this.tolerance = tolerance;
         this.deltaTolerance = deltaTolerance;
-
     }
 
     public PIDCoefs() {
@@ -82,14 +62,6 @@ public class PIDCoefs {
         this.KD = KD;
     }
 
-    public double getKF() {
-        return KF;
-    }
-
-    public void setKF(double KF) {
-        this.KF = KF;
-    }
-
     public double getTolerance() {
         return tolerance;
     }
@@ -105,5 +77,4 @@ public class PIDCoefs {
     public void setDeltaTolerance(double deltaTolerance) {
         this.deltaTolerance = deltaTolerance;
     }
-
 }
