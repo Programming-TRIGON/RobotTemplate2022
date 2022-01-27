@@ -4,15 +4,15 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveKinematics;
+import frc.robot.components.Pigeon;
+import frc.robot.constants.RobotMap.CAN;
 import frc.robot.utilities.JsonHandler;
 import frc.robot.utilities.PIDCoefs;
-import frc.robot.constants.RobotMap.*;
-
 
 /**
  * All the constants to be uses for the robot
  */
-public class RobotConstants{
+public class RobotConstants {
     public static final LocalConstants LOCAL_CONSTANTS = JsonHandler.getConstants();
 
     public static class LimelightConstants {
@@ -37,8 +37,6 @@ public class RobotConstants{
     }
 
     public static class SwerveConstants {
-        public static final int PIGEON_ID = CAN.SwerveMap.PIGEON_ID;
-
         public static final boolean INVERT_GYRO = false; // Always ensure Gyro is CCW+ CW-
 
         /* Drivetrain Constants */
@@ -106,7 +104,6 @@ public class RobotConstants{
         /* Driving Constants */
         public static final double SPEED_DIVIDER = 6;
 
-
         public static final SwerveModuleConstants FRONT_LEFT_CONSTANTS = new SwerveModuleConstants(
                 CAN.SwerveMap.FRONT_LEFT_DRIVE_MOTOR_ID,
                 CAN.SwerveMap.FRONT_LEFT_ANGLE_MOTOR_ID,
@@ -140,7 +137,6 @@ public class RobotConstants{
                 LOCAL_CONSTANTS.localSwerveConstants.modules.rearRightModuleConstants.driveCoefs
         );
 
-
         public static class SwerveModuleConstants {
             public final int driveMotorID;
             public final int angleMotorID;
@@ -160,6 +156,8 @@ public class RobotConstants{
             }
         }
 
-
+        public static class SwerveComponents {
+            public static Pigeon pigeon = new Pigeon(CAN.SwerveMap.PIGEON_ID);
+        }
     }
 }

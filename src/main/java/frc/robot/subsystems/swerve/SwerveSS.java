@@ -1,6 +1,5 @@
 package frc.robot.subsystems.swerve;
 
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.sensors.PigeonIMU;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
@@ -11,7 +10,6 @@ import edu.wpi.first.wpilibj.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.RobotConstants.SwerveConstants;
-import frc.robot.constants.RobotMap.CAN.SwerveMap;
 import frc.robot.utilities.Modules;
 
 /**
@@ -23,7 +21,7 @@ public class SwerveSS extends SubsystemBase {
     private final PigeonIMU gyro;
 
     public SwerveSS() {
-        gyro = new PigeonIMU(new TalonSRX(SwerveConstants.PIGEON_ID));
+        gyro = SwerveConstants.SwerveComponents.pigeon;
         gyro.configFactoryDefault();
         zeroGyro();
 
