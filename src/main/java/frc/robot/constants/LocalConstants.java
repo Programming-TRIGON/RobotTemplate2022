@@ -3,6 +3,7 @@ package frc.robot.constants;
 import com.google.gson.annotations.SerializedName;
 import frc.robot.utilities.JsonHandler;
 import frc.robot.utilities.pid.PIDCoefs;
+import frc.robot.utilities.pid.PIDFCoefs;
 
 public class LocalConstants {
     @SerializedName("Swerve")
@@ -44,13 +45,13 @@ public class LocalConstants {
             public static class LocalSwerveModuleConstants {
                 double encoderOffset;
 
-                PIDCoefs angleCoefs;
-                PIDCoefs driveCoefs;
+                PIDFCoefs angleCoefs;
+                PIDFCoefs driveCoefs;
 
                 public LocalSwerveModuleConstants() {
                     encoderOffset = 0;
-                    angleCoefs = new PIDCoefs();
-                    driveCoefs = new PIDCoefs();
+                    angleCoefs = new PIDFCoefs();
+                    driveCoefs = new PIDFCoefs();
                 }
             }
         }

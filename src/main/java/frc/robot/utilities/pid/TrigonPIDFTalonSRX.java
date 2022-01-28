@@ -19,6 +19,7 @@ public class TrigonPIDFTalonSRX extends TrigonTalonSRX implements PIDFMotor {
      * @param id          device ID of motor controller
      * @param motorConfig The configuration preset to use
      * @param pidfCoefs   the pidf coefficients to use
+     * @param pidSlotId   the pid slot ID to use
      */
     public TrigonPIDFTalonSRX(int id, MotorConfig motorConfig, PIDFCoefs pidfCoefs, int pidSlotId) {
         super(id, motorConfig);
@@ -30,6 +31,27 @@ public class TrigonPIDFTalonSRX extends TrigonTalonSRX implements PIDFMotor {
 
         updatePID();
         CTREUtil.checkError(() -> configAllowableClosedloopError(pidSlotId, (int) pidfCoefs.getTolerance()));
+    }
+
+    /**
+     * constructs a new PID motor controller
+     *
+     * @param id          device ID of motor controller
+     * @param motorConfig The configuration preset to use
+     * @param pidfCoefs   the pidf coefficients to use
+     */
+    public TrigonPIDFTalonSRX(int id, MotorConfig motorConfig, PIDFCoefs pidfCoefs) {
+        this(id, motorConfig, pidfCoefs, 0);
+    }
+
+    /**
+     * constructs a new PID motor controller
+     *
+     * @param id        device ID of motor controller
+     * @param pidfCoefs the pidf coefficients to use
+     */
+    public TrigonPIDFTalonSRX(int id, PIDFCoefs pidfCoefs) {
+        this(id, new MotorConfig(), pidfCoefs, 0);
     }
 
     @Override

@@ -9,7 +9,8 @@ import frc.robot.utilities.pid.PIDCoefs;
  */
 public class MotorConfig {
 
-    private final double rampRate;
+    private final double openLoopRampRate;
+    private final double closedLoopRampRate;
     private final boolean isInverted;
     private final boolean isSensorInverted;
     private final NeutralMode neutralMode;
@@ -37,7 +38,8 @@ public class MotorConfig {
      * @param isInverted  Inverts the hbridge output of the motor controller.
      */
     public MotorConfig(MotorConfig motorConfig, boolean isInverted) {
-        this(motorConfig.getRampRate(), isInverted, false, motorConfig.getNeutralMode(),
+        this(motorConfig.getOpenLoopRampRate(), motorConfig.getClosedLoopRampRate(), isInverted, false,
+                motorConfig.getNeutralMode(),
                 motorConfig.getVoltageCompSaturation(), motorConfig.getSupplyCurrentLimitConfiguration());
     }
 
@@ -56,7 +58,8 @@ public class MotorConfig {
      *                         positive change in sensor.
      */
     public MotorConfig(MotorConfig motorConfig, boolean isInverted, boolean isSensorInverted) {
-        this(motorConfig.getRampRate(), isInverted, isSensorInverted, motorConfig.getNeutralMode(),
+        this(motorConfig.getOpenLoopRampRate(), motorConfig.getClosedLoopRampRate(), isInverted, isSensorInverted,
+                motorConfig.getNeutralMode(),
                 motorConfig.getVoltageCompSaturation(), motorConfig.getSupplyCurrentLimitConfiguration());
     }
 
@@ -103,14 +106,18 @@ public class MotorConfig {
     public MotorConfig(
             double rampRate, boolean isInverted, boolean isSensorInverted, NeutralMode neutralMode,
             double voltageCompSaturation) {
-        this(rampRate, isInverted, isSensorInverted, neutralMode, voltageCompSaturation,
+        this(rampRate, rampRate, isInverted, isSensorInverted, neutralMode, voltageCompSaturation,
                 new SupplyCurrentLimitConfiguration(false, 0, 0, 0));
     }
 
     /**
-     * @param rampRate                        Minimum desired time to go from
-     *                                        neutral to full throttle. A value of
+     * @param openLoopRampRate                Minimum desired time to go from
+     *                                        neutral to full throttle during open loop. A value of
      *                                        '0' will disable the ramp.
+     * @param closedLoopRampRate              Minimum desired time to go from
+     *                                        *                                        neutral to full throttle
+     *                                        during closed loop. A value of
+     *                                        *                                        '0' will disable the ramp.
      * @param neutralMode                     The desired mode of operation when the
      *                                        Controller output throttle is neutral
      *                                        (ie brake/coast)
@@ -128,15 +135,20 @@ public class MotorConfig {
      *                                        from tripping.
      */
     public MotorConfig(
-            double rampRate, NeutralMode neutralMode, double voltageCompSaturation,
+            double openLoopRampRate, double closedLoopRampRate, NeutralMode neutralMode, double voltageCompSaturation,
             SupplyCurrentLimitConfiguration supplyCurrentLimitConfiguration) {
-        this(rampRate, false, false, neutralMode, voltageCompSaturation, supplyCurrentLimitConfiguration);
+        this(openLoopRampRate, closedLoopRampRate, false, false, neutralMode, voltageCompSaturation,
+                supplyCurrentLimitConfiguration);
     }
 
     /**
-     * @param rampRate                        Minimum desired time to go from
-     *                                        neutral to full throttle. A value of
+     * @param openLoopRampRate                Minimum desired time to go from
+     *                                        neutral to full throttle during open loop. A value of
      *                                        '0' will disable the ramp.
+     * @param closedLoopRampRate              Minimum desired time to go from
+     *                                        *                                        neutral to full throttle
+     *                                        during closed loop. A value of
+     *                                        *                                        '0' will disable the ramp.
      * @param isInverted                      Inverts the hbridge output of the
      *                                        motor controller.
      * @param isSensorInverted                Sets the phase of the sensor. Use when
@@ -163,9 +175,11 @@ public class MotorConfig {
      *                                        from tripping.
      */
     public MotorConfig(
-            double rampRate, boolean isInverted, boolean isSensorInverted, NeutralMode neutralMode,
+            double openLoopRampRate, double closedLoopRampRate, boolean isInverted, boolean isSensorInverted,
+            NeutralMode neutralMode,
             double voltageCompSaturation, SupplyCurrentLimitConfiguration supplyCurrentLimitConfiguration) {
-        this.rampRate = rampRate;
+        this.openLoopRampRate = openLoopRampRate;
+        this.closedLoopRampRate = closedLoopRampRate;
         this.isInverted = isInverted;
         this.isSensorInverted = isSensorInverted;
         this.neutralMode = neutralMode;
@@ -173,20 +187,12 @@ public class MotorConfig {
         this.currentLimitConfig = supplyCurrentLimitConfiguration;
     }
 
-    public MotorConfig(
-            double rampRate, boolean isInverted, boolean isSensorInverted, NeutralMode neutralMode,
-            double voltageCompSaturation, SupplyCurrentLimitConfiguration currentLimitConfig, PIDCoefs coefs) {
-        this.rampRate = rampRate;
-        this.isInverted = isInverted;
-        this.isSensorInverted = isSensorInverted;
-        this.neutralMode = neutralMode;
-        this.voltageCompSaturation = voltageCompSaturation;
-        this.currentLimitConfig = currentLimitConfig;
-        this.coefs = coefs;
+    public double getOpenLoopRampRate() {
+        return this.openLoopRampRate;
     }
 
-    public double getRampRate() {
-        return this.rampRate;
+    public double getClosedLoopRampRate() {
+        return this.closedLoopRampRate;
     }
 
     public boolean isInverted() {

@@ -37,6 +37,6 @@ public class CTREUtil {
      * @param errorCodeSupplier A supplier for a phoenix config function that returns an error code.
      */
     public static void checkError(Supplier<ErrorCode> errorCodeSupplier) {
-        checkError(errorCodeSupplier,30);
+        checkError(errorCodeSupplier,3);
     }
 }
