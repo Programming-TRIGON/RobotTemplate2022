@@ -9,8 +9,10 @@ import edu.wpi.first.wpilibj.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.constants.RobotConstants.SwerveConstants;
+import frc.robot.constants.RobotConstants;
 import frc.robot.utilities.Modules;
+
+import static frc.robot.constants.RobotConstants.swerveConstants;
 
 /**
  * The Swerve subsystem.
@@ -21,17 +23,17 @@ public class SwerveSS extends SubsystemBase {
     private final PigeonIMU gyro;
 
     public SwerveSS() {
-        gyro = SwerveConstants.SwerveComponents.pigeon;
+        gyro = swerveConstants.swerveComponents.pigeon;
         gyro.configFactoryDefault();
         zeroGyro();
 
-        swerveOdometry = new SwerveDriveOdometry(SwerveConstants.SWERVE_KINEMATICS, getYaw());
+        swerveOdometry = new SwerveDriveOdometry(swerveConstants.SWERVE_KINEMATICS, getYaw());
 
         swerveModules = new SwerveModule[4];
-        swerveModules[Modules.FRONT_LEFT.getId()] = new SwerveModule(SwerveConstants.FRONT_LEFT_CONSTANTS);
-        swerveModules[Modules.FRONT_RIGHT.getId()] = new SwerveModule(SwerveConstants.FRONT_RIGHT_CONSTANTS);
-        swerveModules[Modules.REAR_LEFT.getId()] = new SwerveModule(SwerveConstants.REAR_LEFT_CONSTANTS);
-        swerveModules[Modules.REAR_RIGHT.getId()] = new SwerveModule(SwerveConstants.REAR_RIGHT_CONSTANTS);
+        swerveModules[Modules.FRONT_LEFT.getId()] = new SwerveModule(swerveConstants.FRONT_LEFT_CONSTANTS);
+        swerveModules[Modules.FRONT_RIGHT.getId()] = new SwerveModule(swerveConstants.FRONT_RIGHT_CONSTANTS);
+        swerveModules[Modules.REAR_LEFT.getId()] = new SwerveModule(swerveConstants.REAR_LEFT_CONSTANTS);
+        swerveModules[Modules.REAR_RIGHT.getId()] = new SwerveModule(swerveConstants.REAR_RIGHT_CONSTANTS);
     }
 
     /**
@@ -46,7 +48,7 @@ public class SwerveSS extends SubsystemBase {
     public void drive(Translation2d translation, double rotation, boolean fieldRelative, boolean isOpenLoop) {
         // set the desired states based on the given
         // translation and rotation
-        SwerveModuleState[] swerveModuleStates = SwerveConstants.SWERVE_KINEMATICS.toSwerveModuleStates(
+        SwerveModuleState[] swerveModuleStates = swerveConstants.SWERVE_KINEMATICS.toSwerveModuleStates(
                 fieldRelative ?
                 ChassisSpeeds.fromFieldRelativeSpeeds( // if field relative, convert to field relative speeds
                         translation.getX(),
@@ -61,7 +63,7 @@ public class SwerveSS extends SubsystemBase {
                 )
         );
         // making sure the speeds are within the max speed
-        SwerveDriveKinematics.normalizeWheelSpeeds(swerveModuleStates, SwerveConstants.MAX_SPEED);
+        SwerveDriveKinematics.normalizeWheelSpeeds(swerveModuleStates, swerveConstants.MAX_SPEED);
 
         // if we are not moving or rotating at all, set the desired angle to the current angle
         if(translation.getNorm() == 0 && rotation == 0) {
@@ -82,7 +84,7 @@ public class SwerveSS extends SubsystemBase {
      * @param desiredStates array of length 4, where each element is the desired state of the module
      */
     public void setModuleStates(SwerveModuleState[] desiredStates) {
-        SwerveDriveKinematics.normalizeWheelSpeeds(desiredStates, SwerveConstants.MAX_SPEED);
+        SwerveDriveKinematics.normalizeWheelSpeeds(desiredStates, swerveConstants.MAX_SPEED);
 
         for(int i = 0; i < swerveModules.length; i++) {
             swerveModules[i].setDesiredState(desiredStates[i], true);
@@ -135,7 +137,7 @@ public class SwerveSS extends SubsystemBase {
     public Rotation2d getYaw() {
         double[] ypr = new double[3];
         gyro.getYawPitchRoll(ypr);
-        return (SwerveConstants.INVERT_GYRO) ? Rotation2d.fromDegrees(360 - ypr[0]) : Rotation2d.fromDegrees(ypr[0]);
+        return (swerveConstants.INVERT_GYRO) ? Rotation2d.fromDegrees(360 - ypr[0]) : Rotation2d.fromDegrees(ypr[0]);
     }
 
     @Override
