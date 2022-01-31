@@ -24,7 +24,11 @@ public class TrigonTalonSRX extends WPI_TalonSRX {
         setNeutralMode(motorConfig.getNeutralMode());
         configVoltageCompSaturation(motorConfig.getVoltageCompSaturation());
         enableVoltageCompensation(motorConfig.getVoltageCompSaturation() > 0);
-        configSupplyCurrentLimit(motorConfig.getSupplyCurrentLimitConfiguration());
+        configSupplyCurrentLimit(motorConfig.getCurrentLimitConfig());
+        config_kP(0, motorConfig.getCoefs().getKP());
+        config_kI(0, motorConfig.getCoefs().getKI());
+        config_kD(0, motorConfig.getCoefs().getKD());
+        config_kF(0, motorConfig.getCoefs().getKV());
     }
 
     /**

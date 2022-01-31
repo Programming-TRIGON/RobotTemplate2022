@@ -10,12 +10,13 @@ import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.components.Pigeon;
 import frc.robot.constants.RobotConstants.SwerveConstants;
+import frc.robot.subsystems.MovableSubsystem;
 import frc.robot.utilities.Modules;
 
 /**
  * The Swerve subsystem.
  */
-public class SwerveSS extends SubsystemBase {
+public class SwerveSS extends SubsystemBase implements MovableSubsystem {
     private final SwerveDriveOdometry swerveOdometry;
     private final SwerveModule[] swerveModules;
     private final Pigeon gyro;
@@ -23,7 +24,7 @@ public class SwerveSS extends SubsystemBase {
     public SwerveSS() {
         gyro = new Pigeon(SwerveConstants.PIGEON_ID);
         gyro.configFactoryDefault();
-        zeroGyro();
+        resetGyro();
 
         swerveOdometry = new SwerveDriveOdometry(SwerveConstants.SWERVE_KINEMATICS, getAngle());
 
@@ -121,10 +122,10 @@ public class SwerveSS extends SubsystemBase {
     }
 
     /**
-     * resets the gyro to 0
+     * Calibrates and zeroes the gyro
      */
-    public void zeroGyro() {
-        gyro.setYaw(0);
+    public void resetGyro() {
+        gyro.calibrate();
     }
 
     /**
@@ -134,6 +135,11 @@ public class SwerveSS extends SubsystemBase {
      */
     public Rotation2d getAngle() {
         return Rotation2d.fromDegrees(gyro.getAngle());
+    }
+
+    @Override
+    public void move(double power) {
+        drive(new Translation2d(0, 0), power, false, true);
     }
 
     @Override

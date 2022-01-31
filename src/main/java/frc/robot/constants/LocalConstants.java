@@ -2,15 +2,18 @@ package frc.robot.constants;
 
 import com.google.gson.annotations.SerializedName;
 import frc.robot.utilities.JsonHandler;
-import frc.robot.utilities.pid.PIDCoefs;
 import frc.robot.utilities.pid.PIDFCoefs;
 
 public class LocalConstants {
     @SerializedName("Swerve")
     public LocalSwerveConstants localSwerveConstants;
 
+    @SerializedName("Driver")
+    public LocalDriverConstants localDriverConstants;
+
     public LocalConstants() {
         localSwerveConstants = new LocalSwerveConstants();
+        localDriverConstants = new LocalDriverConstants();
     }
 
     public void write() {
@@ -55,5 +58,9 @@ public class LocalConstants {
                 }
             }
         }
+    }
+
+    public static class LocalDriverConstants {
+        int speedDivider;
     }
 }

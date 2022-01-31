@@ -1,18 +1,19 @@
 package frc.robot.subsystems.swerve;
 
-import com.ctre.phoenix.motorcontrol.*;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.RemoteSensorSource;
+import com.ctre.phoenix.motorcontrol.TalonSRXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
-import frc.robot.components.TrigonTalonFX;
 import frc.robot.components.TrigonTalonSRX;
 import frc.robot.constants.RobotConstants.SwerveConstants;
 import frc.robot.constants.SwerveModuleConstants;
 import frc.robot.utilities.CTREUtil;
 import frc.robot.utilities.EncoderConversions;
 import frc.robot.utilities.MotorConfig;
-import frc.robot.utilities.pid.TrigonPIDController;
-import frc.robot.utilities.pid.TrigonPIDFTalonFX;
+import frc.robot.utilities.pid.PIDFTalonFX;
 
 /**
  * This class represents a single swerve module.
@@ -20,35 +21,24 @@ import frc.robot.utilities.pid.TrigonPIDFTalonFX;
  * There's a
  */
 public class SwerveModule {
-    private final double encoderOffset;
-    private final TrigonPIDFTalonFX angleMotor;
-    private final TrigonPIDFTalonFX driveMotor;
+    private final PIDFTalonFX angleMotor;
+    private final PIDFTalonFX driveMotor;
     private final TrigonTalonSRX angleEncoder;
     private final SwerveModuleConstants constants;
-    private final TrigonPIDController driveFeedforward;
     private SwerveModuleState lastDesiredState;
 
     public SwerveModule(SwerveModuleConstants moduleConstants) {
         this.constants = moduleConstants;
-        this.driveFeedforward = new TrigonPIDController(
-                moduleConstants.drivePIDFCoefs);
-        encoderOffset = moduleConstants.encoderOffset;
 
-        /* Angle Encoder Config */
-        angleMotor = new TrigonPIDFTalonFX(moduleConstants.angleMotorID, SwerveConstants.ANGLE_MOTOR_CONFIG,
-                moduleConstants.anglePIDFCoefs);
-        configAngleMotor();
+        angleEncoder = new TrigonTalonSRX(moduleConstants.angleMotorID, new MotorConfig());
+        angleMotor = new PIDFTalonFX(
+                moduleConstants.angleMotorID, SwerveConstants.ANGLE_MOTOR_CONFIG.withPID(constants.anglePIDFCoefs), 0);
+        driveMotor = new PIDFTalonFX(
+                moduleConstants.driveMotorID, SwerveConstants.DRIVE_MOTOR_CONFIG.withPID(constants.drivePIDFCoefs), 0);
 
-        /* Angle Motor Config */
-        driveMotor = new TrigonPIDFTalonFX(moduleConstants.driveMotorID, SwerveConstants.DRIVE_MOTOR_CONFIG,
-                moduleConstants.anglePIDFCoefs);
-        configDriveMotor();
-
-        /* Drive Motor Config */
-        angleEncoder = new TrigonTalonSRX(
-                moduleConstants.angleMotorID,
-                new MotorConfig(new MotorConfig(), false, SwerveConstants.ENCODER_INVERT));
         configAngleEncoder();
+        configAngleMotor();
+        configDriveMotor();
     }
 
     /**
@@ -129,21 +119,14 @@ public class SwerveModule {
                     SwerveConstants.WHEEL_CIRCUMFERENCE,
                     SwerveConstants.DRIVE_GEAR_RATIO);
             // Sets the drive motor velocity with the driveFeedforward.
-            driveMotor.set(
-                    ControlMode.Velocity, velocity, DemandType.ArbitraryFeedForward,
-                    driveFeedforward.calculate(desiredState.speedMetersPerSecond));
+            driveMotor.setWithF(ControlMode.Velocity, velocity);
         }
 
-        /*//Prevent rotating module if speed is less than 1%. Prevents jitter.
-        double desiredAngle =
-                (Math.abs(desiredState.speedMetersPerSecond) <= (SwerveConstants
-                .MAX_SPEED * 0.01)) ?
-                lastAngle :
-                desiredState.angle.getDegrees(); */
         double desiredAngle = desiredState.angle.getDegrees();
         // Set the angle motor's position to the desired angle.
-        angleMotor.set(
-                ControlMode.Position, EncoderConversions.degreesToFalcon(
+        angleMotor.setWithF(
+                ControlMode.Position,
+                EncoderConversions.degreesToFalcon(
                         desiredAngle,
                         SwerveConstants.ANGLE_GEAR_RATIO));
         lastDesiredState = desiredState;
@@ -157,12 +140,12 @@ public class SwerveModule {
     private void resetToAbsolute() {
         // calculate absolute position and convert to Falcon units
         double absolutePosition = EncoderConversions.degreesToFalcon(
-                getAngle().getDegrees() - encoderOffset,
+                getAngle().getDegrees() - constants.encoderOffset,
                 SwerveConstants.ANGLE_GEAR_RATIO);
         // Set the integrated angle encoder to the absolute position.
         CTREUtil.checkError(
                 () -> angleMotor.setSelectedSensorPosition((int) absolutePosition, 0,
-                        50), 3);
+                        50));
     }
 
     /**
@@ -170,11 +153,11 @@ public class SwerveModule {
      */
     private void configAngleEncoder() {
         CTREUtil.checkError(
-                () -> angleEncoder.configFeedbackNotContinuous(true, 30), 3);
+                () -> angleEncoder.configFeedbackNotContinuous(true, 30));
         CTREUtil.checkError(
                 () -> angleEncoder.configSelectedFeedbackSensor(
-                        TalonSRXFeedbackDevice.CTRE_MagEncoder_Absolute, 0, 30),
-                3);
+                        TalonSRXFeedbackDevice.CTRE_MagEncoder_Absolute, 0, 30)
+        );
     }
 
     /**
@@ -183,9 +166,9 @@ public class SwerveModule {
     private void configAngleMotor() {
         CTREUtil.checkError(() -> angleMotor.configRemoteFeedbackFilter(
                 angleEncoder.getDeviceID(),
-                RemoteSensorSource.TalonSRX_SelectedSensor, 0, 30), 3);
+                RemoteSensorSource.TalonSRX_SelectedSensor, 0, 30));
         CTREUtil.checkError(() -> angleMotor.configSelectedFeedbackSensor(
-                FeedbackDevice.IntegratedSensor, 0, 30), 3);
+                FeedbackDevice.IntegratedSensor, 0, 30));
         resetToAbsolute();
     }
 
@@ -193,7 +176,7 @@ public class SwerveModule {
      * Configures the drive motor to the given constants.
      */
     private void configDriveMotor() {
-        CTREUtil.checkError(() -> driveMotor.setSelectedSensorPosition(0, 0, 30), 3);
+        CTREUtil.checkError(() -> driveMotor.setSelectedSensorPosition(0, 0, 30));
     }
 
     /**

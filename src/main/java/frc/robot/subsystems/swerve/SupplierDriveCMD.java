@@ -10,23 +10,24 @@ import java.util.function.Supplier;
  */
 public class SupplierDriveCMD extends CommandBase {
 
-    private SwerveSS swerveSS;
-    private final Supplier<Double> x, y, theta;
+    private final Supplier<Double> xPower, yPower, rotPower;
     private final boolean fieldRelative;
+    private SwerveSS swerveSS;
 
     public SupplierDriveCMD(
-            SwerveSS swerveSS, Supplier<Double> x, Supplier<Double> y, Supplier<Double> theta, boolean fieldRelative) {
+            SwerveSS swerveSS, Supplier<Double> xPower, Supplier<Double> yPower, Supplier<Double> rotPower,
+            boolean fieldRelative) {
         this.swerveSS = swerveSS;
-        this.x = x;
-        this.y = y;
-        this.theta = theta;
+        this.xPower = xPower;
+        this.yPower = yPower;
+        this.rotPower = rotPower;
         this.fieldRelative = fieldRelative;
         addRequirements(swerveSS);
     }
 
     @Override
     public void execute() {
-        swerveSS.drive(new Translation2d(x.get(), y.get()), theta.get(), fieldRelative, false);
+        swerveSS.drive(new Translation2d(xPower.get(), yPower.get()), rotPower.get(), fieldRelative, false);
     }
 
     @Override

@@ -3,55 +3,33 @@ package frc.robot.utilities.pid;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.DemandType;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
-import frc.robot.components.TrigonTalonSRX;
+import frc.robot.components.TrigonTalonFX;
 import frc.robot.utilities.CTREUtil;
 import frc.robot.utilities.MotorConfig;
 
-public class TrigonPIDFTalonFX extends TrigonTalonSRX implements PIDFMotor {
+public class PIDFTalonFX extends TrigonTalonFX implements PIDFMotor {
+    private final int pidSlotId;
     private PIDFCoefs pidfCoefs;
-    private int pidSlotId;
     private boolean isTuningPID;
     private double tuningPIDSetpoint;
 
     /**
-     * constructs a new PID motor controller
+     * Constructs a new PIDF motor controller
      *
      * @param id          device ID of motor controller
      * @param motorConfig The configuration preset to use
-     * @param pidfCoefs   the pidf coefficients to use
      * @param pidSlotId   the pid slot ID to use
      */
-    public TrigonPIDFTalonFX(int id, MotorConfig motorConfig, PIDFCoefs pidfCoefs, int pidSlotId) {
+    public PIDFTalonFX(int id, MotorConfig motorConfig, int pidSlotId) {
         super(id, motorConfig);
 
-        this.pidfCoefs = pidfCoefs;
+        this.pidfCoefs = motorConfig.getCoefs();
         this.pidSlotId = pidSlotId;
         this.isTuningPID = false;
         this.tuningPIDSetpoint = 0;
 
         updatePID();
         CTREUtil.checkError(() -> configAllowableClosedloopError(pidSlotId, (int) pidfCoefs.getTolerance()));
-    }
-
-    /**
-     * constructs a new PID motor controller
-     *
-     * @param id          device ID of motor controller
-     * @param motorConfig The configuration preset to use
-     * @param pidfCoefs   the pidf coefficients to use
-     */
-    public TrigonPIDFTalonFX(int id, MotorConfig motorConfig, PIDFCoefs pidfCoefs) {
-        this(id, motorConfig, pidfCoefs, 0);
-    }
-
-    /**
-     * constructs a new PID motor controller
-     *
-     * @param id        device ID of motor controller
-     * @param pidfCoefs the pidf coefficients to use
-     */
-    public TrigonPIDFTalonFX(int id, PIDFCoefs pidfCoefs) {
-        this(id, new MotorConfig(), pidfCoefs, 0);
     }
 
     @Override
@@ -75,6 +53,10 @@ public class TrigonPIDFTalonFX extends TrigonTalonSRX implements PIDFMotor {
     @Override
     public void tunePIDF(ControlMode controlMode) {
         set(controlMode, tuningPIDSetpoint, DemandType.ArbitraryFeedForward, pidfCoefs.getKS());
+    }
+
+    public void setWithF(ControlMode controlMode, double setpoint) {
+        set(controlMode, setpoint, DemandType.ArbitraryFeedForward, pidfCoefs.getKS());
     }
 
     @Override

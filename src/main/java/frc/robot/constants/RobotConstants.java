@@ -40,6 +40,7 @@ public class RobotConstants {
     public static class SwerveConstants {
         public static final boolean INVERT_GYRO = false; // Always ensure Gyro is CCW+ CW-
         public static final int PIGEON_ID = CAN.SwerveMap.PIGEON_ID;
+
         /* Drivetrain Constants */
         public static final double TRACK_WIDTH = 0.29765 * 2;
         public static final double WHEEL_BASE = 0.29765 * 2;
@@ -56,60 +57,8 @@ public class RobotConstants {
                 new Translation2d(-WHEEL_BASE / 2.0, -TRACK_WIDTH / 2.0)
         );
 
-        private static final SupplyCurrentLimitConfiguration ANGLE_CURRENT_LIMIT = new SupplyCurrentLimitConfiguration(
-                true, 25, 40,
-                0.1
-        );
-
-        private static final double ANGLE_OPEN_LOOP_RAMP = 2;
-        private static final double ANGLE_CLOSED_LOOP_RAMP = .5;
-
-        private static final NeutralMode ANGLE_NEUTRAL_MODE =
-                LOCAL_CONSTANTS.localSwerveConstants.angleNeutralMode.equals(
-                        "Brake") ? NeutralMode.Brake : NeutralMode.Coast;
-
-        public static final MotorConfig ANGLE_MOTOR_CONFIG = new MotorConfig(
-                ANGLE_OPEN_LOOP_RAMP,
-                ANGLE_CLOSED_LOOP_RAMP,
-                false,
-                false,
-                ANGLE_NEUTRAL_MODE,
-                0,
-                ANGLE_CURRENT_LIMIT
-        );
-
-        private static final SupplyCurrentLimitConfiguration DRIVE_CURRENT_LIMIT = new SupplyCurrentLimitConfiguration(
-                true, 34, 60,
-                0.1
-        );
-
-        private static final NeutralMode DRIVE_NEUTRAL_MODE =
-                LOCAL_CONSTANTS.localSwerveConstants.driveNeutralMode.equals(
-                        "Brake") ? NeutralMode.Brake : NeutralMode.Coast;
-
-        private static final double DRIVE_OPEN_LOOP_RAMP = 0.1;
-        private static final double DRIVE_CLOSED_LOOP_RAMP = 0.1;
-
-        public static final MotorConfig DRIVE_MOTOR_CONFIG = new MotorConfig(
-                DRIVE_OPEN_LOOP_RAMP,
-                DRIVE_CLOSED_LOOP_RAMP,
-                true,
-                false,
-                DRIVE_NEUTRAL_MODE,
-                0,
-                DRIVE_CURRENT_LIMIT
-        );
-
-        /* Angle Encoder Invert */
-        public static final boolean ENCODER_INVERT = false;
-
-        /* Swerve Profiling Values */
         public static final double MAX_SPEED = 4.5; //meters per second
-
         public static final double MAX_ANGULAR_VELOCITY = 11.5;
-
-        /* Driving Constants */
-        public static final double SPEED_DIVIDER = 6;
 
         public static final SwerveModuleConstants FRONT_LEFT_CONSTANTS = new SwerveModuleConstants(
                 CAN.SwerveMap.FRONT_LEFT_DRIVE_MOTOR_ID,
@@ -135,6 +84,33 @@ public class RobotConstants {
                 CAN.SwerveMap.REAR_RIGHT_ANGLE_ENCODER_ID,
                 LOCAL_CONSTANTS.localSwerveConstants.modules.rearRightModuleConstants
         );
+        public static final MotorConfig ANGLE_MOTOR_CONFIG = new MotorConfig().
+                withInverted(false).
+                withSensorInverted(false).
+                withOpenLoopRampRate(2).
+                withClosedLoopRampRate(0.5).
+                withNeutralMode(NeutralMode.valueOf(LOCAL_CONSTANTS.localSwerveConstants.angleNeutralMode)).
+                withCurrentLimitConfig(new SupplyCurrentLimitConfiguration(
+                        true,
+                        25,
+                        40,
+                        0.1
+                ));
+        public static final MotorConfig DRIVE_MOTOR_CONFIG = new MotorConfig().
+                withInverted(true).
+                withSensorInverted(false).
+                withOpenLoopRampRate(0.1).
+                withClosedLoopRampRate(0.1).
+                withNeutralMode(NeutralMode.valueOf(LOCAL_CONSTANTS.localSwerveConstants.driveNeutralMode)).
+                withCurrentLimitConfig(new SupplyCurrentLimitConfiguration(
+                        true,
+                        34,
+                        60,
+                        0.1
+                ));
+
+        /* Driver Constants */
+        public static final double SPEED_DIVIDER = LOCAL_CONSTANTS.localDriverConstants.speedDivider;
     }
 
     public static class LedConstants {
