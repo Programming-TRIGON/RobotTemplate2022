@@ -4,15 +4,15 @@ import com.ctre.phoenix.motorcontrol.*;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
+import frc.robot.components.TrigonTalonFX;
 import frc.robot.components.TrigonTalonSRX;
+import frc.robot.constants.RobotConstants.SwerveConstants;
 import frc.robot.constants.SwerveModuleConstants;
 import frc.robot.utilities.CTREUtil;
 import frc.robot.utilities.EncoderConversions;
 import frc.robot.utilities.MotorConfig;
 import frc.robot.utilities.pid.TrigonPIDController;
 import frc.robot.utilities.pid.TrigonPIDFTalonFX;
-
-import static frc.robot.constants.RobotConstants.swerveConstants;
 
 /**
  * This class represents a single swerve module.
@@ -35,19 +35,19 @@ public class SwerveModule {
         encoderOffset = moduleConstants.encoderOffset;
 
         /* Angle Encoder Config */
-        angleMotor = new TrigonPIDFTalonFX(moduleConstants.angleMotorID, swerveConstants.ANGLE_MOTOR_CONFIG,
+        angleMotor = new TrigonPIDFTalonFX(moduleConstants.angleMotorID, SwerveConstants.ANGLE_MOTOR_CONFIG,
                 moduleConstants.anglePIDFCoefs);
         configAngleMotor();
 
         /* Angle Motor Config */
-        driveMotor = new TrigonPIDFTalonFX(moduleConstants.driveMotorID, swerveConstants.DRIVE_MOTOR_CONFIG,
+        driveMotor = new TrigonPIDFTalonFX(moduleConstants.driveMotorID, SwerveConstants.DRIVE_MOTOR_CONFIG,
                 moduleConstants.anglePIDFCoefs);
         configDriveMotor();
 
         /* Drive Motor Config */
         angleEncoder = new TrigonTalonSRX(
                 moduleConstants.angleMotorID,
-                new MotorConfig(new MotorConfig(), false, swerveConstants.ENCODER_INVERT));
+                new MotorConfig(new MotorConfig(), false, SwerveConstants.ENCODER_INVERT));
         configAngleEncoder();
     }
 
@@ -117,17 +117,17 @@ public class SwerveModule {
             /* If we're in open loop, we don't want to use the PID controller,
             and we just set the drive speed in percentage of the max speed */
             double percentOutput =
-                    desiredState.speedMetersPerSecond / swerveConstants.MAX_SPEED;
+                    desiredState.speedMetersPerSecond / SwerveConstants.MAX_SPEED;
             driveMotor.set(
                     ControlMode.PercentOutput,
-                    percentOutput / swerveConstants.SPEED_DIVIDER);
+                    percentOutput / SwerveConstants.SPEED_DIVIDER);
         } else {
             /* If we're in closed loop, we want to use the PID controller,
             and we set the drive speed in meters per second  */
             double velocity = EncoderConversions.MPSToFalcon(
                     desiredState.speedMetersPerSecond,
-                    swerveConstants.WHEEL_CIRCUMFERENCE,
-                    swerveConstants.DRIVE_GEAR_RATIO);
+                    SwerveConstants.WHEEL_CIRCUMFERENCE,
+                    SwerveConstants.DRIVE_GEAR_RATIO);
             // Sets the drive motor velocity with the driveFeedforward.
             driveMotor.set(
                     ControlMode.Velocity, velocity, DemandType.ArbitraryFeedForward,
@@ -145,7 +145,7 @@ public class SwerveModule {
         angleMotor.set(
                 ControlMode.Position, EncoderConversions.degreesToFalcon(
                         desiredAngle,
-                        swerveConstants.ANGLE_GEAR_RATIO));
+                        SwerveConstants.ANGLE_GEAR_RATIO));
         lastDesiredState = desiredState;
     }
 
@@ -158,7 +158,7 @@ public class SwerveModule {
         // calculate absolute position and convert to Falcon units
         double absolutePosition = EncoderConversions.degreesToFalcon(
                 getAngle().getDegrees() - encoderOffset,
-                swerveConstants.ANGLE_GEAR_RATIO);
+                SwerveConstants.ANGLE_GEAR_RATIO);
         // Set the integrated angle encoder to the absolute position.
         CTREUtil.checkError(
                 () -> angleMotor.setSelectedSensorPosition((int) absolutePosition, 0,
@@ -216,12 +216,12 @@ public class SwerveModule {
     public SwerveModuleState getState() {
         double velocity = EncoderConversions.falconToMPS(
                 driveMotor.getSelectedSensorVelocity(),
-                swerveConstants.WHEEL_CIRCUMFERENCE,
-                swerveConstants.DRIVE_GEAR_RATIO);
+                SwerveConstants.WHEEL_CIRCUMFERENCE,
+                SwerveConstants.DRIVE_GEAR_RATIO);
         Rotation2d angle = Rotation2d.fromDegrees(
                 EncoderConversions.falconToDegrees(
                         angleMotor.getSelectedSensorPosition(),
-                        swerveConstants.ANGLE_GEAR_RATIO));
+                        SwerveConstants.ANGLE_GEAR_RATIO));
         return new SwerveModuleState(velocity, angle);
     }
 
