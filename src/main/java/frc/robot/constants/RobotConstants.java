@@ -4,8 +4,8 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveKinematics;
-import frc.robot.components.Pigeon;
 import frc.robot.constants.RobotMap.CAN;
+import frc.robot.constants.RobotMap.PWM;
 import frc.robot.utilities.JsonHandler;
 import frc.robot.utilities.MotorConfig;
 import frc.robot.utilities.pid.PIDCoefs;
@@ -14,32 +14,32 @@ import frc.robot.utilities.pid.PIDCoefs;
  * All the constants to be uses for the robot
  */
 public class RobotConstants {
-    public static final LocalConstants LOCAL_CONSTANTS = JsonHandler.getConstants();
+    private static final LocalConstants LOCAL_CONSTANTS = JsonHandler.getConstants();
 
     public static class LimelightConstants {
-        public final double DISTANCE_CALCULATION_A_COEFFICIENT = 1;
-        public final double DISTANCE_CALCULATION_B_COEFFICIENT = 1;
-        public final double DISTANCE_CALCULATION_C_COEFFICIENT = 1;
-        public final double LIMELIGHT_ANGLE_OFFSET = 1;
-        public final double LIMELIGHT_OFFSET_X = 1;
-        public final double LIMELIGHT_OFFSET_Y = 1;
-        public final String DEFAULT_TABLE_KEY = "limelight";
+        public static final double DISTANCE_CALCULATION_A_COEFFICIENT = 1;
+        public static final double DISTANCE_CALCULATION_B_COEFFICIENT = 1;
+        public static final double DISTANCE_CALCULATION_C_COEFFICIENT = 1;
+        public static final double LIMELIGHT_ANGLE_OFFSET = 1;
+        public static final double LIMELIGHT_OFFSET_X = 1;
+        public static final double LIMELIGHT_OFFSET_Y = 1;
+        public static final String DEFAULT_TABLE_KEY = "limelight";
     }
 
     public static class TesterConstants {
-        public final int SECONDS_TO_WAIT = 1;
-        public final double MOVE_POWER = 3;
-        public final int LED_BLINK_AMOUNT = 10;
+        public static final int SECONDS_TO_WAIT = 1;
+        public static final double MOVE_POWER = 3;
+        public static final int LED_BLINK_AMOUNT = 10;
     }
 
     public static class VisionConstants {
-        public final PIDCoefs ROTATION_SETTINGS = new PIDCoefs(0, 0, 0, 0, 0);
-        public final double TARGET_TIME_OUT = 0.1;
+        public static final PIDCoefs ROTATION_SETTINGS = new PIDCoefs(0, 0, 0, 0, 0);
+        public static final double TARGET_TIME_OUT = 0.1;
     }
 
     public static class SwerveConstants {
         public static final boolean INVERT_GYRO = false; // Always ensure Gyro is CCW+ CW-
-
+        public static final int PIGEON_ID = CAN.SwerveMap.PIGEON_ID;
         /* Drivetrain Constants */
         public static final double TRACK_WIDTH = 0.29765 * 2;
         public static final double WHEEL_BASE = 0.29765 * 2;
@@ -56,25 +56,21 @@ public class RobotConstants {
                 new Translation2d(-WHEEL_BASE / 2.0, -TRACK_WIDTH / 2.0)
         );
 
-        public static final double ANGLE_OPEN_LOOP_RAMP = 2;
-        public static final double ANGLE_CLOSED_LOOP_RAMP = .5;
-
-        public static final double DRIVE_OPEN_LOOP_RAMP = 0.1;
-        public static final double DRIVE_CLOSED_LOOP_RAMP = 0.1;
-
         private static final SupplyCurrentLimitConfiguration ANGLE_CURRENT_LIMIT = new SupplyCurrentLimitConfiguration(
                 true, 25, 40,
                 0.1
         );
 
-        //TODO: Add to LocalConstants
+        private static final double ANGLE_OPEN_LOOP_RAMP = 2;
+        private static final double ANGLE_CLOSED_LOOP_RAMP = .5;
+
         private static final NeutralMode ANGLE_NEUTRAL_MODE =
                 LOCAL_CONSTANTS.localSwerveConstants.angleNeutralMode.equals(
                         "Brake") ? NeutralMode.Brake : NeutralMode.Coast;
 
         public static final MotorConfig ANGLE_MOTOR_CONFIG = new MotorConfig(
-                2,
-                0.5,
+                ANGLE_OPEN_LOOP_RAMP,
+                ANGLE_CLOSED_LOOP_RAMP,
                 false,
                 false,
                 ANGLE_NEUTRAL_MODE,
@@ -87,14 +83,16 @@ public class RobotConstants {
                 0.1
         );
 
-        //TODO: Add to LocalConstants
         private static final NeutralMode DRIVE_NEUTRAL_MODE =
                 LOCAL_CONSTANTS.localSwerveConstants.driveNeutralMode.equals(
                         "Brake") ? NeutralMode.Brake : NeutralMode.Coast;
 
+        private static final double DRIVE_OPEN_LOOP_RAMP = 0.1;
+        private static final double DRIVE_CLOSED_LOOP_RAMP = 0.1;
+
         public static final MotorConfig DRIVE_MOTOR_CONFIG = new MotorConfig(
-                0.1,
-                0.1,
+                DRIVE_OPEN_LOOP_RAMP,
+                DRIVE_CLOSED_LOOP_RAMP,
                 true,
                 false,
                 DRIVE_NEUTRAL_MODE,
@@ -137,9 +135,9 @@ public class RobotConstants {
                 CAN.SwerveMap.REAR_RIGHT_ANGLE_ENCODER_ID,
                 LOCAL_CONSTANTS.localSwerveConstants.modules.rearRightModuleConstants
         );
+    }
 
-        public static class SwerveComponents {
-            public static Pigeon pigeon = new Pigeon(CAN.SwerveMap.PIGEON_ID);
-        }
+    public static class LedConstants {
+        public static final int CONTROLLER_PORT = PWM.LED.CONTROLLER_PORT;
     }
 }

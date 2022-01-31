@@ -9,7 +9,7 @@ package frc.robot.constants;
 public class RobotMap {
     // TODO: Set variables for hardware components
 
-    public static class CAN {
+    protected static class CAN {
         public static class SwerveMap {
             public static final int PIGEON_ID = 12;
 
@@ -31,17 +31,17 @@ public class RobotMap {
         }
     }
 
-    public static class PCM {
+    protected static class PCM {
 
     }
 
-    public static class DIO {
+    protected static class DIO {
 
     }
 
-    public static class PWM {
+    protected static class PWM {
         public static class LED {
-            public static final int LED_CONTROLLER = -1;
+            public static final int CONTROLLER_PORT = -1;
         }
     }
 }

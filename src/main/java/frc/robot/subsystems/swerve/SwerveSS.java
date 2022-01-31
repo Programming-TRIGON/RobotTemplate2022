@@ -1,6 +1,5 @@
 package frc.robot.subsystems.swerve;
 
-import com.ctre.phoenix.sensors.PigeonIMU;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
@@ -9,6 +8,7 @@ import edu.wpi.first.wpilibj.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.components.Pigeon;
 import frc.robot.constants.RobotConstants.SwerveConstants;
 import frc.robot.utilities.Modules;
 
@@ -18,14 +18,14 @@ import frc.robot.utilities.Modules;
 public class SwerveSS extends SubsystemBase {
     private final SwerveDriveOdometry swerveOdometry;
     private final SwerveModule[] swerveModules;
-    private final PigeonIMU gyro;
+    private final Pigeon gyro;
 
     public SwerveSS() {
-        gyro = SwerveConstants.SwerveComponents.pigeon;
+        gyro = new Pigeon(SwerveConstants.PIGEON_ID);
         gyro.configFactoryDefault();
         zeroGyro();
 
-        swerveOdometry = new SwerveDriveOdometry(SwerveConstants.SWERVE_KINEMATICS, getYaw());
+        swerveOdometry = new SwerveDriveOdometry(SwerveConstants.SWERVE_KINEMATICS, getAngle());
 
         swerveModules = new SwerveModule[4];
         swerveModules[Modules.FRONT_LEFT.getId()] = new SwerveModule(SwerveConstants.FRONT_LEFT_CONSTANTS);
@@ -52,7 +52,7 @@ public class SwerveSS extends SubsystemBase {
                         translation.getX(),
                         translation.getY(),
                         rotation,
-                        getYaw()
+                        getAngle()
                 ) :
                 new ChassisSpeeds( // if not field relative, just use the given translation and rotation
                         translation.getX(),
@@ -104,7 +104,7 @@ public class SwerveSS extends SubsystemBase {
      * @param pose the pose to reset to
      */
     public void resetOdometry(Pose2d pose) {
-        swerveOdometry.resetPosition(pose, getYaw());
+        swerveOdometry.resetPosition(pose, getAngle());
     }
 
     /**
@@ -132,15 +132,13 @@ public class SwerveSS extends SubsystemBase {
      *
      * @return the current yaw of the robot
      */
-    public Rotation2d getYaw() {
-        double[] ypr = new double[3];
-        gyro.getYawPitchRoll(ypr);
-        return (SwerveConstants.INVERT_GYRO) ? Rotation2d.fromDegrees(360 - ypr[0]) : Rotation2d.fromDegrees(ypr[0]);
+    public Rotation2d getAngle() {
+        return Rotation2d.fromDegrees(gyro.getAngle());
     }
 
     @Override
     public void periodic() {
         // update the odometry with the angle and the current state of each module
-        swerveOdometry.update(getYaw(), getStates());
+        swerveOdometry.update(getAngle(), getStates());
     }
 }
