@@ -5,29 +5,28 @@ import frc.robot.utilities.JsonHandler;
 import frc.robot.utilities.pid.PIDFCoefs;
 
 public class LocalConstants {
+    @SerializedName("Driver")
+    public LocalDriverConstants localDriverConstants;
     @SerializedName("Swerve")
     public LocalSwerveConstants localSwerveConstants;
 
-    @SerializedName("Driver")
-    public LocalDriverConstants localDriverConstants;
-
     public LocalConstants() {
-        localSwerveConstants = new LocalSwerveConstants();
         localDriverConstants = new LocalDriverConstants();
+        localSwerveConstants = new LocalSwerveConstants();
     }
 
     public void write() {
         JsonHandler.write(this);
     }
 
+    public static class LocalDriverConstants {
+        int drivingSpeedDivider;
+    }
+
     public static class LocalSwerveConstants {
-        String angleNeutralMode;
-        String driveNeutralMode;
         LocalSwerveModules modules;
 
         public LocalSwerveConstants() {
-            angleNeutralMode = "Coast";
-            driveNeutralMode = "Coast";
             modules = new LocalSwerveModules();
             modules.frontRightModuleConstants = new LocalSwerveModules.LocalSwerveModuleConstants();
             modules.frontLeftModuleConstants = new LocalSwerveModules.LocalSwerveModuleConstants();
@@ -58,9 +57,5 @@ public class LocalConstants {
                 }
             }
         }
-    }
-
-    public static class LocalDriverConstants {
-        int speedDivider;
     }
 }

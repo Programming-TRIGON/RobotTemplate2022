@@ -13,7 +13,7 @@ public interface PIDConfigurable extends Sendable {
 
     boolean isTuning();
 
-    void setIsTuning(boolean isTuningPID);
+    void setIsTuning(boolean isTuning);
 
     default double getKP() {
         return getCoefs().getKP();

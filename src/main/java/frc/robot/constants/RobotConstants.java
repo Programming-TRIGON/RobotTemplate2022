@@ -1,6 +1,5 @@
 package frc.robot.constants;
 
-import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveKinematics;
@@ -86,35 +85,37 @@ public class RobotConstants {
                 LOCAL_CONSTANTS.localSwerveConstants.modules.rearRightModuleConstants
         );
         public static final MotorConfig ANGLE_MOTOR_CONFIG = new MotorConfig().
-                withInverted(false).
-                withSensorInverted(false).
+                invereted(false).
+                sensorPhase(false).
                 withOpenLoopRampRate(2).
                 withClosedLoopRampRate(0.5).
-                withNeutralMode(NeutralMode.valueOf(LOCAL_CONSTANTS.localSwerveConstants.angleNeutralMode)).
-                withCurrentLimitConfig(new SupplyCurrentLimitConfiguration(
+                brake().
+                withCurrentLimit(new SupplyCurrentLimitConfiguration(
                         true,
                         25,
                         40,
                         0.1
                 ));
         public static final MotorConfig DRIVE_MOTOR_CONFIG = new MotorConfig().
-                withInverted(true).
-                withSensorInverted(false).
+                invereted(true).
+                sensorPhase(false).
                 withOpenLoopRampRate(0.1).
                 withClosedLoopRampRate(0.1).
-                withNeutralMode(NeutralMode.valueOf(LOCAL_CONSTANTS.localSwerveConstants.driveNeutralMode)).
-                withCurrentLimitConfig(new SupplyCurrentLimitConfiguration(
+                brake().
+                withCurrentLimit(new SupplyCurrentLimitConfiguration(
                         true,
                         34,
                         60,
                         0.1
                 ));
-
-        /* Driver Constants */
-        public static final double SPEED_DIVIDER = LOCAL_CONSTANTS.localDriverConstants.speedDivider;
     }
 
     public static class LedConstants {
         public static final int CONTROLLER_PORT = PWM.LED.CONTROLLER_PORT;
+    }
+
+    public static class DriverConstants {
+        public static final double DRIVING_SPEED_DIVIDER = LOCAL_CONSTANTS.localDriverConstants.drivingSpeedDivider;
+        public static final int XBOX_PORT = 0;
     }
 }

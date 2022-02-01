@@ -10,13 +10,13 @@ import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.components.Pigeon;
 import frc.robot.constants.RobotConstants.SwerveConstants;
-import frc.robot.subsystems.MovableSubsystem;
+import frc.robot.subsystems.TestableSubsystem;
 import frc.robot.utilities.Modules;
 
 /**
  * The Swerve subsystem.
  */
-public class SwerveSS extends SubsystemBase implements MovableSubsystem {
+public class SwerveSS extends SubsystemBase implements TestableSubsystem {
     private final SwerveDriveOdometry swerveOdometry;
     private final SwerveModule[] swerveModules;
     private final Pigeon gyro;
@@ -146,5 +146,17 @@ public class SwerveSS extends SubsystemBase implements MovableSubsystem {
     public void periodic() {
         // update the odometry with the angle and the current state of each module
         swerveOdometry.update(getAngle(), getStates());
+    }
+
+    @Override
+    public double[] getValues() {
+        double[] values = new double[12];
+        for(int i = 0; i < swerveModules.length; i++) {
+            int[] moduleValues = swerveModules[i].getEncoderVelocities();
+            for(int j = 0; j < moduleValues.length; j++) {
+                values[i * 3 + j] = moduleValues[j];
+            }
+        }
+        return values;
     }
 }

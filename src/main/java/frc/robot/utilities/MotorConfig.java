@@ -143,14 +143,18 @@ public class MotorConfig {
     }
 
     /**
-     * Chain setter for the neutral mode
-     *
-     * @param neutralMode The desired mode of operation when the
-     *                    Controller output throttle is neutral
-     *                    (ie brake/coast)
+     * Chain setter for the neutral mode. Sets it to brake.
      */
-    public MotorConfig withNeutralMode(NeutralMode neutralMode) {
-        this.neutralMode = neutralMode;
+    public MotorConfig brake() {
+        this.neutralMode = NeutralMode.Brake;
+        return this;
+    }
+
+    /**
+     * Chain setter for the neutral mode. Sets it to coast.
+     */
+    public MotorConfig coast() {
+        this.neutralMode = NeutralMode.Coast;
         return this;
     }
 
@@ -179,7 +183,7 @@ public class MotorConfig {
      *                           typically used to prevent breakers
      *                           from tripping.
      */
-    public MotorConfig withCurrentLimitConfig(SupplyCurrentLimitConfiguration currentLimitConfig) {
+    public MotorConfig withCurrentLimit(SupplyCurrentLimitConfiguration currentLimitConfig) {
         this.currentLimitConfig = currentLimitConfig;
         return this;
     }
@@ -189,7 +193,7 @@ public class MotorConfig {
      *
      * @param isSensorInverted Whether the sensor is inverted
      */
-    public MotorConfig withSensorInverted(boolean isSensorInverted) {
+    public MotorConfig sensorPhase(boolean isSensorInverted) {
         this.isSensorInverted = isSensorInverted;
         return this;
     }
@@ -200,7 +204,7 @@ public class MotorConfig {
      *
      * @param isInverted Whether the motor is inverted
      */
-    public MotorConfig withInverted(boolean isInverted) {
+    public MotorConfig invereted(boolean isInverted) {
         this.isInverted = isInverted;
         return this;
     }

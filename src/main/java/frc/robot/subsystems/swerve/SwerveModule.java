@@ -7,6 +7,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
 import frc.robot.components.TrigonTalonSRX;
+import frc.robot.constants.RobotConstants;
 import frc.robot.constants.RobotConstants.SwerveConstants;
 import frc.robot.constants.SwerveModuleConstants;
 import frc.robot.utilities.EncoderConversions;
@@ -46,7 +47,7 @@ public class SwerveModule {
                         withPID(constants.drivePIDFCoefs));
 
         resetToAbsolute();
-        driveMotor.setSelectedSensorPosition(0);
+        driveMotor.ce_setSelectedSensorPosition(0);
     }
 
     /**
@@ -104,6 +105,14 @@ public class SwerveModule {
         return newAngle;
     }
 
+    public int[] getEncoderVelocities() {
+        return new int[] {
+                angleEncoder.getSelectedSensorVelocity(),
+                angleMotor.getSelectedSensorVelocity(),
+                driveMotor.getSelectedSensorVelocity()
+        };
+    }
+
     public void setDesiredState(SwerveModuleState desiredState, boolean isOpenLoop) {
         // Custom optimize command, since default WPILib optimize assumes
         // continuous controller which CTRE is not
@@ -118,7 +127,7 @@ public class SwerveModule {
                     desiredState.speedMetersPerSecond / SwerveConstants.MAX_SPEED;
             driveMotor.set(
                     ControlMode.PercentOutput,
-                    percentOutput / SwerveConstants.SPEED_DIVIDER);
+                    percentOutput / RobotConstants.DriverConstants.DRIVING_SPEED_DIVIDER);
         } else {
             /* If we're in closed loop, we want to use the PID controller,
             and we set the drive speed in meters per second  */
@@ -151,7 +160,7 @@ public class SwerveModule {
                 getAngle().getDegrees() - constants.encoderOffset,
                 SwerveConstants.ANGLE_GEAR_RATIO);
         // Set the integrated angle encoder to the absolute position.
-        angleMotor.setSelectedSensorPosition((int) absolutePosition, 0);
+        angleMotor.ce_setSelectedSensorPosition((int) absolutePosition, 0);
     }
 
     /**
