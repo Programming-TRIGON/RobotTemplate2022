@@ -35,6 +35,9 @@ public class PIDCoefs {
         this.deltaTolerance = deltaTolerance;
     }
 
+    /**
+     * Default constructor
+     */
     public PIDCoefs() {
     }
 

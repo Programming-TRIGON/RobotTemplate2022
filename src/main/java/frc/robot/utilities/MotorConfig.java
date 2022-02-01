@@ -25,7 +25,7 @@ public class MotorConfig {
     private PIDFCoefs coefs;
 
     /**
-     * Empty constructor
+     * Default constructor
      */
     public MotorConfig() {
         openLoopRampRate = 0;

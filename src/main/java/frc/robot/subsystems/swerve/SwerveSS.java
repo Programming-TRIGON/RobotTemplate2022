@@ -22,7 +22,7 @@ public class SwerveSS extends SubsystemBase implements TestableSubsystem {
     private final Pigeon gyro;
 
     public SwerveSS() {
-        gyro = new Pigeon(SwerveConstants.PIGEON_ID);
+        gyro = SwerveConstants.PIGEON;
         gyro.configFactoryDefault();
         resetGyro();
 

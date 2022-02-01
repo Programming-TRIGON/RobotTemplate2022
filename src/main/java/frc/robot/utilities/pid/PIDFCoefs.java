@@ -28,6 +28,9 @@ public class PIDFCoefs extends PIDCoefs {
         this.KS = KS;
     }
 
+    /**
+     * Default constructor
+     */
     public PIDFCoefs() {
     }
 

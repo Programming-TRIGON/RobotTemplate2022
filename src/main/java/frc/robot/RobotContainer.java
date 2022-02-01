@@ -24,6 +24,7 @@ public class RobotContainer {
         dashboardController = new DashboardController();
         driverXbox = new TrigonXboxController(RobotConstants.DriverConstants.XBOX_PORT);
 
+        initializeSubsystems();
         initializeCommands();
     }
 

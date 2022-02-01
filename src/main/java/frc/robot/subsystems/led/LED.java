@@ -24,7 +24,7 @@ public class LED extends SubsystemBase {
      * changing.
      */
     public LED() {
-        ledController = new Spark(LedConstants.CONTROLLER_PORT);
+        ledController = LedConstants.CONTROLLER;
         currentColor = LEDColor.Off;
         blinkingAmount = -1;
         notifier = new Notifier(this::notifierPeriodic);

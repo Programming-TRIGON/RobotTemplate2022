@@ -1,7 +1,6 @@
 package frc.robot.subsystems.swerve;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
 import frc.robot.components.TrigonTalonSRX;
@@ -183,14 +182,5 @@ public class SwerveModule {
      */
     public SwerveModuleState getLastDesiredState() {
         return lastDesiredState;
-    }
-
-    /**
-     * Returns the Talon SRX of the angle encoder.
-     *
-     * @return the Talon SRX of the angle encoder
-     */
-    public TalonSRX getEncoderSRX() {
-        return angleEncoder;
     }
 }

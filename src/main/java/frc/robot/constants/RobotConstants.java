@@ -1,9 +1,11 @@
 package frc.robot.constants;
 
+import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveKinematics;
-import frc.robot.constants.RobotMap.CAN;
-import frc.robot.constants.RobotMap.PWM;
+import frc.robot.components.Pigeon;
+import frc.robot.constants.RobotComponents.LEDComponents;
+import frc.robot.constants.RobotComponents.SwerveComponents;
 import frc.robot.utilities.JsonHandler;
 import frc.robot.utilities.pid.PIDCoefs;
 
@@ -26,7 +28,7 @@ public class RobotConstants {
 
     public static class TesterConstants {
         public static final int SECONDS_TO_WAIT = 1;
-        public static final double MOVE_POWER = 3;
+        public static final double DEF_MOVE_POWER = 3;
         public static final int LED_BLINK_AMOUNT = 10;
     }
 
@@ -37,7 +39,7 @@ public class RobotConstants {
 
     public static class SwerveConstants {
         public static final boolean INVERT_GYRO = false; // Always ensure Gyro is CCW+ CW-
-        public static final int PIGEON_ID = CAN.SwerveMap.PIGEON_ID;
+        public static final Pigeon PIGEON = SwerveComponents.PIGEON;
 
         /* Drivetrain Constants */
         public static final double TRACK_WIDTH = 0.29765 * 2;
@@ -59,36 +61,36 @@ public class RobotConstants {
         public static final double MAX_ANGULAR_VELOCITY = 11.5;
 
         public static final SwerveModuleConstants FRONT_LEFT_CONSTANTS = new SwerveModuleConstants(
-                RobotComponents.SwerveComponents.FRONT_LEFT_ANGLE_MOTOR,
-                RobotComponents.SwerveComponents.FRONT_LEFT_DRIVE_MOTOR,
-                RobotComponents.SwerveComponents.FRONT_LEFT_ENCODER,
+                SwerveComponents.FRONT_LEFT_ANGLE_MOTOR,
+                SwerveComponents.FRONT_LEFT_DRIVE_MOTOR,
+                SwerveComponents.FRONT_LEFT_ENCODER,
                 LOCAL_CONSTANTS.localSwerveConstants.modules.frontLeftModuleConstants.encoderOffset
         );
 
         public static final SwerveModuleConstants FRONT_RIGHT_CONSTANTS = new SwerveModuleConstants(
-                RobotComponents.SwerveComponents.FRONT_RIGHT_ANGLE_MOTOR,
-                RobotComponents.SwerveComponents.FRONT_RIGHT_DRIVE_MOTOR,
-                RobotComponents.SwerveComponents.FRONT_RIGHT_ENCODER,
+                SwerveComponents.FRONT_RIGHT_ANGLE_MOTOR,
+                SwerveComponents.FRONT_RIGHT_DRIVE_MOTOR,
+                SwerveComponents.FRONT_RIGHT_ENCODER,
                 LOCAL_CONSTANTS.localSwerveConstants.modules.frontRightModuleConstants.encoderOffset
         );
 
         public static final SwerveModuleConstants REAR_LEFT_CONSTANTS = new SwerveModuleConstants(
-                RobotComponents.SwerveComponents.REAR_LEFT_ANGLE_MOTOR,
-                RobotComponents.SwerveComponents.REAR_LEFT_DRIVE_MOTOR,
-                RobotComponents.SwerveComponents.REAR_LEFT_ENCODER,
+                SwerveComponents.REAR_LEFT_ANGLE_MOTOR,
+                SwerveComponents.REAR_LEFT_DRIVE_MOTOR,
+                SwerveComponents.REAR_LEFT_ENCODER,
                 LOCAL_CONSTANTS.localSwerveConstants.modules.rearLeftModuleConstants.encoderOffset
         );
 
         public static final SwerveModuleConstants REAR_RIGHT_CONSTANTS = new SwerveModuleConstants(
-                RobotComponents.SwerveComponents.REAR_RIGHT_ANGLE_MOTOR,
-                RobotComponents.SwerveComponents.REAR_RIGHT_DRIVE_MOTOR,
-                RobotComponents.SwerveComponents.REAR_RIGHT_ENCODER,
+                SwerveComponents.REAR_RIGHT_ANGLE_MOTOR,
+                SwerveComponents.REAR_RIGHT_DRIVE_MOTOR,
+                SwerveComponents.REAR_RIGHT_ENCODER,
                 LOCAL_CONSTANTS.localSwerveConstants.modules.rearRightModuleConstants.encoderOffset
         );
     }
 
     public static class LedConstants {
-        public static final int CONTROLLER_PORT = PWM.LED.CONTROLLER_PORT;
+        public static final Spark CONTROLLER = LEDComponents.CONTROLLER;
     }
 
     public static class DriverConstants {

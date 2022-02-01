@@ -10,7 +10,7 @@ public class RobotMap {
     // TODO: Set variables for hardware components
 
     protected static class CAN {
-        public static class SwerveMap {
+        public static class Swerve {
             public static final int PIGEON_ID = 12;
 
             public static final int FRONT_LEFT_DRIVE_MOTOR_ID = 16;
