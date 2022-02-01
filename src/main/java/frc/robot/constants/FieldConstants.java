@@ -3,6 +3,6 @@ package frc.robot.constants;
 /**
  * All constants that are on the playing field (example: dimensions of field)
  */
-public abstract class FieldConstants {
+public class FieldConstants {
 
 }
