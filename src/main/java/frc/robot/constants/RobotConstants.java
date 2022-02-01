@@ -13,7 +13,7 @@ import frc.robot.utilities.pid.PIDCoefs;
  * All the constants to be uses for the robot
  */
 public class RobotConstants {
-    public static final int DEF_CAN_TIMEOUT = 30;
+    public static final int DEFAULT_CAN_TIMEOUT = 30;
     protected static final LocalConstants LOCAL_CONSTANTS = JsonHandler.getConstants();
 
     public static class LimelightConstants {
@@ -28,7 +28,7 @@ public class RobotConstants {
 
     public static class TesterConstants {
         public static final int SECONDS_TO_WAIT = 1;
-        public static final double DEF_MOVE_POWER = 3;
+        public static final double DEFAULT_MOVE_POWER = 3;
         public static final int LED_BLINK_AMOUNT = 10;
     }
 

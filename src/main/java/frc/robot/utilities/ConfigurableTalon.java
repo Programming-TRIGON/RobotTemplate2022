@@ -28,58 +28,60 @@ public interface ConfigurableTalon extends IMotorController {
     ErrorCode configFactoryDefault(int timeoutMs);
 
     default ErrorCode ce_configFactoryDefault() {
-        return CTREUtil.checkError(() -> configFactoryDefault(RobotConstants.DEF_CAN_TIMEOUT));
+        return CTREUtil.checkError(() -> configFactoryDefault(RobotConstants.DEFAULT_CAN_TIMEOUT));
     }
 
     default ErrorCode ce_configOpenloopRamp(double seconds) {
-        return CTREUtil.checkError(() -> configOpenloopRamp(seconds, RobotConstants.DEF_CAN_TIMEOUT));
+        return CTREUtil.checkError(() -> configOpenloopRamp(seconds, RobotConstants.DEFAULT_CAN_TIMEOUT));
     }
 
     default ErrorCode ce_configClosedloopRamp(double seconds) {
-        return CTREUtil.checkError(() -> configClosedloopRamp(seconds, RobotConstants.DEF_CAN_TIMEOUT));
+        return CTREUtil.checkError(() -> configClosedloopRamp(seconds, RobotConstants.DEFAULT_CAN_TIMEOUT));
     }
 
     default ErrorCode ce_configVoltageCompSaturation(double volts) {
-        return CTREUtil.checkError(() -> configVoltageCompSaturation(volts, RobotConstants.DEF_CAN_TIMEOUT));
+        return CTREUtil.checkError(() -> configVoltageCompSaturation(volts, RobotConstants.DEFAULT_CAN_TIMEOUT));
     }
 
     ErrorCode configSupplyCurrentLimit(SupplyCurrentLimitConfiguration config, int timeoutMs);
 
     default ErrorCode ce_configSupplyCurrentLimit(SupplyCurrentLimitConfiguration config) {
-        return CTREUtil.checkError(() -> configSupplyCurrentLimit(config, RobotConstants.DEF_CAN_TIMEOUT));
+        return CTREUtil.checkError(() -> configSupplyCurrentLimit(config, RobotConstants.DEFAULT_CAN_TIMEOUT));
     }
 
     default ErrorCode ce_config_kP(int slotIdx, double value) {
-        return CTREUtil.checkError(() -> config_kP(slotIdx, value, RobotConstants.DEF_CAN_TIMEOUT));
+        return CTREUtil.checkError(() -> config_kP(slotIdx, value, RobotConstants.DEFAULT_CAN_TIMEOUT));
     }
 
     default ErrorCode ce_config_kI(int slotIdx, double value) {
-        return CTREUtil.checkError(() -> config_kI(slotIdx, value, RobotConstants.DEF_CAN_TIMEOUT));
+        return CTREUtil.checkError(() -> config_kI(slotIdx, value, RobotConstants.DEFAULT_CAN_TIMEOUT));
     }
 
     default ErrorCode ce_config_kD(int slotIdx, double value) {
-        return CTREUtil.checkError(() -> config_kD(slotIdx, value, RobotConstants.DEF_CAN_TIMEOUT));
+        return CTREUtil.checkError(() -> config_kD(slotIdx, value, RobotConstants.DEFAULT_CAN_TIMEOUT));
     }
 
     default ErrorCode ce_config_kF(int slotIdx, double value) {
-        return CTREUtil.checkError(() -> config_kF(slotIdx, value, RobotConstants.DEF_CAN_TIMEOUT));
+        return CTREUtil.checkError(() -> config_kF(slotIdx, value, RobotConstants.DEFAULT_CAN_TIMEOUT));
     }
 
     default ErrorCode ce_configAllowableClosedloopError(int slotIdx, int allowableCloseLoopError) {
         return CTREUtil.checkError(
-                () -> configAllowableClosedloopError(slotIdx, allowableCloseLoopError, RobotConstants.DEF_CAN_TIMEOUT));
+                () -> configAllowableClosedloopError(
+                        slotIdx, allowableCloseLoopError, RobotConstants.DEFAULT_CAN_TIMEOUT));
     }
 
     default ErrorCode ce_configRemoteFeedbackFilter(
             int deviceID, RemoteSensorSource remoteSensorSource, int remoteOrdinal) {
         return CTREUtil.checkError(() -> configRemoteFeedbackFilter(deviceID, remoteSensorSource, remoteOrdinal,
-                RobotConstants.DEF_CAN_TIMEOUT));
+                RobotConstants.DEFAULT_CAN_TIMEOUT));
     }
 
     default ErrorCode ce_configSelectedFeedbackSensor(FeedbackDevice feedbackDevice, int pidIdx) {
         return CTREUtil.checkError(
                 () -> configSelectedFeedbackSensor(
-                        RemoteFeedbackDevice.valueOf(feedbackDevice.value), pidIdx, RobotConstants.DEF_CAN_TIMEOUT));
+                        RemoteFeedbackDevice.valueOf(feedbackDevice.value), pidIdx,
+                        RobotConstants.DEFAULT_CAN_TIMEOUT));
     }
 
     default ErrorCode ce_configSelectedFeedbackSensor(FeedbackDevice feedbackDevice) {
@@ -87,7 +89,8 @@ public interface ConfigurableTalon extends IMotorController {
     }
 
     default ErrorCode ce_setSelectedSensorPosition(int sensorPos, int pidIdx) {
-        return CTREUtil.checkError(() -> setSelectedSensorPosition(sensorPos, pidIdx, RobotConstants.DEF_CAN_TIMEOUT));
+        return CTREUtil.checkError(
+                () -> setSelectedSensorPosition(sensorPos, pidIdx, RobotConstants.DEFAULT_CAN_TIMEOUT));
     }
 
     default ErrorCode ce_setSelectedSensorPosition(int sensorPos) {
@@ -98,7 +101,7 @@ public interface ConfigurableTalon extends IMotorController {
 
     default ErrorCode ce_configFeedbackNotContinuous(boolean feedbackNotContinuous) {
         return CTREUtil.checkError(
-                () -> configFeedbackNotContinuous(feedbackNotContinuous, RobotConstants.DEF_CAN_TIMEOUT));
+                () -> configFeedbackNotContinuous(feedbackNotContinuous, RobotConstants.DEFAULT_CAN_TIMEOUT));
     }
 
     default ErrorCode ce_configRemoteFeedbackFilter(int deviceID, RemoteSensorSource remoteSensorSource) {
