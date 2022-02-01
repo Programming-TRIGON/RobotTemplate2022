@@ -14,6 +14,7 @@ import frc.robot.utilities.pid.PIDCoefs;
  * All the constants to be uses for the robot
  */
 public class RobotConstants {
+    public static final int DEF_CAN_TIMEOUT = 30;
     private static final LocalConstants LOCAL_CONSTANTS = JsonHandler.getConstants();
 
     public static class LimelightConstants {

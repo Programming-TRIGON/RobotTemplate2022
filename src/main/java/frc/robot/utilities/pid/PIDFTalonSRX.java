@@ -4,11 +4,9 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.DemandType;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import frc.robot.components.TrigonTalonSRX;
-import frc.robot.utilities.CTREUtil;
 import frc.robot.utilities.MotorConfig;
 
 public class PIDFTalonSRX extends TrigonTalonSRX implements PIDFMotor {
-    private final int pidSlotId;
     private PIDFCoefs pidfCoefs;
     private boolean isTuningPID;
     private double tuningPIDSetpoint;
@@ -18,18 +16,13 @@ public class PIDFTalonSRX extends TrigonTalonSRX implements PIDFMotor {
      *
      * @param id          device ID of motor controller
      * @param motorConfig The configuration preset to use
-     * @param pidSlotId   the pid slot ID to use
      */
-    public PIDFTalonSRX(int id, MotorConfig motorConfig, int pidSlotId) {
+    public PIDFTalonSRX(int id, MotorConfig motorConfig) {
         super(id, motorConfig);
 
-        this.pidfCoefs = motorConfig.getCoefs();
-        this.pidSlotId = pidSlotId;
+        setCoefs(pidfCoefs);
         this.isTuningPID = false;
         this.tuningPIDSetpoint = 0;
-
-        updatePID();
-        CTREUtil.checkError(() -> configAllowableClosedloopError(pidSlotId, (int) pidfCoefs.getTolerance()));
     }
 
     @Override
@@ -40,14 +33,19 @@ public class PIDFTalonSRX extends TrigonTalonSRX implements PIDFMotor {
     @Override
     public void setCoefs(PIDFCoefs pidfCoefs) {
         this.pidfCoefs = pidfCoefs;
+        setKP(pidfCoefs.getKP());
+        setKI(pidfCoefs.getKI());
+        setKD(pidfCoefs.getKD());
+        setKV(pidfCoefs.getKV());
+        setKS(pidfCoefs.getKS());
+        setTolerance(pidfCoefs.getTolerance());
     }
 
-    @Override
     public void updatePID() {
-        CTREUtil.checkError(() -> config_kP(pidSlotId, pidfCoefs.getKP()));
-        CTREUtil.checkError(() -> config_kI(pidSlotId, pidfCoefs.getKI()));
-        CTREUtil.checkError(() -> config_kD(pidSlotId, pidfCoefs.getKD()));
-        CTREUtil.checkError(() -> config_kF(pidSlotId, pidfCoefs.getKV()));
+        config_kP(0, pidfCoefs.getKP());
+        config_kI(0, pidfCoefs.getKI());
+        config_kD(0, pidfCoefs.getKD());
+        config_kF(0, pidfCoefs.getKV());
     }
 
     @Override
@@ -73,13 +71,52 @@ public class PIDFTalonSRX extends TrigonTalonSRX implements PIDFMotor {
     }
 
     @Override
-    public boolean isTuningPID() {
+    public boolean isTuning() {
         return isTuningPID;
     }
 
     @Override
-    public void setIsTuningPID(boolean isTuningPID) {
+    public void setIsTuning(boolean isTuningPID) {
         this.isTuningPID = isTuningPID;
+    }
+
+    @Override
+    public void setKP(double p) {
+        pidfCoefs.setKP(p);
+        config_kP(0, p);
+    }
+
+    @Override
+    public void setKI(double i) {
+        pidfCoefs.setKI(i);
+        config_kI(0, i);
+    }
+
+    @Override
+    public void setKD(double d) {
+        pidfCoefs.setKD(d);
+        config_kD(0, d);
+    }
+
+    @Override
+    public void setKS(double s) {
+        pidfCoefs.setKS(s);
+    }
+
+    @Override
+    public void setKV(double v) {
+        pidfCoefs.setKV(v);
+        config_kF(0, v);
+    }
+
+    @Override
+    public void setTolerance(double tolerance) {
+        configAllowableClosedloopError(0, (int) tolerance);
+    }
+
+    @Override
+    public void setDeltaTolerance(double deltaTolerance) {
+        //  This does nothing
     }
 
     @Override

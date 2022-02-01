@@ -1,15 +1,10 @@
 package frc.robot.utilities.pid;
 
-import edu.wpi.first.wpilibj.controller.PIDController;
-
-public class TrigonPIDFController extends PIDController implements PIDFConfigurable {
-    private double v;
-    private double s;
-    private boolean isTuning;
-    private PIDFCoefs pidfCoefs;
+public class TrigonPIDFController extends TrigonPIDController implements PIDFConfigurable {
+    private final PIDFCoefs pidfCoefs;
 
     public TrigonPIDFController(PIDFCoefs pidfCoefs) {
-        super(pidfCoefs.getKP(), pidfCoefs.getKI(), pidfCoefs.getKD());
+        super(pidfCoefs);
         this.pidfCoefs = pidfCoefs;
     }
 
@@ -20,16 +15,7 @@ public class TrigonPIDFController extends PIDController implements PIDFConfigura
      */
     @Override
     public double calculate(double measurement) {
-        return super.calculate(measurement) + v * getSetpoint() + s * Math.signum(getSetpoint());
-    }
-
-    /**
-     * Get the Velocity gain Feed-Forward coefficient.
-     *
-     * @return Velocity gain Feed-Forward coefficient
-     */
-    public double getV() {
-        return v;
+        return super.calculate(measurement) + getKV() * getSetpoint() + getKS() * Math.signum(getSetpoint());
     }
 
     /**
@@ -37,17 +23,9 @@ public class TrigonPIDFController extends PIDController implements PIDFConfigura
      *
      * @param v Velocity gain Feed-Forward coefficient
      */
-    public void setV(double v) {
-        this.v = v;
-    }
-
-    /**
-     * Get the Static gain Feed-Forward coefficient.
-     *
-     * @return Static gain Feed-Forward coefficient
-     */
-    public double getS() {
-        return s;
+    @Override
+    public void setKV(double v) {
+        pidfCoefs.setKV(v);
     }
 
     /**
@@ -55,31 +33,13 @@ public class TrigonPIDFController extends PIDController implements PIDFConfigura
      *
      * @param s Static gain Feed-Forward coefficient
      */
-    public void setS(double s) {
-        this.s = s;
-    }
-
     @Override
-    public void updatePID() {
-        setP(pidfCoefs.getKP());
-        setI(pidfCoefs.getKI());
-        setD(pidfCoefs.getKD());
-        setV(pidfCoefs.getKV());
-        setS(pidfCoefs.getKS());
+    public void setKS(double s) {
+        pidfCoefs.setKS(s);
     }
 
     @Override
     public PIDFCoefs getCoefs() {
         return pidfCoefs;
-    }
-
-    @Override
-    public boolean isTuningPID() {
-        return isTuning;
-    }
-
-    @Override
-    public void setIsTuningPID(boolean isTuningPID) {
-        this.isTuning = isTuningPID;
     }
 }

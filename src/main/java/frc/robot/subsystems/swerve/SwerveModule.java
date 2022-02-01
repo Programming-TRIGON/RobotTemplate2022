@@ -3,14 +3,12 @@ package frc.robot.subsystems.swerve;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.RemoteSensorSource;
-import com.ctre.phoenix.motorcontrol.TalonSRXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
 import frc.robot.components.TrigonTalonSRX;
 import frc.robot.constants.RobotConstants.SwerveConstants;
 import frc.robot.constants.SwerveModuleConstants;
-import frc.robot.utilities.CTREUtil;
 import frc.robot.utilities.EncoderConversions;
 import frc.robot.utilities.MotorConfig;
 import frc.robot.utilities.pid.PIDFTalonFX;
@@ -30,15 +28,25 @@ public class SwerveModule {
     public SwerveModule(SwerveModuleConstants moduleConstants) {
         this.constants = moduleConstants;
 
-        angleEncoder = new TrigonTalonSRX(moduleConstants.angleMotorID, new MotorConfig());
+        angleEncoder = new TrigonTalonSRX(
+                moduleConstants.angleMotorID,
+                new MotorConfig().
+                        withFeedbackNotContinuous(true).
+                        withFeedbackDevice(FeedbackDevice.CTRE_MagEncoder_Absolute));
         angleMotor = new PIDFTalonFX(
-                moduleConstants.angleMotorID, SwerveConstants.ANGLE_MOTOR_CONFIG.withPID(constants.anglePIDFCoefs), 0);
+                moduleConstants.angleMotorID,
+                SwerveConstants.ANGLE_MOTOR_CONFIG.
+                        withPID(constants.anglePIDFCoefs).
+                        withFeedbackDevice(FeedbackDevice.IntegratedSensor).
+                        withRemoteSensorSource(
+                                moduleConstants.angleMotorID, RemoteSensorSource.TalonSRX_SelectedSensor));
         driveMotor = new PIDFTalonFX(
-                moduleConstants.driveMotorID, SwerveConstants.DRIVE_MOTOR_CONFIG.withPID(constants.drivePIDFCoefs), 0);
+                moduleConstants.driveMotorID,
+                SwerveConstants.DRIVE_MOTOR_CONFIG.
+                        withPID(constants.drivePIDFCoefs));
 
-        configAngleEncoder();
-        configAngleMotor();
-        configDriveMotor();
+        resetToAbsolute();
+        driveMotor.setSelectedSensorPosition(0);
     }
 
     /**
@@ -58,8 +66,8 @@ public class SwerveModule {
         double targetSpeed = desiredState.speedMetersPerSecond;
         double delta = targetAngle - currentAngle.getDegrees();
         if(Math.abs(delta) > 90) {
-            targetSpeed = -targetSpeed;
-            targetAngle = delta > 90 ? (targetAngle -= 180) : (targetAngle += 180);
+            targetSpeed *= -1;
+            targetAngle -= delta > 90 ? 180 : -180;
         }
         return new SwerveModuleState(
                 targetSpeed, Rotation2d.fromDegrees(targetAngle));
@@ -143,40 +151,7 @@ public class SwerveModule {
                 getAngle().getDegrees() - constants.encoderOffset,
                 SwerveConstants.ANGLE_GEAR_RATIO);
         // Set the integrated angle encoder to the absolute position.
-        CTREUtil.checkError(
-                () -> angleMotor.setSelectedSensorPosition((int) absolutePosition, 0,
-                        50));
-    }
-
-    /**
-     * Configures the angle encoder to the given constants.
-     */
-    private void configAngleEncoder() {
-        CTREUtil.checkError(
-                () -> angleEncoder.configFeedbackNotContinuous(true, 30));
-        CTREUtil.checkError(
-                () -> angleEncoder.configSelectedFeedbackSensor(
-                        TalonSRXFeedbackDevice.CTRE_MagEncoder_Absolute, 0, 30)
-        );
-    }
-
-    /**
-     * Configures the angle motor to the given constants.
-     */
-    private void configAngleMotor() {
-        CTREUtil.checkError(() -> angleMotor.configRemoteFeedbackFilter(
-                angleEncoder.getDeviceID(),
-                RemoteSensorSource.TalonSRX_SelectedSensor, 0, 30));
-        CTREUtil.checkError(() -> angleMotor.configSelectedFeedbackSensor(
-                FeedbackDevice.IntegratedSensor, 0, 30));
-        resetToAbsolute();
-    }
-
-    /**
-     * Configures the drive motor to the given constants.
-     */
-    private void configDriveMotor() {
-        CTREUtil.checkError(() -> driveMotor.setSelectedSensorPosition(0, 0, 30));
+        angleMotor.setSelectedSensorPosition((int) absolutePosition, 0);
     }
 
     /**

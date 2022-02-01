@@ -12,12 +12,13 @@ public class CTREUtil {
      *
      * @param errorCodeSupplier A supplier for a phoenix config function that returns an error code.
      * @param attempts          The number of times to try the function.
+     * @return The error code from the last call to the errorCodeSupplier.
      */
-    public static void checkError(Supplier<ErrorCode> errorCodeSupplier, int attempts) {
+    public static ErrorCode checkError(Supplier<ErrorCode> errorCodeSupplier, int attempts) {
         // If this is a simulation, skip this and let the user know
         if(Robot.isSimulation()) {
             System.out.println("Skipping error check because this is a simulation");
-            return;
+            return ErrorCode.OK;
         }
         ErrorCode errorCode = errorCodeSupplier.get();
         if(errorCode != ErrorCode.OK) {
@@ -28,6 +29,7 @@ public class CTREUtil {
                 System.out.println("Error: " + errorCode.toString() + ". Giving up.");
             }
         }
+        return errorCode;
     }
 
     /**
@@ -36,7 +38,7 @@ public class CTREUtil {
      *
      * @param errorCodeSupplier A supplier for a phoenix config function that returns an error code.
      */
-    public static void checkError(Supplier<ErrorCode> errorCodeSupplier) {
-        checkError(errorCodeSupplier,3);
+    public static ErrorCode checkError(Supplier<ErrorCode> errorCodeSupplier) {
+        return checkError(errorCodeSupplier, 3);
     }
 }

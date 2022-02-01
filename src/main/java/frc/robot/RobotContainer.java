@@ -14,7 +14,7 @@ public class RobotContainer {
     private final SwerveSS swerveSS;
 
     // Commands
-    public static SupplierDriveCMD driveWithXboxCMD;
+    private SupplierDriveCMD driveWithXboxCMD;
 
     /**
      * Add classes here

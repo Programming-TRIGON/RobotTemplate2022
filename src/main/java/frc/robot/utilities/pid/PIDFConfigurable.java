@@ -11,24 +11,18 @@ public interface PIDFConfigurable extends PIDConfigurable {
         return getCoefs().getKV();
     }
 
-    default void setKV(double KV) {
-        getCoefs().setKV(KV);
-        updatePID();
-    }
+    void setKV(double v);
 
     default double getKS() {
         return getCoefs().getKS();
     }
 
-    default void setKS(double KS) {
-        getCoefs().setKS(KS);
-        updatePID();
-    }
+    void setKS(double s);
 
     @Override
     default void initSendable(SendableBuilder builder) {
+        builder.addDoubleProperty("s", this::getKS, kS -> setKS(isTuning() ? kS : getKS()));
+        builder.addDoubleProperty("v", this::getKV, kV -> setKV(isTuning() ? kV : getKV()));
         PIDConfigurable.super.initSendable(builder);
-        builder.addDoubleProperty("v", this::getKS, kS -> setKS(isTuningPID() ? kS : getKS()));
-        builder.addDoubleProperty("s", this::getKV, kV -> setKV(isTuningPID() ? kV : getKV()));
     }
 }

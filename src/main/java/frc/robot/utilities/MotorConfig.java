@@ -1,6 +1,8 @@
 package frc.robot.utilities;
 
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.RemoteSensorSource;
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import frc.robot.utilities.pid.PIDFCoefs;
 
@@ -13,9 +15,13 @@ public class MotorConfig {
     private double closedLoopRampRate;
     private boolean isInverted;
     private boolean isSensorInverted;
+    private boolean feedbackNotContinuous;
     private NeutralMode neutralMode;
     private double voltageCompSaturation;
     private SupplyCurrentLimitConfiguration currentLimitConfig;
+    private FeedbackDevice feedbackDevice;
+    private RemoteSensorSource remoteSensorSourceType;
+    private int remoteSensorSourceDeviceId;
     private PIDFCoefs coefs;
 
     /**
@@ -26,9 +32,13 @@ public class MotorConfig {
         closedLoopRampRate = 0;
         isInverted = false;
         isSensorInverted = false;
+        feedbackNotContinuous = false;
         neutralMode = NeutralMode.Brake;
         voltageCompSaturation = 0;
         currentLimitConfig = new SupplyCurrentLimitConfiguration();
+        feedbackDevice = FeedbackDevice.None;
+        remoteSensorSourceType = RemoteSensorSource.Off;
+        remoteSensorSourceDeviceId = 0;
         coefs = new PIDFCoefs();
     }
 
@@ -40,9 +50,13 @@ public class MotorConfig {
         closedLoopRampRate = config.getClosedLoopRampRate();
         isInverted = config.isInverted();
         isSensorInverted = config.isSensorInverted();
+        feedbackNotContinuous = config.isFeedbackNotContinuous();
         neutralMode = config.getNeutralMode();
         voltageCompSaturation = config.getVoltageCompSaturation();
         currentLimitConfig = config.getCurrentLimitConfig();
+        feedbackDevice = config.getFeedbackDevice();
+        remoteSensorSourceType = config.getRemoteSensorSourceType();
+        remoteSensorSourceDeviceId = config.getRemoteSensorSourceDeviceId();
         coefs = config.getCoefs();
     }
 
@@ -62,6 +76,10 @@ public class MotorConfig {
         return isSensorInverted;
     }
 
+    public boolean isFeedbackNotContinuous() {
+        return feedbackNotContinuous;
+    }
+
     public NeutralMode getNeutralMode() {
         return neutralMode;
     }
@@ -74,8 +92,20 @@ public class MotorConfig {
         return currentLimitConfig;
     }
 
+    public FeedbackDevice getFeedbackDevice() {
+        return feedbackDevice;
+    }
+
+    public RemoteSensorSource getRemoteSensorSourceType() {
+        return remoteSensorSourceType;
+    }
+
     public PIDFCoefs getCoefs() {
         return coefs;
+    }
+
+    public int getRemoteSensorSourceDeviceId() {
+        return remoteSensorSourceDeviceId;
     }
 
     /**
@@ -155,7 +185,7 @@ public class MotorConfig {
     }
 
     /**
-     * Chain setter for the sensor inverted
+     * Chain setter for the sensor inversion
      *
      * @param isSensorInverted Whether the sensor is inverted
      */
@@ -165,12 +195,51 @@ public class MotorConfig {
     }
 
     /**
-     * Chain setter for the inverted
+     * Chain setter for the motor inversion.
+     * This is used to invert the direction of the motor.
      *
      * @param isInverted Whether the motor is inverted
      */
     public MotorConfig withInverted(boolean isInverted) {
         this.isInverted = isInverted;
+        return this;
+    }
+
+    /**
+     * Chain setter for the feedback continuity.
+     * If true, not continuous, when it reaches the last tick, it will go back to zero. (e.g. 0-359)
+     * If false, continuous, when it reaches the last tick, it will go to that plus one. (e.g. -infinity to infinity)
+     *
+     * @param feedbackNotContinuous Whether the feedback is not continuous
+     */
+    public MotorConfig withFeedbackNotContinuous(boolean feedbackNotContinuous) {
+        this.feedbackNotContinuous = feedbackNotContinuous;
+        return this;
+    }
+
+    /**
+     * Chain setter for the feedback device.
+     * This is the sensor that the motor controller will use to report speed and position.
+     *
+     * @param feedbackDevice The feedback device
+     */
+    public MotorConfig withFeedbackDevice(FeedbackDevice feedbackDevice) {
+        this.feedbackDevice = feedbackDevice;
+        return this;
+    }
+
+    /**
+     * Chain setter for the remote sensor source type.
+     * This determines the type of sensor that is connected to the remote slot.
+     *
+     * @param remoteSensorSourceType     The remote sensor source type
+     * @param remoteSensorSourceDeviceId The remote sensor source device ID
+     */
+    public MotorConfig withRemoteSensorSource(
+            int remoteSensorSourceDeviceId,
+            RemoteSensorSource remoteSensorSourceType) {
+        this.remoteSensorSourceDeviceId = remoteSensorSourceDeviceId;
+        this.remoteSensorSourceType = remoteSensorSourceType;
         return this;
     }
 }

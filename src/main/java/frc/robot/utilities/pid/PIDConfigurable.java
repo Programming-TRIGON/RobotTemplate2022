@@ -5,55 +5,62 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 
 public interface PIDConfigurable extends Sendable {
 
-    void updatePID();
-
     PIDCoefs getCoefs();
 
     double getSetpoint();
 
     void setSetpoint(double setpoint);
 
-    boolean isTuningPID();
+    boolean isTuning();
 
-    void setIsTuningPID(boolean isTuningPID);
+    void setIsTuning(boolean isTuningPID);
 
     default double getKP() {
         return getCoefs().getKP();
     }
 
-    default void setKP(double KP) {
-        getCoefs().setKP(KP);
-        updatePID();
-    }
+    void setKP(double KP);
 
     default double getKI() {
         return getCoefs().getKI();
     }
 
-    default void setKI(double KI) {
-        getCoefs().setKI(KI);
-        updatePID();
-    }
+    void setKI(double KI);
 
     default double getKD() {
         return getCoefs().getKD();
     }
 
-    default void setKD(double KD) {
-        getCoefs().setKD(KD);
-        updatePID();
+    void setKD(double KD);
+
+    default double getTolerance() {
+        return getCoefs().getTolerance();
     }
+
+    void setTolerance(double tolerance);
+
+    default double getDeltaTolerance() {
+        return getCoefs().getDeltaTolerance();
+    }
+
+    void setDeltaTolerance(double deltaTolerance);
 
     @Override
     default void initSendable(SendableBuilder builder) {
         builder.setSmartDashboardType("RobotPreferences");
         // sends the pid values to the dashboard but only allows them to be changed if
         // isTuning is true
-        builder.addDoubleProperty("p", this::getKP, kP -> setKP(isTuningPID() ? kP : getKP()));
-        builder.addDoubleProperty("i", this::getKI, kI -> setKI(isTuningPID() ? kI : getKI()));
-        builder.addDoubleProperty("d", this::getKD, kD -> setKD(isTuningPID() ? kD : getKD()));
+        builder.addDoubleProperty("p", this::getKP, kP -> setKP(isTuning() ? kP : getKP()));
+        builder.addDoubleProperty("i", this::getKI, kI -> setKI(isTuning() ? kI : getKI()));
+        builder.addDoubleProperty("d", this::getKD, kD -> setKD(isTuning() ? kD : getKD()));
+        builder.addDoubleProperty(
+                "tolerance", getCoefs()::getTolerance,
+                tolerance -> setTolerance(isTuning() ? tolerance : getTolerance()));
+        builder.addDoubleProperty(
+                "deltaTolerance", getCoefs()::getDeltaTolerance,
+                deltaTolerance -> setDeltaTolerance(isTuning() ? deltaTolerance : getDeltaTolerance()));
         builder.addDoubleProperty("setpoint", this::getSetpoint,
-                setpoint -> setSetpoint(isTuningPID() ? setpoint : getSetpoint()));
-        builder.addBooleanProperty("isTuning", this::isTuningPID, this::setIsTuningPID);
+                setpoint -> setSetpoint(isTuning() ? setpoint : getSetpoint()));
+        builder.addBooleanProperty("isTuning", this::isTuning, this::setIsTuning);
     }
 }
