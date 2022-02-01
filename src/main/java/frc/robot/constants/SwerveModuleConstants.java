@@ -1,25 +1,20 @@
 package frc.robot.constants;
 
-import frc.robot.utilities.pid.PIDFCoefs;
-import frc.robot.constants.LocalConstants.LocalSwerveConstants.LocalSwerveModules.LocalSwerveModuleConstants;
+import frc.robot.components.TrigonTalonSRX;
+import frc.robot.utilities.pid.PIDFTalonFX;
 
 public class SwerveModuleConstants {
-    public final int driveMotorID;
-    public final int angleMotorID;
-    public final int encoderID;
+    public final PIDFTalonFX angleMotor;
+    public final PIDFTalonFX driveMotor;
+    public final TrigonTalonSRX angleEncoder;
     public final double encoderOffset;
-    public final PIDFCoefs anglePIDFCoefs;
-    public final PIDFCoefs drivePIDFCoefs;
 
     public SwerveModuleConstants(
-            int driveMotorID, int angleMotorID, int encoderID,
-            LocalSwerveModuleConstants localSwerveModuleConstants) {
-        this.driveMotorID = driveMotorID;
-        this.angleMotorID = angleMotorID;
-        this.encoderID = encoderID;
-        this.encoderOffset = localSwerveModuleConstants.encoderOffset;
-        this.anglePIDFCoefs = localSwerveModuleConstants.angleCoefs;
-        this.drivePIDFCoefs = localSwerveModuleConstants.driveCoefs;
+            PIDFTalonFX angleMotor, PIDFTalonFX driveMotor, TrigonTalonSRX angleEncoder, double encoderOffset) {
+        this.angleMotor = angleMotor;
+        this.driveMotor = driveMotor;
+        this.angleEncoder = angleEncoder;
+        this.encoderOffset = encoderOffset;
     }
 }
 

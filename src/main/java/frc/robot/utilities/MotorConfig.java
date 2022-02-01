@@ -33,7 +33,7 @@ public class MotorConfig {
         isInverted = false;
         isSensorInverted = false;
         feedbackNotContinuous = false;
-        neutralMode = NeutralMode.Brake;
+        neutralMode = NeutralMode.Coast;
         voltageCompSaturation = 0;
         currentLimitConfig = new SupplyCurrentLimitConfiguration();
         feedbackDevice = FeedbackDevice.None;
@@ -204,7 +204,7 @@ public class MotorConfig {
      *
      * @param isInverted Whether the motor is inverted
      */
-    public MotorConfig invereted(boolean isInverted) {
+    public MotorConfig inverted(boolean isInverted) {
         this.isInverted = isInverted;
         return this;
     }

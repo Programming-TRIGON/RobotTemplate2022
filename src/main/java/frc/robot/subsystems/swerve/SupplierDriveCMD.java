@@ -10,7 +10,9 @@ import java.util.function.Supplier;
  */
 public class SupplierDriveCMD extends CommandBase {
 
-    private final Supplier<Double> xPower, yPower, rotPower;
+    private final Supplier<Double> xPower;
+    private final Supplier<Double> yPower;
+    private final Supplier<Double> rotPower;
     private final boolean fieldRelative;
     private SwerveSS swerveSS;
 

@@ -1,12 +1,10 @@
 package frc.robot.constants;
 
-import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveKinematics;
 import frc.robot.constants.RobotMap.CAN;
 import frc.robot.constants.RobotMap.PWM;
 import frc.robot.utilities.JsonHandler;
-import frc.robot.utilities.MotorConfig;
 import frc.robot.utilities.pid.PIDCoefs;
 
 /**
@@ -14,7 +12,7 @@ import frc.robot.utilities.pid.PIDCoefs;
  */
 public class RobotConstants {
     public static final int DEF_CAN_TIMEOUT = 30;
-    private static final LocalConstants LOCAL_CONSTANTS = JsonHandler.getConstants();
+    protected static final LocalConstants LOCAL_CONSTANTS = JsonHandler.getConstants();
 
     public static class LimelightConstants {
         public static final double DISTANCE_CALCULATION_A_COEFFICIENT = 1;
@@ -61,53 +59,32 @@ public class RobotConstants {
         public static final double MAX_ANGULAR_VELOCITY = 11.5;
 
         public static final SwerveModuleConstants FRONT_LEFT_CONSTANTS = new SwerveModuleConstants(
-                CAN.SwerveMap.FRONT_LEFT_DRIVE_MOTOR_ID,
-                CAN.SwerveMap.FRONT_LEFT_ANGLE_MOTOR_ID,
-                CAN.SwerveMap.FRONT_LEFT_ANGLE_ENCODER_ID,
-                LOCAL_CONSTANTS.localSwerveConstants.modules.frontLeftModuleConstants
+                RobotComponents.SwerveComponents.FRONT_LEFT_ANGLE_MOTOR,
+                RobotComponents.SwerveComponents.FRONT_LEFT_DRIVE_MOTOR,
+                RobotComponents.SwerveComponents.FRONT_LEFT_ENCODER,
+                LOCAL_CONSTANTS.localSwerveConstants.modules.frontLeftModuleConstants.encoderOffset
         );
+
         public static final SwerveModuleConstants FRONT_RIGHT_CONSTANTS = new SwerveModuleConstants(
-                CAN.SwerveMap.FRONT_RIGHT_DRIVE_MOTOR_ID,
-                CAN.SwerveMap.FRONT_RIGHT_ANGLE_MOTOR_ID,
-                CAN.SwerveMap.FRONT_RIGHT_ANGLE_ENCODER_ID,
-                LOCAL_CONSTANTS.localSwerveConstants.modules.frontRightModuleConstants
+                RobotComponents.SwerveComponents.FRONT_RIGHT_ANGLE_MOTOR,
+                RobotComponents.SwerveComponents.FRONT_RIGHT_DRIVE_MOTOR,
+                RobotComponents.SwerveComponents.FRONT_RIGHT_ENCODER,
+                LOCAL_CONSTANTS.localSwerveConstants.modules.frontRightModuleConstants.encoderOffset
         );
+
         public static final SwerveModuleConstants REAR_LEFT_CONSTANTS = new SwerveModuleConstants(
-                CAN.SwerveMap.REAR_LEFT_DRIVE_MOTOR_ID,
-                CAN.SwerveMap.REAR_LEFT_ANGLE_MOTOR_ID,
-                CAN.SwerveMap.REAR_LEFT_ANGLE_ENCODER_ID,
-                LOCAL_CONSTANTS.localSwerveConstants.modules.rearLeftModuleConstants
+                RobotComponents.SwerveComponents.REAR_LEFT_ANGLE_MOTOR,
+                RobotComponents.SwerveComponents.REAR_LEFT_DRIVE_MOTOR,
+                RobotComponents.SwerveComponents.REAR_LEFT_ENCODER,
+                LOCAL_CONSTANTS.localSwerveConstants.modules.rearLeftModuleConstants.encoderOffset
         );
+
         public static final SwerveModuleConstants REAR_RIGHT_CONSTANTS = new SwerveModuleConstants(
-                CAN.SwerveMap.REAR_RIGHT_DRIVE_MOTOR_ID,
-                CAN.SwerveMap.REAR_RIGHT_ANGLE_MOTOR_ID,
-                CAN.SwerveMap.REAR_RIGHT_ANGLE_ENCODER_ID,
-                LOCAL_CONSTANTS.localSwerveConstants.modules.rearRightModuleConstants
+                RobotComponents.SwerveComponents.REAR_RIGHT_ANGLE_MOTOR,
+                RobotComponents.SwerveComponents.REAR_RIGHT_DRIVE_MOTOR,
+                RobotComponents.SwerveComponents.REAR_RIGHT_ENCODER,
+                LOCAL_CONSTANTS.localSwerveConstants.modules.rearRightModuleConstants.encoderOffset
         );
-        public static final MotorConfig ANGLE_MOTOR_CONFIG = new MotorConfig().
-                invereted(false).
-                sensorPhase(false).
-                withOpenLoopRampRate(2).
-                withClosedLoopRampRate(0.5).
-                brake().
-                withCurrentLimit(new SupplyCurrentLimitConfiguration(
-                        true,
-                        25,
-                        40,
-                        0.1
-                ));
-        public static final MotorConfig DRIVE_MOTOR_CONFIG = new MotorConfig().
-                invereted(true).
-                sensorPhase(false).
-                withOpenLoopRampRate(0.1).
-                withClosedLoopRampRate(0.1).
-                brake().
-                withCurrentLimit(new SupplyCurrentLimitConfiguration(
-                        true,
-                        34,
-                        60,
-                        0.1
-                ));
     }
 
     public static class LedConstants {

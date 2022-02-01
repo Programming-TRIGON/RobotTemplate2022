@@ -1,8 +1,6 @@
 package frc.robot.subsystems.swerve;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.RemoteSensorSource;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
@@ -11,7 +9,6 @@ import frc.robot.constants.RobotConstants;
 import frc.robot.constants.RobotConstants.SwerveConstants;
 import frc.robot.constants.SwerveModuleConstants;
 import frc.robot.utilities.EncoderConversions;
-import frc.robot.utilities.MotorConfig;
 import frc.robot.utilities.pid.PIDFTalonFX;
 
 /**
@@ -29,22 +26,9 @@ public class SwerveModule {
     public SwerveModule(SwerveModuleConstants moduleConstants) {
         this.constants = moduleConstants;
 
-        angleEncoder = new TrigonTalonSRX(
-                moduleConstants.angleMotorID,
-                new MotorConfig().
-                        withFeedbackNotContinuous(true).
-                        withFeedbackDevice(FeedbackDevice.CTRE_MagEncoder_Absolute));
-        angleMotor = new PIDFTalonFX(
-                moduleConstants.angleMotorID,
-                SwerveConstants.ANGLE_MOTOR_CONFIG.
-                        withPID(constants.anglePIDFCoefs).
-                        withFeedbackDevice(FeedbackDevice.IntegratedSensor).
-                        withRemoteSensorSource(
-                                moduleConstants.angleMotorID, RemoteSensorSource.TalonSRX_SelectedSensor));
-        driveMotor = new PIDFTalonFX(
-                moduleConstants.driveMotorID,
-                SwerveConstants.DRIVE_MOTOR_CONFIG.
-                        withPID(constants.drivePIDFCoefs));
+        angleEncoder = moduleConstants.angleEncoder;
+        angleMotor = moduleConstants.angleMotor;
+        driveMotor = moduleConstants.driveMotor;
 
         resetToAbsolute();
         driveMotor.ce_setSelectedSensorPosition(0);
