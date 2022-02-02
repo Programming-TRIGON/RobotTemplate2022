@@ -1,18 +1,18 @@
 package frc.robot.utilities;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
-
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * DashboardController posts data on the dashboard with given suppliers.
  */
 public class DashboardController {
-    private Map<String, Supplier<String>> stringFields;
-    private Map<String, Supplier<Number>> numberFields;
-    private Map<String, Supplier<Boolean>> booleanFields;
+    private final Map<String, Supplier<String>> stringFields;
+    private final Map<String, Supplier<Number>> numberFields;
+    private final Map<String, Supplier<Boolean>> booleanFields;
 
     public DashboardController() {
         stringFields = new HashMap<>();
@@ -42,19 +42,19 @@ public class DashboardController {
     }
 
     private void updateBooleans() {
-        for (Map.Entry<String, Supplier<Boolean>> entry : booleanFields.entrySet()) {
+        for(Map.Entry<String, Supplier<Boolean>> entry : booleanFields.entrySet()) {
             SmartDashboard.putBoolean(entry.getKey(), entry.getValue().get());
         }
     }
 
     private void updateNumbers() {
-        for (Map.Entry<String, Supplier<Number>> entry : numberFields.entrySet()) {
+        for(Map.Entry<String, Supplier<Number>> entry : numberFields.entrySet()) {
             SmartDashboard.putNumber(entry.getKey(), entry.getValue().get().doubleValue());
         }
     }
 
     private void updateString() {
-        for (Map.Entry<String, Supplier<String>> entry : stringFields.entrySet()) {
+        for(Map.Entry<String, Supplier<String>> entry : stringFields.entrySet()) {
             SmartDashboard.putString(entry.getKey(), entry.getValue().get());
         }
     }

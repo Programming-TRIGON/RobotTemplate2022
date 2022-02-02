@@ -30,7 +30,7 @@ public class Limelight {
     }
 
     public Limelight(RobotConstants.LimelightConstants constants) {
-        this(constants.DEFAULT_TABLE_KEY, constants);
+        this(RobotConstants.LimelightConstants.DEFAULT_TABLE_KEY, constants);
         this.limelightConstants = constants;
     }
 
@@ -75,9 +75,9 @@ public class Limelight {
     // TODO: set real function
     public double getDistanceFromLimelight() {
         double y = getTy();
-        return limelightConstants.DISTANCE_CALCULATION_A_COEFFICIENT * Math.pow(y, 2)
-                + limelightConstants.DISTANCE_CALCULATION_B_COEFFICIENT * y
-                + limelightConstants.DISTANCE_CALCULATION_C_COEFFICIENT;
+        return RobotConstants.LimelightConstants.DISTANCE_CALCULATION_A_COEFFICIENT * Math.pow(y, 2)
+                + RobotConstants.LimelightConstants.DISTANCE_CALCULATION_B_COEFFICIENT * y
+                + RobotConstants.LimelightConstants.DISTANCE_CALCULATION_C_COEFFICIENT;
     }
 
     /**
@@ -118,7 +118,7 @@ public class Limelight {
     }
 
     public void toggleLedMode() {
-        if (getLedMode().equals(LedMode.off))
+        if(getLedMode().equals(LedMode.off))
             setLedMode(LedMode.on);
         else
             setLedMode(LedMode.off);
@@ -201,10 +201,11 @@ public class Limelight {
     private Vector2d calculateVector() {
         // This is the vector from the limelight to the target.
         Vector2d limelightToTarget = new Vector2d(getDistanceFromLimelight(), 0);
-        limelightToTarget.rotate(getTx() + limelightConstants.LIMELIGHT_ANGLE_OFFSET);
+        limelightToTarget.rotate(getTx() + RobotConstants.LimelightConstants.LIMELIGHT_ANGLE_OFFSET);
         // The offset is subtracted from the limelightToTarget vector in order to get
         // the final vector.
-        return new Vector2d(limelightToTarget.x - limelightConstants.LIMELIGHT_OFFSET_X,
-                limelightToTarget.y - limelightConstants.LIMELIGHT_OFFSET_Y);
+        return new Vector2d(
+                limelightToTarget.x - RobotConstants.LimelightConstants.LIMELIGHT_OFFSET_X,
+                limelightToTarget.y - RobotConstants.LimelightConstants.LIMELIGHT_OFFSET_Y);
     }
 }

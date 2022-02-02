@@ -5,9 +5,9 @@ import com.ctre.phoenix.sensors.PigeonIMU;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 
 public class Pigeon extends PigeonIMU implements Gyro {
-    private double[] yawPitchRoll;
-    private double[] accelerometerAngles;
-    private GeneralStatus generalStatus;
+    private final double[] yawPitchRoll;
+    private final double[] accelerometerAngles;
+    private final GeneralStatus generalStatus;
 
     public Pigeon(int deviceNumber) {
         super(deviceNumber);
