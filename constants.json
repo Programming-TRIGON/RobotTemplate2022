@@ -1,7 +1,8 @@
 {
+	"Driver": {
+		"drivingSpeedDivider": 0
+	},
 	"Swerve": {
-		"angleNeutralMode": "Coast",
-		"driveNeutralMode": "Coast",
 		"modules": {
 			"frontRight": {
 				"encoderOffset": 0.0,
@@ -88,8 +89,5 @@
 				}
 			}
 		}
-	},
-	"Driver": {
-		"speedDivider": 0
 	}
 }

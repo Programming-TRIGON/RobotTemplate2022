@@ -3,11 +3,11 @@ package frc.robot.components;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.constants.RobotConstants.DriverConstants;
 import frc.robot.utilities.OIMap;
 import frc.robot.utilities.OIMap.Axis;
 
 public class TrigonPlaystationController extends GenericHID {
-    private static final double kIntermittentRumbleTime = 0.15;
     private final JoystickButton right1;
     private final JoystickButton right2;
     private final JoystickButton right3;
@@ -142,37 +142,23 @@ public class TrigonPlaystationController extends GenericHID {
      */
     public void intermittentRumble(int quantity) {
         rumbleAmount = quantity * 2 - 1;
-        notifier.startPeriodic(kIntermittentRumbleTime);
+        notifier.startPeriodic(DriverConstants.RUMBLE_INTERMISSION_TIME);
     }
 
-    /**
-     * Get the X axis value of the controller.
-     *
-     * @param hand Side of controller whose value should be returned.
-     * @return The X axis value of the controller.
-     */
-    @Override
-    public double getX(Hand hand) {
-        if(hand.equals(Hand.kLeft)) {
-            return getRawAxis(Axis.leftX.getAxis());
-        } else {
-            return getRawAxis(Axis.rightX.getAxis());
-        }
+    public double getLeftX() {
+        return getRawAxis(Axis.leftX.getAxis());
     }
 
-    /**
-     * Get the Y axis value of the controller.
-     *
-     * @param hand Side of controller whose value should be returned.
-     * @return The Y axis value of the controller.
-     */
-    @Override
-    public double getY(Hand hand) {
-        if(hand.equals(Hand.kLeft)) {
-            return getRawAxis(Axis.leftY.getAxis());
-        } else {
-            return getRawAxis(Axis.rightY.getAxis());
-        }
+    public double getLeftY() {
+        return getRawAxis(Axis.leftY.getAxis());
+    }
+
+    public double getRightX() {
+        return getRawAxis(Axis.rightX.getAxis());
+    }
+
+    public double getRightY() {
+        return getRawAxis(Axis.rightY.getAxis());
     }
 
     public double deltaTriggers() {

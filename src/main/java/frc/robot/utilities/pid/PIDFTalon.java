@@ -2,7 +2,7 @@ package frc.robot.utilities.pid;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.DemandType;
-import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
+import edu.wpi.first.util.sendable.SendableBuilder;
 import frc.robot.utilities.ConfigurableTalon;
 
 public interface PIDFTalon extends ConfigurableTalon, PIDFMotor {

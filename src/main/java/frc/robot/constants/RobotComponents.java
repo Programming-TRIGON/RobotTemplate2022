@@ -3,7 +3,7 @@ package frc.robot.constants;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.RemoteSensorSource;
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
-import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import frc.robot.components.Pigeon;
 import frc.robot.components.TrigonTalonSRX;
 import frc.robot.constants.RobotMap.CAN;

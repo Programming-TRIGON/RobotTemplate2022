@@ -1,12 +1,12 @@
 package frc.robot.subsystems.swerve;
 
-import edu.wpi.first.wpilibj.geometry.Pose2d;
-import edu.wpi.first.wpilibj.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.geometry.Translation2d;
-import edu.wpi.first.wpilibj.kinematics.ChassisSpeeds;
-import edu.wpi.first.wpilibj.kinematics.SwerveDriveKinematics;
-import edu.wpi.first.wpilibj.kinematics.SwerveDriveOdometry;
-import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
+import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.components.Pigeon;
 import frc.robot.constants.RobotConstants.SwerveConstants;
@@ -62,7 +62,7 @@ public class SwerveSS extends SubsystemBase implements TestableSubsystem {
                 )
         );
         // making sure the speeds are within the max speed
-        SwerveDriveKinematics.normalizeWheelSpeeds(swerveModuleStates, SwerveConstants.MAX_SPEED);
+        SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, SwerveConstants.MAX_SPEED);
 
         // if we are not moving or rotating at all, set the desired angle to the current angle
         if(translation.getNorm() == 0 && rotation == 0) {
@@ -83,7 +83,7 @@ public class SwerveSS extends SubsystemBase implements TestableSubsystem {
      * @param desiredStates array of length 4, where each element is the desired state of the module
      */
     public void setModuleStates(SwerveModuleState[] desiredStates) {
-        SwerveDriveKinematics.normalizeWheelSpeeds(desiredStates, SwerveConstants.MAX_SPEED);
+        SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, SwerveConstants.MAX_SPEED);
 
         for(int i = 0; i < swerveModules.length; i++) {
             swerveModules[i].setDesiredState(desiredStates[i], true);
@@ -152,10 +152,8 @@ public class SwerveSS extends SubsystemBase implements TestableSubsystem {
     public double[] getValues() {
         double[] values = new double[12];
         for(int i = 0; i < swerveModules.length; i++) {
-            int[] moduleValues = swerveModules[i].getEncoderVelocities();
-            for(int j = 0; j < moduleValues.length; j++) {
-                values[i * 3 + j] = moduleValues[j];
-            }
+            double[] moduleValues = swerveModules[i].getEncoderVelocities();
+            System.arraycopy(moduleValues, 0, values, i * 3, moduleValues.length);
         }
         return values;
     }

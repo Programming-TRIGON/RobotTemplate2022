@@ -3,92 +3,77 @@ package frc.robot.components;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.constants.RobotConstants.DriverConstants;
 
 public class TrigonXboxController extends XboxController {
-    private static final double kIntermittentRumbleTime = 0.15;
-    private final JoystickButton buttonA;
-    private final JoystickButton buttonB;
-    private final JoystickButton buttonX;
-    private final JoystickButton buttonY;
-    private final JoystickButton leftBumper;
-    private final JoystickButton rightBumper;
-    private final JoystickButton leftStickButton;
-    private final JoystickButton rightStickButton;
-    private final JoystickButton backButton;
-    private final JoystickButton startButton;
+    private final JoystickButton aBtn;
+    private final JoystickButton bBtn;
+    private final JoystickButton xBtn;
+    private final JoystickButton yBtn;
+    private final JoystickButton leftBumperBtn;
+    private final JoystickButton rightBumperBtn;
+    private final JoystickButton leftStickButtonBtn;
+    private final JoystickButton rightStickButtonBtn;
+    private final JoystickButton backBtn;
+    private final JoystickButton startBtn;
     private final Notifier notifier;
     private int rumbleAmount;
 
     public TrigonXboxController(int port) {
         super(port);
-        buttonA = new JoystickButton(this, Button.kA.value);
-        buttonB = new JoystickButton(this, Button.kB.value);
-        buttonX = new JoystickButton(this, Button.kX.value);
-        buttonY = new JoystickButton(this, Button.kY.value);
-        leftBumper = new JoystickButton(this, Button.kBumperLeft.value);
-        rightBumper = new JoystickButton(this, Button.kBumperRight.value);
-        leftStickButton = new JoystickButton(this, Button.kStickLeft.value);
-        rightStickButton = new JoystickButton(this, Button.kStickRight.value);
+        aBtn = new JoystickButton(this, Button.kA.value);
+        bBtn = new JoystickButton(this, Button.kB.value);
+        xBtn = new JoystickButton(this, Button.kX.value);
+        yBtn = new JoystickButton(this, Button.kY.value);
+        leftBumperBtn = new JoystickButton(this, Button.kLeftBumper.value);
+        rightBumperBtn = new JoystickButton(this, Button.kRightBumper.value);
+        leftStickButtonBtn = new JoystickButton(this, Button.kLeftStick.value);
+        rightStickButtonBtn = new JoystickButton(this, Button.kRightStick.value);
 
-        backButton = new JoystickButton(this, Button.kBack.value);
-        startButton = new JoystickButton(this, Button.kStart.value);
+        backBtn = new JoystickButton(this, Button.kBack.value);
+        startBtn = new JoystickButton(this, Button.kStart.value);
         rumbleAmount = -1;
         notifier = new Notifier(this::notifierPeriodic);
     }
 
-    public JoystickButton getButtonA() {
-        return buttonA;
+    public JoystickButton getABtn() {
+        return aBtn;
     }
 
-    public JoystickButton getButtonB() {
-        return buttonB;
+    public JoystickButton getBBtn() {
+        return bBtn;
     }
 
-    public JoystickButton getButtonX() {
-        return buttonX;
+    public JoystickButton getXBtn() {
+        return xBtn;
     }
 
-    public JoystickButton getButtonY() {
-        return buttonY;
+    public JoystickButton getYBtn() {
+        return yBtn;
     }
 
-    public JoystickButton getLeftBumper() {
-        return leftBumper;
+    public JoystickButton getLeftBumperBtn() {
+        return leftBumperBtn;
     }
 
-    public JoystickButton getRightBumper() {
-        return rightBumper;
+    public JoystickButton getRightBumperBtn() {
+        return rightBumperBtn;
     }
 
-    public JoystickButton getLeftStickButton() {
-        return leftStickButton;
+    public JoystickButton getLeftStickButtonBtn() {
+        return leftStickButtonBtn;
     }
 
-    public JoystickButton getRightStickButton() {
-        return rightStickButton;
+    public JoystickButton getRightStickButtonBtn() {
+        return rightStickButtonBtn;
     }
 
-    public JoystickButton getBackXboxButton() {
-        return backButton;
+    public JoystickButton getBackBtn() {
+        return backBtn;
     }
 
-    public JoystickButton getStartXboxButton() {
-        return startButton;
-    }
-
-    /**
-     * This method returns the positive trigger minus the negative trigger. This is
-     * used the for controlling the speed on the Y axis of the robot.
-     *
-     * @param positiveHand The hand that is positive, the other will be negative.
-     * @return positive trigger value - other trigger value.
-     */
-    public double getDeltaTriggers(Hand positiveHand) {
-
-        if(positiveHand == Hand.kRight)
-            return getTriggerAxis(Hand.kRight) - getTriggerAxis(Hand.kLeft);
-        else
-            return getTriggerAxis(Hand.kLeft) - getTriggerAxis(Hand.kRight);
+    public JoystickButton getStartBtn() {
+        return startBtn;
     }
 
     /**
@@ -97,10 +82,7 @@ public class TrigonXboxController extends XboxController {
      * @return The difference between the left and right triggers.
      */
     public double getDeltaTriggers() {
-        if(getTriggerAxis(Hand.kRight) - getTriggerAxis(Hand.kLeft) > 0)
-            return (getTriggerAxis(Hand.kRight) - getTriggerAxis(Hand.kLeft)) * 0.95;
-        else
-            return getTriggerAxis(Hand.kRight) - getTriggerAxis(Hand.kLeft);
+        return getRightTriggerAxis() - getLeftTriggerAxis();
     }
 
     /**
@@ -120,21 +102,17 @@ public class TrigonXboxController extends XboxController {
      */
     public void intermittentRumble(int quantity) {
         rumbleAmount = quantity * 2 - 1;
-        notifier.startPeriodic(kIntermittentRumbleTime);
+        notifier.startPeriodic(DriverConstants.RUMBLE_INTERMISSION_TIME);
     }
 
     @Override
-    public double getY(Hand hand) {
-        if(Math.abs(super.getY(hand)) < 0.1)
-            return 0;
-        return -super.getY(hand);
+    public double getRightY() {
+        return -super.getRightY();
     }
 
     @Override
-    public double getX(Hand hand) {
-        if(Math.abs(super.getX(hand)) < 0.1)
-            return 0;
-        return super.getX(hand);
+    public double getLeftY() {
+        return -super.getLeftY();
     }
 
     public void notifierPeriodic() {

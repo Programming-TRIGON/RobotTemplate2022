@@ -1,8 +1,8 @@
 package frc.robot.constants;
 
-import edu.wpi.first.wpilibj.Spark;
-import edu.wpi.first.wpilibj.geometry.Translation2d;
-import edu.wpi.first.wpilibj.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import frc.robot.components.Pigeon;
 import frc.robot.constants.RobotComponents.LEDComponents;
 import frc.robot.constants.RobotComponents.SwerveComponents;
@@ -94,7 +94,9 @@ public class RobotConstants {
     }
 
     public static class DriverConstants {
+        public static final boolean SQUARED_CONTROLLER_DRIVING = true;
         public static final double DRIVING_SPEED_DIVIDER = LOCAL_CONSTANTS.localDriverConstants.drivingSpeedDivider;
         public static final int XBOX_PORT = 0;
+        public static final double RUMBLE_INTERMISSION_TIME = 0.15;
     }
 }
