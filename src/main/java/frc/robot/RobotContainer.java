@@ -1,7 +1,7 @@
 package frc.robot;
 
 import frc.robot.components.TrigonXboxController;
-import frc.robot.constants.RobotConstants;
+import frc.robot.constants.RobotConstants.*;
 import frc.robot.subsystems.swerve.SupplierDriveCMD;
 import frc.robot.subsystems.swerve.SwerveSS;
 import frc.robot.utilities.DashboardController;
@@ -23,7 +23,7 @@ public class RobotContainer {
      */
     public RobotContainer() {
         dashboardController = new DashboardController();
-        driverXbox = new TrigonXboxController(RobotConstants.DriverConstants.XBOX_PORT);
+        driverXbox = new TrigonXboxController(DriverConstants.XBOX_PORT);
 
         initializeSubsystems();
         initializeCommands();
@@ -40,23 +40,14 @@ public class RobotContainer {
      * initializes all commands
      */
     public void initializeCommands() {
-        Supplier<Double> x, y, rot;
-        if(RobotConstants.DriverConstants.SQUARED_CONTROLLER_DRIVING) {
-            x = () -> Math.pow(driverXbox.getLeftX(), 2);
-            y = () -> Math.pow(driverXbox.getLeftY(), 2);
-            rot = () -> Math.pow(driverXbox.getRightX(), 2);
-        } else {
-            x = driverXbox::getLeftX;
-            y = driverXbox::getLeftY;
-            rot = driverXbox::getRightX;
-        }
-
+        boolean squared = DriverConstants.SQUARED_CONTROLLER_DRIVING;
         driveWithXboxCMD = new SupplierDriveCMD(
                 swerveSS,
-                x,
-                y,
-                rot,
+                squared ? ()->Math.pow(driverXbox.getLeftX(), 2) : driverXbox::getLeftX,
+                squared ? ()->Math.pow(driverXbox.getLeftY(), 2) : driverXbox::getLeftY,
+                squared ? ()->Math.pow(driverXbox.getRightX(), 2) : driverXbox::getRightX,
                 true);
+
         swerveSS.setDefaultCommand(driveWithXboxCMD);
     }
 
