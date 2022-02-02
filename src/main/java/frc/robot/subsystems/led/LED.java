@@ -3,7 +3,7 @@ package frc.robot.subsystems.led;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Notifier;
-import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.RobotConstants.LedConstants;
 
@@ -84,7 +84,7 @@ public class LED extends SubsystemBase {
     }
 
     public void setAllianceColor() {
-        if(DriverStation.getInstance().getAlliance().equals(Alliance.Blue))
+        if(DriverStation.getAlliance().equals(Alliance.Blue))
             setColor(LEDColor.Blue);
         else
             setColor(LEDColor.Red);

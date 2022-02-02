@@ -1,7 +1,7 @@
 package frc.robot.utilities.pid;
 
-import edu.wpi.first.wpilibj.Sendable;
-import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
+import edu.wpi.first.util.sendable.Sendable;
+import edu.wpi.first.util.sendable.SendableBuilder;
 
 public interface PIDConfigurable extends Sendable {
 

@@ -145,34 +145,20 @@ public class TrigonPlaystationController extends GenericHID {
         notifier.startPeriodic(kIntermittentRumbleTime);
     }
 
-    /**
-     * Get the X axis value of the controller.
-     *
-     * @param hand Side of controller whose value should be returned.
-     * @return The X axis value of the controller.
-     */
-    @Override
-    public double getX(Hand hand) {
-        if(hand.equals(Hand.kLeft)) {
-            return getRawAxis(Axis.leftX.getAxis());
-        } else {
-            return getRawAxis(Axis.rightX.getAxis());
-        }
+    public double getLeftX() {
+        return getRawAxis(Axis.leftX.getAxis());
     }
 
-    /**
-     * Get the Y axis value of the controller.
-     *
-     * @param hand Side of controller whose value should be returned.
-     * @return The Y axis value of the controller.
-     */
-    @Override
-    public double getY(Hand hand) {
-        if(hand.equals(Hand.kLeft)) {
-            return getRawAxis(Axis.leftY.getAxis());
-        } else {
-            return getRawAxis(Axis.rightY.getAxis());
-        }
+    public double getLeftY() {
+        return getRawAxis(Axis.leftY.getAxis());
+    }
+
+    public double getRightX() {
+        return getRawAxis(Axis.rightX.getAxis());
+    }
+
+    public double getRightY() {
+        return getRawAxis(Axis.rightY.getAxis());
     }
 
     public double deltaTriggers() {

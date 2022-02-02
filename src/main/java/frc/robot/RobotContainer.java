@@ -1,6 +1,5 @@
 package frc.robot;
 
-import edu.wpi.first.wpilibj.GenericHID.Hand;
 import frc.robot.components.TrigonXboxController;
 import frc.robot.constants.RobotConstants;
 import frc.robot.subsystems.swerve.SupplierDriveCMD;
@@ -41,9 +40,9 @@ public class RobotContainer {
     public void initializeCommands() {
         driveWithXboxCMD = new SupplierDriveCMD(
                 swerveSS,
-                () -> driverXbox.getX(Hand.kLeft),
-                () -> driverXbox.getY(Hand.kLeft),
-                () -> driverXbox.getX(Hand.kRight),
+                driverXbox::getLeftX,
+                driverXbox::getLeftY,
+                driverXbox::getRightX,
                 true);
         swerveSS.setDefaultCommand(driveWithXboxCMD);
     }

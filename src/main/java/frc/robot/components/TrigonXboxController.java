@@ -6,10 +6,10 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 public class TrigonXboxController extends XboxController {
     private static final double kIntermittentRumbleTime = 0.15;
-    private final JoystickButton buttonA;
-    private final JoystickButton buttonB;
-    private final JoystickButton buttonX;
-    private final JoystickButton buttonY;
+    private final JoystickButton a;
+    private final JoystickButton b;
+    private final JoystickButton x;
+    private final JoystickButton y;
     private final JoystickButton leftBumper;
     private final JoystickButton rightBumper;
     private final JoystickButton leftStickButton;
@@ -21,14 +21,14 @@ public class TrigonXboxController extends XboxController {
 
     public TrigonXboxController(int port) {
         super(port);
-        buttonA = new JoystickButton(this, Button.kA.value);
-        buttonB = new JoystickButton(this, Button.kB.value);
-        buttonX = new JoystickButton(this, Button.kX.value);
-        buttonY = new JoystickButton(this, Button.kY.value);
-        leftBumper = new JoystickButton(this, Button.kBumperLeft.value);
-        rightBumper = new JoystickButton(this, Button.kBumperRight.value);
-        leftStickButton = new JoystickButton(this, Button.kStickLeft.value);
-        rightStickButton = new JoystickButton(this, Button.kStickRight.value);
+        a = new JoystickButton(this, Button.kA.value);
+        b = new JoystickButton(this, Button.kB.value);
+        x = new JoystickButton(this, Button.kX.value);
+        y = new JoystickButton(this, Button.kY.value);
+        leftBumper = new JoystickButton(this, Button.kLeftBumper.value);
+        rightBumper = new JoystickButton(this, Button.kRightBumper.value);
+        leftStickButton = new JoystickButton(this, Button.kLeftStick.value);
+        rightStickButton = new JoystickButton(this, Button.kRightStick.value);
 
         backButton = new JoystickButton(this, Button.kBack.value);
         startButton = new JoystickButton(this, Button.kStart.value);
@@ -36,59 +36,44 @@ public class TrigonXboxController extends XboxController {
         notifier = new Notifier(this::notifierPeriodic);
     }
 
-    public JoystickButton getButtonA() {
-        return buttonA;
+    public JoystickButton getABtn() {
+        return a;
     }
 
-    public JoystickButton getButtonB() {
-        return buttonB;
+    public JoystickButton getBBtn() {
+        return b;
     }
 
-    public JoystickButton getButtonX() {
-        return buttonX;
+    public JoystickButton getXBtn() {
+        return x;
     }
 
-    public JoystickButton getButtonY() {
-        return buttonY;
+    public JoystickButton getYBtn() {
+        return y;
     }
 
-    public JoystickButton getLeftBumper() {
+    public JoystickButton getLeftBumperBtn() {
         return leftBumper;
     }
 
-    public JoystickButton getRightBumper() {
+    public JoystickButton getRightBumperBtn() {
         return rightBumper;
     }
 
-    public JoystickButton getLeftStickButton() {
+    public JoystickButton getLeftStickButtonBtn() {
         return leftStickButton;
     }
 
-    public JoystickButton getRightStickButton() {
+    public JoystickButton getRightStickButtonBtn() {
         return rightStickButton;
     }
 
-    public JoystickButton getBackXboxButton() {
+    public JoystickButton getBackBtn() {
         return backButton;
     }
 
-    public JoystickButton getStartXboxButton() {
+    public JoystickButton getStartBtn() {
         return startButton;
-    }
-
-    /**
-     * This method returns the positive trigger minus the negative trigger. This is
-     * used the for controlling the speed on the Y axis of the robot.
-     *
-     * @param positiveHand The hand that is positive, the other will be negative.
-     * @return positive trigger value - other trigger value.
-     */
-    public double getDeltaTriggers(Hand positiveHand) {
-
-        if(positiveHand == Hand.kRight)
-            return getTriggerAxis(Hand.kRight) - getTriggerAxis(Hand.kLeft);
-        else
-            return getTriggerAxis(Hand.kLeft) - getTriggerAxis(Hand.kRight);
     }
 
     /**
@@ -97,10 +82,7 @@ public class TrigonXboxController extends XboxController {
      * @return The difference between the left and right triggers.
      */
     public double getDeltaTriggers() {
-        if(getTriggerAxis(Hand.kRight) - getTriggerAxis(Hand.kLeft) > 0)
-            return (getTriggerAxis(Hand.kRight) - getTriggerAxis(Hand.kLeft)) * 0.95;
-        else
-            return getTriggerAxis(Hand.kRight) - getTriggerAxis(Hand.kLeft);
+        return getRightTriggerAxis() - getLeftTriggerAxis();
     }
 
     /**
@@ -123,18 +105,12 @@ public class TrigonXboxController extends XboxController {
         notifier.startPeriodic(kIntermittentRumbleTime);
     }
 
-    @Override
-    public double getY(Hand hand) {
-        if(Math.abs(super.getY(hand)) < 0.1)
-            return 0;
-        return -super.getY(hand);
+    public double getRightY() {
+        return -super.getRightY();
     }
 
-    @Override
-    public double getX(Hand hand) {
-        if(Math.abs(super.getX(hand)) < 0.1)
-            return 0;
-        return super.getX(hand);
+    public double getLeftY() {
+        return -super.getLeftY();
     }
 
     public void notifierPeriodic() {

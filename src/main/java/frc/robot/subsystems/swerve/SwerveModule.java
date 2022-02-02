@@ -1,8 +1,8 @@
 package frc.robot.subsystems.swerve;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import edu.wpi.first.wpilibj.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.SwerveModuleState;
 import frc.robot.components.TrigonTalonSRX;
 import frc.robot.constants.RobotConstants;
 import frc.robot.constants.RobotConstants.SwerveConstants;
@@ -88,8 +88,8 @@ public class SwerveModule {
         return newAngle;
     }
 
-    public int[] getEncoderVelocities() {
-        return new int[] {
+    public double[] getEncoderVelocities() {
+        return new double[] {
                 angleEncoder.getSelectedSensorVelocity(),
                 angleMotor.getSelectedSensorVelocity(),
                 driveMotor.getSelectedSensorVelocity()

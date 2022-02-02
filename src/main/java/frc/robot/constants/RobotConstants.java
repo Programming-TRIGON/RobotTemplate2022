@@ -1,8 +1,8 @@
 package frc.robot.constants;
 
-import edu.wpi.first.wpilibj.Spark;
-import edu.wpi.first.wpilibj.geometry.Translation2d;
-import edu.wpi.first.wpilibj.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import frc.robot.components.Pigeon;
 import frc.robot.constants.RobotComponents.LEDComponents;
 import frc.robot.constants.RobotComponents.SwerveComponents;
