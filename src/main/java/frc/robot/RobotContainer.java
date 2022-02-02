@@ -6,6 +6,8 @@ import frc.robot.subsystems.swerve.SupplierDriveCMD;
 import frc.robot.subsystems.swerve.SwerveSS;
 import frc.robot.utilities.DashboardController;
 
+import java.util.function.Supplier;
+
 public class RobotContainer {
     private final DashboardController dashboardController;
     private final TrigonXboxController driverXbox;
@@ -38,11 +40,22 @@ public class RobotContainer {
      * initializes all commands
      */
     public void initializeCommands() {
+        Supplier<Double> x, y, rot;
+        if(RobotConstants.DriverConstants.SQUARED_CONTROLLER_DRIVING) {
+            x = () -> Math.pow(driverXbox.getLeftX(), 2);
+            y = () -> Math.pow(driverXbox.getLeftY(), 2);
+            rot = () -> Math.pow(driverXbox.getRightX(), 2);
+        } else {
+            x = driverXbox::getLeftX;
+            y = driverXbox::getLeftY;
+            rot = driverXbox::getRightX;
+        }
+
         driveWithXboxCMD = new SupplierDriveCMD(
                 swerveSS,
-                driverXbox::getLeftX,
-                driverXbox::getLeftY,
-                driverXbox::getRightX,
+                x,
+                y,
+                rot,
                 true);
         swerveSS.setDefaultCommand(driveWithXboxCMD);
     }

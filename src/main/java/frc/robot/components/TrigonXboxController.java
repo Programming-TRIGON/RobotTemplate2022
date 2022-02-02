@@ -3,9 +3,9 @@ package frc.robot.components;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.constants.RobotConstants;
 
 public class TrigonXboxController extends XboxController {
-    private static final double kIntermittentRumbleTime = 0.15;
     private final JoystickButton a;
     private final JoystickButton b;
     private final JoystickButton x;
@@ -102,7 +102,7 @@ public class TrigonXboxController extends XboxController {
      */
     public void intermittentRumble(int quantity) {
         rumbleAmount = quantity * 2 - 1;
-        notifier.startPeriodic(kIntermittentRumbleTime);
+        notifier.startPeriodic(RobotConstants.DriverConstants.RUMBLE_INTERMISSION_TIME);
     }
 
     public double getRightY() {

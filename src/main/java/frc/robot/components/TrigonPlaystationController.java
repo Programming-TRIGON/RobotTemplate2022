@@ -3,11 +3,11 @@ package frc.robot.components;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.constants.RobotConstants;
 import frc.robot.utilities.OIMap;
 import frc.robot.utilities.OIMap.Axis;
 
 public class TrigonPlaystationController extends GenericHID {
-    private static final double kIntermittentRumbleTime = 0.15;
     private final JoystickButton right1;
     private final JoystickButton right2;
     private final JoystickButton right3;
@@ -142,7 +142,7 @@ public class TrigonPlaystationController extends GenericHID {
      */
     public void intermittentRumble(int quantity) {
         rumbleAmount = quantity * 2 - 1;
-        notifier.startPeriodic(kIntermittentRumbleTime);
+        notifier.startPeriodic(RobotConstants.DriverConstants.RUMBLE_INTERMISSION_TIME);
     }
 
     public double getLeftX() {

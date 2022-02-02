@@ -94,7 +94,9 @@ public class RobotConstants {
     }
 
     public static class DriverConstants {
+        public static final boolean SQUARED_CONTROLLER_DRIVING = true;
         public static final double DRIVING_SPEED_DIVIDER = LOCAL_CONSTANTS.localDriverConstants.drivingSpeedDivider;
         public static final int XBOX_PORT = 0;
+        public static final double RUMBLE_INTERMISSION_TIME = 0.15;
     }
 }
