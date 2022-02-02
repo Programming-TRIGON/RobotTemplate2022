@@ -27,6 +27,7 @@ public class RobotContainer {
 
         initializeSubsystems();
         initializeCommands();
+        bindCommands();
     }
 
     /**
@@ -39,7 +40,7 @@ public class RobotContainer {
     /**
      * initializes all commands
      */
-    public void initializeCommands() {
+    private void initializeCommands() {
         boolean squared = DriverConstants.SQUARED_CONTROLLER_DRIVING;
         driveWithXboxCMD = new SupplierDriveCMD(
                 swerveSS,
@@ -47,7 +48,9 @@ public class RobotContainer {
                 squared ? ()->Math.pow(driverXbox.getLeftY(), 2) : driverXbox::getLeftY,
                 squared ? ()->Math.pow(driverXbox.getRightX(), 2) : driverXbox::getRightX,
                 true);
+    }
 
+    private void bindCommands() {
         swerveSS.setDefaultCommand(driveWithXboxCMD);
     }
 
