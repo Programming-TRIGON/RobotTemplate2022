@@ -1,5 +1,6 @@
 package frc.robot;
 
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.components.TrigonXboxController;
 import frc.robot.constants.RobotConstants.*;
 import frc.robot.subsystems.swerve.SupplierDriveCMD;
@@ -52,6 +53,7 @@ public class RobotContainer {
 
     private void bindCommands() {
         swerveSS.setDefaultCommand(driveWithXboxCMD);
+        driverXbox.getYBtn().whenPressed(new InstantCommand(()->swerveSS.resetGyro()));
     }
 
     public void periodic() {
