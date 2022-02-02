@@ -2,12 +2,10 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.components.TrigonXboxController;
-import frc.robot.constants.RobotConstants.*;
+import frc.robot.constants.RobotConstants.DriverConstants;
 import frc.robot.subsystems.swerve.SupplierDriveCMD;
 import frc.robot.subsystems.swerve.SwerveSS;
 import frc.robot.utilities.DashboardController;
-
-import java.util.function.Supplier;
 
 public class RobotContainer {
     private final DashboardController dashboardController;
@@ -45,15 +43,15 @@ public class RobotContainer {
         boolean squared = DriverConstants.SQUARED_CONTROLLER_DRIVING;
         driveWithXboxCMD = new SupplierDriveCMD(
                 swerveSS,
-                squared ? ()->Math.pow(driverXbox.getLeftX(), 2) : driverXbox::getLeftX,
-                squared ? ()->Math.pow(driverXbox.getLeftY(), 2) : driverXbox::getLeftY,
-                squared ? ()->Math.pow(driverXbox.getRightX(), 2) : driverXbox::getRightX,
+                squared ? () -> Math.pow(driverXbox.getLeftX(), 2) : driverXbox::getLeftX,
+                squared ? () -> Math.pow(driverXbox.getLeftY(), 2) : driverXbox::getLeftY,
+                squared ? () -> Math.pow(driverXbox.getRightX(), 2) : driverXbox::getRightX,
                 true);
     }
 
     private void bindCommands() {
         swerveSS.setDefaultCommand(driveWithXboxCMD);
-        driverXbox.getYBtn().whenPressed(new InstantCommand(()->swerveSS.resetGyro()));
+        driverXbox.getYBtn().whenPressed(new InstantCommand(() -> swerveSS.resetGyro()));
     }
 
     public void periodic() {

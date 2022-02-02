@@ -14,7 +14,7 @@ public class SupplierDriveCMD extends CommandBase {
     private final Supplier<Double> yPower;
     private final Supplier<Double> rotPower;
     private final boolean fieldRelative;
-    private SwerveSS swerveSS;
+    private final SwerveSS swerveSS;
 
     public SupplierDriveCMD(
             SwerveSS swerveSS, Supplier<Double> xPower, Supplier<Double> yPower, Supplier<Double> rotPower,
